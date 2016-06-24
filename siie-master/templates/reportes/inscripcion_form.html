@@ -1,0 +1,67 @@
+{% extends 'academica/base.html' %}
+{% block content %}
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Reporte de inscripción de alumnos</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form">
+                <div class="box-body">
+                         <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Expediente</th>
+                        <th>A.Paterno</th>
+                        <th>A.Materno</th>
+                        <th>Nombre</th>
+                        <th>Semestre</th>
+                        <th>Baja</th>
+                        <th>Reporte</th>
+
+                    </tr>
+                    </thead>
+
+                    <tbody id="id_table-body">
+                    {% for alumno in alumnos %}
+
+                        <tr>
+                            <td>{{ alumno.id }}</td>
+                            <td>{{ alumno.matricula }}</td>
+                            <td>{{ alumno.apellido_paterno }}</td>
+                            <td>{{ alumno.apellido_materno }}</td>
+                            <td>{{ alumno.nom_alumno }}</td>
+                            <td>{{ alumno.semestre }}</td>
+                            <td>{% if alumno.is_active %}
+                                No{% else %}
+                                Si
+                            {% endif %}
+                            </td>
+                            <td>
+                                 <a href='/report/repinscrip/{{ alumno.id }}' class="btn btn-primary pull-right" id="modalreporte-inscripcion"><i class="fa fa-binoculars"></i>&nbsp;Ver reporte</a>
+                            </td>
+                        </tr>
+                        {#                {% endif %}#}
+                    {% endfor %}
+
+
+                    </tbody>
+
+
+                </table>
+                </div>
+                <!-- /.box-body -->
+
+            </form>
+        </div>
+        <!-- /.box -->
+
+
+
+    </div>
+
+
+{% endblock %}

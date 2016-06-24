@@ -1,0 +1,83 @@
+{% extends 'academica/base.html' %}
+{% load crispy_forms_tags %}
+{% load static from staticfiles %}
+{% block content %}
+<div class="col-md-12">
+              <!-- Widget: user widget style 1 -->
+              <div class="box box-widget widget-user">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-green-gradient">
+                  <h3 class="widget-user-username">{{ alumno }}</h3>
+                  <h5 class="widget-user-desc">Alumno</h5>
+                </div>
+
+
+                <div class="widget-user-image">
+                  <img class="img-circle" src="{{ alumno.foto.url }}" alt="User Avatar">
+                </div>
+                <div class="box-footer">
+                    {% for a in listado %}
+                    <div class="col-md-6">
+              <div class="box box-success box-solid">
+                <div class="box-header with-border">
+                  <h3 class="box-title">{{ a.materia }}</h3>
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse" data><i class="fa fa-minus"></i></button>
+
+
+                  </div><!-- /.box-tools -->
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <!--table-->
+                      <div class="box">
+                   <div class="box-body no-padding">
+                  <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                       <td>Primera</td>
+                     <td><span class="badge bg-yellow">{% if a.primera %}{{ a.primera }}
+                          {% else %} <i class="fa fa-minus"></i>{% endif %}</span></td>
+                    </tr>
+                     <tr>
+                       <td>Segunda</td>
+                      <td><span class="badge bg-yellow">{% if a.segunda %}{{ a.segunda }}
+                          {% else %}<i class="fa fa-minus"></i>{% endif %}</span></td>
+                    </tr>
+                    <tr>
+                       <td>Tercera</td>
+                      <td><span class="badge bg-yellow">{% if a.tercera %}{{ a.tercera }}
+                          {% else %} <i class="fa fa-minus"></i>{% endif %}</span></td>
+                    </tr>
+                    <tr>
+                       <td>Cuarta</td>
+                      <td><span class="badge bg-yellow">{% if a.cuarta %}{{ a.cuarta }}
+                         {% else %} <i class="fa fa-minus"></i>{% endif %}</span></td>
+
+                    </tr>
+                       <tr>
+                       <td>Quinta</td>
+                      <td><span class="badge bg-yellow">{% if a.quinta %}{{ a.quinta }}
+                         {% else %}<i class="fa fa-minus"></i>{% endif %}</span></td>
+
+                    </tr>
+                                    <tr>
+                       <td>Sexta</td>
+                      <td><span class="badge bg-yellow">{% if a.sexta %}{{ a.sexta }}
+                         {% else %}<i class="fa fa-minus"></i>{% endif %}</span></td>
+
+                    </tr>
+
+                  </tbody></table>
+                </div><!-- /.box-body -->
+              </div>
+                      <!--endtable-->
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div>
+
+                    {% endfor %}
+
+                  </div>
+            </div>
+    </div>
+{% endblock %}

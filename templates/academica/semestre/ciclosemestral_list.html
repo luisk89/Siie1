@@ -1,0 +1,93 @@
+{% extends 'academica/base.html' %}
+<!-- Main content -->
+{% block content %}
+    <input type="hidden" id="semestreActivo" value="{{ semestre }}">
+    <div class="callout callout-info" id="info-semestre" hidden>
+        <h4>Importante!</h4>
+
+        <p>Ya existe un semestre activo con clave {{ semestre.clave }}</p>
+    </div>
+
+
+    <div>
+
+        <form id="search_semestre" class="margin-none form-inline" action="">
+            {% csrf_token %}
+            <div class="widget widget-body-white box box-success" style="height: auto;">
+                {% include "academica/semestre/search-form.html" %}
+                <div class="modal-footer">
+                    <a class="btn btn-success" href='{% url 'semestre-add' %}'
+                       id="crear-semestre-id"><i class="fa fa-file"></i>&nbsp;Crear Ciclo</a>
+                    <a id="buscar_semestre" href="#" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;Buscar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="row">
+        <!-- /.box -->
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Listado Semestres</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Clave</th>
+                        <th>Año</th>
+                        <th>Período</th>
+                        <th>Fecha Inicio</th>
+                        <th>Fecha Fin</th>
+                        <th>Vigente</th>
+                        <th>Modificar</th>
+
+                    </tr>
+                    </thead>
+
+                    <tbody id="id_tableSemestre-body">
+                    {% for semestre in object_list %}
+                        <tr>
+                            <td>{{ semestre.clave }}</td>
+                            <td>{{ semestre.anio }}</td>
+                            <td>{{ semestre.periodo }}</td>
+                            <td>{{ semestre.fecha_inicio }}</td>
+                            <td>{{ semestre.fecha_termino }}</td>
+                            <td>{% if semestre.vigente %}Si
+                            {% else %}
+                                No
+                            {% endif %}
+                            </td>
+                            <td>
+                                <a href="ciclosemestral/update/{{ semestre.id }}" class="btn btn-success"><i
+                                        class="fa fa-edit"></i>&nbsp;Actualizar</a>
+
+                            </td>
+                        </tr>
+                        {#                {% endif %}#}
+                    {% endfor %}
+
+
+                    </tbody>
+
+
+                </table>
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+
+    <script>
+
+    </script>
+
+{% endblock %}
+
+
+
+
+

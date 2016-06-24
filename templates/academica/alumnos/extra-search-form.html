@@ -1,0 +1,11 @@
+{% csrf_token %}
+{% load crispy_forms_tags %}
+
+<div class="widget-head">
+    <h4>Buscador</h4>
+</div>
+<div class="widget-body">
+    <fieldset name="busqueda">
+    {% crispy form_search_extra %}
+</fieldset>
+</div>

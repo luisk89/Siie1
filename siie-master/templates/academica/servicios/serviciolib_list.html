@@ -1,0 +1,59 @@
+{% extends 'academica/base.html' %}
+{% load static from staticfiles %}
+
+{% block content %}
+    <!-- Main content -->
+    <div class="row">
+        <!-- /.box -->
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Servicio Social-Liberados</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Alumno</th>
+                        <th>Empresa</th>
+                        <th>Horas</th>
+                        <th>Liberado</th>
+                        <th>Modificar</th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for ss in object_list %}
+
+                            <tr>
+                                <td>{{ ss.alumno }}</td>
+                                <td>{{ ss.proyecto.nombre }}</td>
+                                <td>{{ ss.horas }}</td>
+                                <td>{% if ss.is_active %}
+                                    No{% else %}
+                                    Si
+                                {% endif %}</td>
+                                <td><a href="servicio/update/{{ ss.id }}/" ><i class="fa fa-pencil-square"></i></a></td>
+                            </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+
+
+{% endblock %}
+
+
+
+
+
+

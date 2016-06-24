@@ -1,0 +1,66 @@
+{% extends 'academica/base.html' %}
+{% load crispy_forms_tags %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Bajas Alumnos" "academica.views.ReinscripcionList" %}
+{% endblock %}
+
+{% block content %}
+    {% render_breadcrumbs %}
+    <input type="hidden" value="{{ semestre.id }}" id="semestreHidden">
+   <figure style="padding-bottom: 2%">
+<img src="{% static 'images/noavatar.png' %}" id="foto" class="img-circle">
+
+</figure>
+    <div>
+
+    </div>
+    {% csrf_token %}
+          {% crispy form %}
+
+
+{% include 'academica/alumnos/extracurriculares_form.html' %}
+    {% include 'academica/planEstudio/planEstudio_form.html' %}
+     {% include 'academica/grupo/grupo_form.html' %}
+    {% include 'academica/extracurricular/extracurriculares_form.html' %}
+    {% include 'academica/escuela/escuela_form.html' %}
+
+    <script>
+        function test(){
+            console.log('campo')
+            anio=document.getElementById('id_semestre').selectedOptions[0].innerHTML.split("-")[0]
+            console.log(anio)
+        }
+        function showContent() {
+        element = document.getElementById("div_ServicioMedico");
+        check = document.getElementById("id_seguro");
+        if (check.checked) {
+            element.style.display='block';
+        }
+        else {
+            element.style.display='none';
+        }
+    }
+        function showContent1() {
+        element = document.getElementById("div_trabajo_estudiante");
+        check = document.getElementById("id_trabaja_actualmente");
+        if (check.checked) {
+            element.style.display='block';
+        }
+        else {
+            element.style.display='none';
+        }
+    }
+   function datacopy(){
+       $('#id_nombre_materno').attr('value',$('#id_nombre_tutor').val());
+       $('#id_domicilio_madre').attr('value',$('#id_domicilio_tutor').val());
+       $('#id_localidad_madre').attr('value',$('#id_localidad_tutor').val());
+       $('#id_telefono_madre').attr('value',$('#id_telefono_tutor').val());
+       alert('Datos Copiados')
+            console.log('copiando datos')
+        }
+
+    </script>
+{% endblock %}

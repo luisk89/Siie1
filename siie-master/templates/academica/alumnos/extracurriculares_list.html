@@ -1,0 +1,73 @@
+{% extends 'academica/base.html' %}
+{% load django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Listado Extracurriculares" "academica.views.ExtracurricularList" %}
+{% endblock %}
+<!-- Main content -->
+{% block content %}
+    {% render_breadcrumbs %}
+    <div>
+        <form id="search_alumno" class="margin-none form-inline" action="">
+            <div class="widget widget-body-white box box-success" style="height: auto;">
+                {% include "academica/alumnos/extra-search-form.html" %}
+                <div class="modal-footer">
+                     <a class="btn btn-success" data-toggle="modal"
+                        data-target="#myModal"
+                        id="modal-button"><i class="fa fa-pencil"></i>&nbsp; Adicionar</a>
+                    <a  href="#" class="btn btn-primary" id="buscar_extra" ><i class="fa fa-search"></i>&nbsp;Buscar</a>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="row">
+        <!-- /.box -->
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Listado Actividades Extracurriculares</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Clave</th>
+                        <th>Nombre</th>
+
+
+                    </tr>
+                    </thead>
+
+                    <tbody id="id_table-body">
+                    {% for extra in extra_list %}
+
+                        <tr>
+                            <td>{{ extra.clave }}</td>
+                            <td>{{ extra.nom_materia }}</td>
+
+                        </tr>
+                        {#                {% endif %}#}
+                    {% endfor %}
+
+
+                    </tbody>
+
+
+                </table>
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+{% include "academica/alumnos/extracurriculares_form.html" %}
+{% endblock %}
+
+
+
+
+

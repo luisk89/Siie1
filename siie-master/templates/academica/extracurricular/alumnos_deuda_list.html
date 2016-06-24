@@ -1,0 +1,60 @@
+{% extends 'academica/base.html' %}
+{% load crispy_forms_tags %}
+<!-- Main content -->
+{% block content %}
+    <div class="row">
+        <!-- /.box -->
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Listado Alumnos</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Expediente</th>
+                        <th>A.Paterno</th>
+                        <th>A.Materno</th>
+                        <th>Nombre</th>
+                         <th>Contabilidad</th>
+                        <th>Biblioteca</th>
+                        <th>Centro de Computo</th>
+                        <th>Modificar</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for deuda in deuda_list %}
+                        <tr>
+                            <td>{{ deuda.alumno.id }}</td>
+                            <td>{{ deuda.alumno.no_expediente }}</td>
+                            <td>{{ deuda.alumno.apellido_paterno }}</td>
+                            <td>{{ deuda.alumno.apellido_materno }}</td>
+                            <td>{{ deuda.alumno.nom_alumno }}</td>
+                            <td>{{ deuda.debe_contabilidad }}</td>
+                            <td>{{ deuda.debe_biblioteca }}</td>
+                            <td>{{ deuda.debe_centrocomputo }}</td>
+                            <td> <!-- Button trigger modal -->
+{#                                <a onclick="cargaVentana({{ alumno.id }});" class="btn btn-danger" data-toggle="modal"#}
+{#                                   data-target="#myModal" id="modal-button"><i class="fa fa-money"></i>&nbsp;Deuda#}
+{#                                </a>#}
+                                <a href="deudaupdate/{{ deuda.alumno.id }}/" class="btn btn-danger" id="modal-button" ><i class="fa fa-money"></i>&nbsp;Deuda
+                                </a>
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <a href="deudas/" class="btn btn-success"><i class="fa fa-money"></i>&nbsp;Adicionar</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+
+

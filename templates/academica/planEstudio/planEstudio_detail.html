@@ -1,0 +1,21 @@
+{% extends 'academica/base.html' %}
+{% load crispy_forms_tags %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "PlanEstudio" "" %}
+{% endblock %}
+
+
+{% block content %}
+    {% render_breadcrumbs %}
+
+          {% crispy form_plan%}
+    <div class="box box-footer">
+    <a href="/Index" class="btn btn-success"><i class="fa fa-backward"></i>&nbsp;Atras</a>
+    </div>
+
+
+{% endblock %}

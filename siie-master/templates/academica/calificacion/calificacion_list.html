@@ -1,0 +1,53 @@
+{% extends 'academica/base.html' %}
+{% load static from staticfiles %}
+
+{% block content %}
+    <!-- Main content -->
+    <div class="row">
+        <!-- /.box -->
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Listado de Calificaciones</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                            <th>Alumno</th>
+                            <th>Carrera</th>
+                            <th>Ver</th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for alumno in list_alumno %}
+                        <tr>
+                            <td>{{ alumno}}</td>
+                            <td>{{ alumno.grupo.carrera }}</td>
+                            <td><a href="califAlum/{{ alumno.id }}/" class="btn btn-success" id="modal-button"><i class="fa fa-pencil"></i>&nbsp;Calificaciones</a></td>
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            <a class="btn btn-success" data-toggle="modal"
+                       data-target="#modalCalificacion"
+                       id="modal-button"><i class="fa fa-flag"></i>&nbsp;Calificar</a>
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+
+{% include 'academica/calificacion/calificacion_form.html' %}
+{% endblock %}
+
+
+
+
+
+

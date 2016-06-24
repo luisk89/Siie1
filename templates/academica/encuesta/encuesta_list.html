@@ -1,0 +1,52 @@
+{% extends 'academica/base.html' %}
+<!-- Main content -->
+{% block content %}
+         <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Encuestas Creadas</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Carrera</th>
+                                <th>Sexo</th>
+                                <th>Edad</th>
+
+                            </tr>
+                            </thead>
+                            {% for encuesta in object_list %}
+                                <tbody>
+                                <tr>
+                                    <td>{{ encuesta.nombre }}</td>
+                                    <td>{{ encuesta.carrera}}</td>
+                                    <td>{{ encuesta.sexo }}</td>
+                                    <td>{{ encuesta.edad }}</td>
+
+                                </tr>
+
+                                </tbody>
+                            {% endfor %}
+
+                        </table>
+                    <a href='{% url 'encuesta-add'%}' class="btn btn-success" ><i class="fa fa-file"></i>&nbsp;Crear Encuesta</a>
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div><!-- /.row -->
+
+
+{% endblock %}
+
+
+
+
+

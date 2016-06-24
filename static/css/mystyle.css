@@ -1,0 +1,16 @@
+.form-group {
+    display: inline-table;
+}
+
+#img {
+    border: 2px;
+
+}
+
+#domicilio {
+    width: 100%;
+}
+
+#div_id_foto {
+    width: 100%;
+}

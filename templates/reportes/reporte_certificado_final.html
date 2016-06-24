@@ -1,0 +1,222 @@
+{% extends 'reportes/base_reporte.html' %}
+{% load static from staticfiles %}
+{% block content %}
+
+    <form id="myForm" method="post" action="">
+        <section class="invoice">
+            <!-- title row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <span class="logo-lg pull-left"><img class="img-responsive" src="{% static 'images/logosiie.png' %}"
+                                                         alt="logo">   </span>
+
+                    <h2 class="page-header"><b>
+                        Universidad de la Sierra
+                    </b>
+                    </h2>
+                </div>
+                <!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="pull-right">
+                        CERTIFICADO FINAL DE ESTUDIOS
+                    </h2>
+                </div>
+                <!-- /.col -->
+            </div>
+            <br>
+
+            <br>
+            <br>
+            <!-- Table row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>La Universidad de la Sierra, CERTIFICA: que según archivos que obran en el Departamento de
+                        Servicios Escolares, el (la) alumno <b>{{ object }}</b>
+                        con número de expediente<b> {{ object.matricula }}</b>, cursó y aprobó totalmente las
+                        asignaturas del Plan de
+                        Estudios de la Carrera de <b>Carrera</b> , habiendo
+                        obtenido las siguientes calificaciones:
+                    </p>
+                </div>
+
+                <div class="col-xs-8 pull-right table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Clave</th>
+                            <th>Asignatura</th>
+                            <th>Creditos</th>
+                            <th>Ciclo Escolar</th>
+                            <th>Calif Final</th>
+                            <th>Observaciones</th>
+
+                        </tr>
+                        </thead>
+                        <tbody id="result_table_body">
+                        {% if calificaciones %}
+                            {% for c in calificaciones %}
+                                <tr>
+                                    <td>{{ c.materia.clave }}/td>
+                                    <td>{{ c.materia.nom_materia }}</td>
+                                    <td>{{ c.materia.creditos }}</td>
+                                    <td>{{ c.semestre }}</td>
+                                    <td>{{ c.final }}</td>
+                                    <td></td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="6">No existen calificaciones para este estudiante</td>
+                            </tr>
+                        {% endif %}
+                        <tr></tr>
+                        <td colspan="6"><b>Promedio:</b></td>
+                        </tbody>
+
+                    </table>
+                </div>
+
+                <div class="col-xs-4 text-center ">
+                    <div class="form-group">
+                        <b>
+                            Firma del Alumno
+                        </b>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <div class="col-xs-12 table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th colspan="2">REGISTRO:</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Número:</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Libro:</td>
+                                    <td></td>
+
+                                </tr>
+                                <tr>
+                                    <td>Fojas:</td>
+                                    <td></td>
+
+                                </tr>
+                                <tr>
+                                    <td>Fecha:</td>
+                                    <td>{{ hoy }}</td>
+
+                                </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <!-- /.col -->
+
+                    </div>
+                    <div class="form-group">
+                        <b>
+                            EXPIDE:
+                        </b><br>
+                        <b>
+                            C.p. Omar Armenta Gonzalez<br>
+                            Jefe del Departamento de<br>
+                            Servicios Escolares
+                        </b>
+                    </div>
+                    <br>
+
+                </div>
+                <div class="col-md-12">
+                    <div class="box box-success">
+
+                        <div class="box-body">
+                            <!-- Date range -->
+                            <div class="form-group">
+                                <p>Se extiende el presente <b>CERTIFICADO</b>, que
+                                    ampara {{ object.plan.materias.count }} asignaturas de un total de 59,
+                                    divididas en 8 semestres,
+                                    más la estadía en el noveno semestre, con una escala de calificaciones aprobatorias
+                                    del 70 al 100, en la Ciudad
+                                    de Moctezuma, Sonora, México, el día {{ hoy }}. </p>
+                            </div>
+                            <!-- /.form group -->
+                            <!-- /.input group -->
+                        </div>
+                        <!-- /.form group -->
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+                <div class="col-md-12">
+                    <div class="box box-success">
+
+                        <div class="box-body text-center">
+                            <!-- Date range -->
+                            <div class="form-group">
+                                <b>CERTIFICA:</b>
+
+                            </div>
+                            <br>
+
+                            <div class="form-group">
+                                <b>Ing. Gabriel Amavizca Herrera</b>
+
+                            </div>
+                            <br>
+
+                            <div class="form-group">
+                                <b>Rector</b>
+                            </div>
+                            <!-- /.form group -->
+                            <!-- /.input group -->
+                        </div>
+                        <!-- /.form group -->
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <div class="col-md-12">
+                    <div class="box box-success">
+
+                        <div class="box-body text-center">
+                            <!-- Date range -->
+                            <div class="form-group">
+                                <p>Organismo Público Descentralizado del Gobierno del Estado de Sonora, Clave
+                                    26MSU0009O.<br>
+                                    Decreto de Creación del día 12 de abril de 2002, Publicación en Boletín Oficial del
+                                    día 15 de abril de 2002.<br>
+                                    Carretera Moctezuma-Cumpas, Km. 2.5, C.P. 84561, Moctezuma, Sonora. Tel. (634)
+                                    342-96-00<br>
+                                    www.sitepordefinir.edu.mx</p>
+
+                            </div>
+                            <br>
+                        </div>
+                        <!-- /.form group -->
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+            </div>
+
+            <!-- this row will not appear when printing -->
+            <div class="row no-print">
+                <div class="col-xs-12">
+                    <a href="#" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+                    <button class="btn btn-success pull-right"><i class="fa fa-remove"></i> Cancelar</button>
+                    <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i
+                            class="fa fa-download"></i>
+                        Generar PDF
+                    </button>
+                </div>
+            </div>
+        </section>
+    </form>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'academica/base.html' %}
+<!-- Main content -->
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Horarios</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Clave</th>
+                            <th>Nombre</th>
+                            <th>Hora Inicio</th>
+                            <th>Hora Termino</th>
+                            <th>Minutos Inicio</th>
+                            <th>Minutos Terminos</th>
+                            <th>Aula</th>
+                            <th>Profesor</th>
+                            <th>Fecha</th>
+
+
+                        </tr>
+                        </thead>
+                        {% for horario in object_list %}
+                            <tbody>
+                            <tr>
+
+                                <td>{{ horario.clave_horario }}</td>
+                                <td>{{ horario.nombre }}</td>
+                                <td>{{ horario.hora_inicio }}</td>
+                                <td>{{ horario.hora_termino }}</td>
+                                <td>{{ horario.minutos_inicio }}</td>
+                                <td>{{ horario.minutos_termino }}</td>
+                                <td>{{ horario.aula.nom_aula }}</td>
+                                <td>{{ horario.profesores.nombre }}</td>
+                                <td>{{ horario.alta_date_created }}</td>
+
+                            </tr>
+
+                            </tbody>
+                        {% endfor %}
+
+                    </table>
+                <a class="btn btn-success" data-toggle="modal"
+                       data-target="#modalHorario"
+                       id="modal-button"><i class="fa fa-file"></i>&nbsp;Crear Horario</a>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div><!-- /.row -->
+ {% include 'academica/horario/horario_form.html' %}
+{% endblock %}
+
+
+
+
+

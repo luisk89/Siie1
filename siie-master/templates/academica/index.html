@@ -1,0 +1,67 @@
+{% extends 'academica/base.html' %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <li class="active">{% breadcrumb "Inicio" "academica.views.Home" %}</li>
+{% endblock %}
+
+{% block content %}
+    {% render_breadcrumbs %}
+<div class="row">
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-aqua">
+                <div class="inner">
+                  <h3>{{ totalalumnos }}</h3>
+                  <p>Total de Estudiantes</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a class="small-box-footer" href="#">Saber mas... <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>53<sup style="font-size: 20px">%</sup></h3>
+                  <p>Promocion Anual</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-stats-bars"></i>
+                </div>
+                <a class="small-box-footer" href="#">Saber mas...<i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>{{ profesores }}</h3>
+                  <p>Profesores</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+                <a class="small-box-footer" href="#">Saber mas... <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3>Otros</h3>
+                  <p>Visitantes</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-videocamera"></i>
+                </div>
+                <a class="small-box-footer" href="#">Saber mas... <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+          </div>
+
+
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends 'reportes/base_reporte.html' %}
+{% load static from staticfiles %}
+{% block content %}
+            <form id="myForm" method="post" action="">
+
+  <section class="invoice">
+          <!-- title row -->
+          <div class="row">
+                <div class="col-xs-12">
+                     <span class="logo-lg pull-left"><img class="img-responsive" src="{% static 'images/logosiie.png' %}" alt="logo">   </span>
+                    <h2 class="page-header"><b>
+                       Universidad de la Sierra
+                        </b>
+                        <small class="pull-right">
+                            <b>Código:</b>10-01-023
+                        </small>
+                    </h2>
+                </div>
+                <!-- /.col -->
+            </div>
+        <div class="row">
+            <div class="col-xs-12">
+              <h1 class="pull-right">
+            Acta de Evaluación final
+ </h1>
+            </div><!-- /.col -->
+          </div>
+      <br>
+      <br>
+          <!-- info row -->
+          <div class="row invoice-info">
+            <div class="col-sm-12 invoice-col">
+              <address>
+                <strong>Programa Educativo: </strong>
+                  <small id="id_programa"></small>
+                <br>
+
+              </address>
+            </div><!-- /.col -->
+            <div class="col-sm-12 invoice-col">
+               <address>
+                <strong>Asignatura: </strong>
+                <small id="id_materia"></small><br>
+                </address>
+            </div><!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+              <b>Ciclo Escolar: </b><br><small id="id_ciclo"></small>
+            </div><!-- /.col -->
+              <div class="col-sm-4 invoice-col">
+              <b>Semestre: </b>
+                  <br><small id="id_semestre"></small>
+            </div><!-- /.col -->
+              <div class="col-sm-4 invoice-col">
+              <b>Grupo: </b><br><small id="id_grupo"></small>
+            </div><!-- /.col -->
+
+          </div><!-- /.row -->
+<br>
+      <br>
+          <!-- Table row -->
+          <div class="row">
+            <div class="col-xs-12 table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>No.Expediente</th>
+                    <th>Nombre del Alumno</th>
+                    <th>Numero</th>
+                    <th>Letra</th>
+
+                  </tr>
+                </thead>
+                <tbody id="result_table_body">
+
+                    <tr>
+                    <td>No existen calificaciones con estos datos</td>
+                    </tr>
+                </tbody>
+              </table>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+<small class="pull-right">Moctezuma,Sonora,Mexico ,a 2/10/2014</small>
+    <br>
+      <br>
+          <div class="row">
+            <!-- -->
+            <div class="col-xs-6">
+              <b class="lead">Profesor:</b>
+                <br>El Profe Rodriguez
+
+            </div><!-- /.col -->
+            <div class="col-xs-6">
+              <b class="lead">Jefe de la división de:{{ grupo.carrera }}</b><br>
+            Perico Perez Ripiao
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+      <br>
+      <br>
+
+     <div class="pull-left">
+              <small>Calificacion Minima Aprobatoria: 70.<br>
+Nota: En caso de tachaduras o enmendaduras al formato, no tendrá validez oficial.</small>
+<br>
+     </div>
+ <div class="pull-right">
+         <img class="profile-user-img img-responsive img-circle" src="{% static 'images/sello1.png' %}" alt="Sello del documento">
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+ <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+          <!-- this row will not appear when printing -->
+          <div class="row no-print">
+            <div class="col-xs-12">
+              <a href="#" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+              <button class="btn btn-success pull-right"><i class="fa fa-remove"></i> Cancelar</button>
+              <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generar PDF</button>
+            </div>
+          </div>
+        </section>
+</form>
+{% endblock %}

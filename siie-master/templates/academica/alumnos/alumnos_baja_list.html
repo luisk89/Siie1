@@ -1,0 +1,76 @@
+{% extends 'academica/base.html' %}
+{% load crispy_forms_tags %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <li class="active">{% breadcrumb "Baja" "academica.views.BajaCreate" %}</li>
+{% endblock %}
+<!-- Main content -->
+{% block content %}
+    {% render_breadcrumbs %}
+    <div class="row">
+        <!-- /.box -->
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Listado de alumnos activos</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Expediente</th>
+                        <th>A.Paterno</th>
+                        <th>A.Materno</th>
+                        <th>Nombre</th>
+                        <th>Semestre</th>
+                        <th>Modificar</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for alumno in alumnos_list %}
+                        {% if alumno.is_active %}
+                        <tr>
+                            <td>{{ alumno.id }}</td>
+                            <td>{{ alumno.matricula }}</td>
+                            <td>{{ alumno.apellido_paterno }}</td>
+                            <td>{{ alumno.apellido_materno }}</td>
+                            <td>{{ alumno.nom_alumno }}</td>
+                            <td>{{ alumno.semestre }}</td>
+                            <td> <!-- Button trigger modal -->
+
+                                <a class="btn btn-danger btn-sm" data-toggle="modal"
+                                        data-target="#ModalBaja" onclick="cargaVentana({{ alumno.id }});"
+                                        id="modal-button"><i class="fa fa-eraser"></i>&nbsp;Dar Baja</a>
+
+                            </td>
+
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+    {% include 'academica/extracurricular/bajas_form.html' %}
+    <script>
+      function cargaVentana(id)
+    {
+        $('#id_alumno').select().val(id);
+        console.log(id)
+        console.log('#id_alumno')
+        $('#id_alumno').attr('readOnly',true);
+        $('#button-id-cancelar').attr('data-dismiss','modal')
+    }
+    </script>
+{% endblock %}
+
+
+
+
+

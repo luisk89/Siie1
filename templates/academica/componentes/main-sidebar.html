@@ -1,0 +1,278 @@
+{% load static from staticfiles %}
+<aside class="main-sidebar">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src={{ user.avatar.url }} class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <p>{{ user.get_full_name }}</p>
+                <!-- Status -->
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+        </div>
+
+        <!-- search form (Optional) -->
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+            </div>
+        </form>
+        <!-- /.search form -->
+
+        <!-- Sidebar Menu -->
+
+
+        <ul class="sidebar-menu">
+            <li class="header">Administracion Escolar Menu</li>
+            <!-- Optionally, you can add icons to the links -->
+            {% for group in user.groups.all %}
+                {% if group.name == 'Administrador' %}
+                <li class="treeview">
+                        <a href="#"><i class="fa fa-edit"></i> <span>Servicios Escolares</span> <i
+                                class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                    <li class="treeview">
+                        <a href="/academica/alumno/list/"><i class="fa fa-pencil"></i> <span>Inscripción</span> <i
+                                class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="/academica/alumno/add/">Registro de Inscripción</a></li>
+                            <li><a href="/academica/alumno/re/">Registro de Reinscripción</a></li>
+                        </ul>
+
+
+                    </li>
+                            <li><a href="{% url 'list-semestre' %}">Ciclo Semestral</a></li>
+                            <li><a href="/academica/planEstudio/list/">Plan de Estudio</a></li>
+                            <li><a href="/academica/materia/list/">Materias</a></li>
+                            <li><a href="{% url 'list-aula' %}">Aulas</a></li>
+                            <li><a href="{% url 'list-carrera' %}">Carreras</a></li>
+                            <li><a href="/academica/calificacion/list/">Calificaciones</a></li>
+                            <li><a href="/academica/alumno/baja/">Baja a estudiante</a></li>
+                            <li><a href="{% url 'list-alumno' %}">Listado Estudiantes</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                <a href="#"><i class="fa fa-edit"></i> <span>Divisiones</span> <i
+                        class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{% url 'list-horario' %}">Horario</a></li>
+                    <li><a href="{% url 'list-maestro' %}">Maestro</a></li>
+
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#"><i class="fa fa-book"></i> <span>Maestro</span> <i
+                        class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{% url 'list-alumno' %}">Listas</a></li>
+                    <li><a href="/academica/calificacion/list/">Calificaciones</a></li>
+                    <li><a href="/academica/planEstudio/list/">Plan de Estudio</a></li>
+                    <li><a href="{% url 'list-horario' %}">Horario</a></li>
+
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa-th"></i> <span>Extracurricular</span> <i
+                        class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{% url 'list-maestro' %}">Alta Maestro</a></li>
+                    <li><a href="{% url 'list-grupos' %}">Crear Grupo</a></li>
+                    <li><a href="{% url 'list-horario' %}">Horario</a></li>
+
+                    <li><a href="{% url 'list-extra' %}">Actividad Extracurricular</a></li>
+
+
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa-files-o"></i> <span>Servicio Social</span> <i
+                        class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{% url 'list-servicio' %}">Liberacion SS</a></li>
+                    <li><a href="{% url 'list-servicioliberados' %}">Baja SS</a></li>
+
+
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa-bookmark"></i> <span>Biblioteca</span> <i
+                        class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{% url 'list-biblio' %}">Alta</a></li>
+                    <li><a href="{% url 'baja-biblio' %}">Baja</a></li>
+
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa-laptop"></i> <span>Centro de Computo</span> <i
+                        class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{% url 'list-cc' %}">Alta</a></li>
+                    <li><a href="{% url 'baja-cc' %}">Baja</a></li>
+
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa-money"></i> <span>Contabilidad</span> <i
+                        class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{% url 'list-conta' %}">Alta</a></li>
+                    <li><a href="{% url 'baja-cont' %}">Baja</a></li>
+
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#"><i class="fa fa-tablet"></i> <span>Becas</span> <i
+                        class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{% url 'list-beca' %}">Listado de Becas</a></li>
+                    <li><a href="{% url 'list-tbeca' %}">Tipos de Becas</a></li>
+
+                </ul>
+            </li>
+             <li class="treeview">
+                <a href="#"><i class="fa fa-file-pdf-o"></i> <span>Reportes</span> <i
+                        class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/pdf/evafinal">Acta de evaluación final</a></li>
+                    <li><a href="/pdf/boleta">Boleta semestral</a></li>
+                    <li><a href="/pdf/inscripcion">Cédula de inscripción</a></li>
+                    <li><a href="/pdf/reinscripcion">Cédula de Re-inscripción</a></li>
+                    <li><a href="/pdf/certifinal">Certificado Final</a></li>
+                    <li><a href="/pdf/kardex">Kardex</a></li>
+
+
+                </ul>
+                </li>
+                {% endif %}
+            {% endfor %}
+            {% for group in user.groups.all %}
+                {% if group.name == 'Estudiante' %}
+            <li class="treeview">
+                <a href="#"><i class="fa fa-graduation-cap"></i> <span>Alumnos</span> <i
+                        class="fa fa-angle-left pull-right"></i>
+
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{% url 'my-califi' %}">Mis Calificaciones</a></li>
+                    <li><a href="{% url 'alumno-horarios' %}">Horario</a></li>
+                    <li><a href="{% url 'list-encuesta' %}">Encuesta</a></li>
+                    <li><a href="/academica/planEstudio/list/">Plan de Estudio</a></li>
+
+                </ul>
+            </li>
+                {% endif %}
+            {% endfor %}
+            {% for group in user.groups.all %}
+                {% if group.name == 'Biblioteca' %}
+                    <li class="treeview">
+                <a href="#"><i class="fa fa-bookmark"></i> <span>Biblioteca</span> <i
+                        class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{% url 'list-biblio' %}">Alta</a></li>
+                    <li><a href="{% url 'baja-biblio' %}">Baja</a></li>
+                </ul>
+            </li>
+
+            {% endif %}
+            {% endfor %}
+            {% for group in user.groups.all %}
+                {% if group.name == 'Contabilidad' %}
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-money"></i> <span>Contabilidad</span> <i
+                            class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{% url 'list-conta' %}">Alta</a></li>
+                        <li><a href="{% url 'baja-cont' %}">Baja</a></li>
+
+                    </ul>
+                </li>
+
+            {% endif %}
+            {% endfor %}
+            {% for group in user.groups.all %}
+                {% if group.name == 'Centro Computo' %}
+                <li class="treeview">
+                <a href="#"><i class="fa fa-laptop"></i> <span>Centro de Computo</span> <i
+                        class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{% url 'list-cc' %}">Alta</a></li>
+                    <li><a href="{% url 'baja-cc' %}">Baja</a></li>
+
+                </ul>
+                </li>
+
+            {% endif %}
+            {% endfor %}
+            {% for group in user.groups.all %}
+                {% if group.name == 'Maestro' %}
+                <li class="treeview">
+                <a href="#"><i class="fa fa-book"></i> <span>Maestro</span> <i
+                        class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{% url 'list-alumno' %}">Listas</a></li>
+                    <li><a href="{% url 'profesor-calificacion' %}">Calificaciones</a></li>
+                    <li><a href="/academica/planEstudio/list/">Plan de Estudio</a></li>
+                    <li><a href="{% url 'profesor-horarios' %}">Horario</a></li>
+
+                </ul>
+                </li>
+
+            {% endif %}
+            {% endfor %}
+
+
+
+
+{#            <li class="treeview">#}
+{#                <a href="#"><i class="fa fa-clipboard"></i> <span>Planeación</span> <i#}
+{#                        class="fa fa-angle-left pull-right"></i>#}
+{#                </a>#}
+{#                <ul class="treeview-menu">#}
+{#                    <li><a href="#">Indicadores</a></li>#}
+{#                    <li><a href="#">Link 1</a></li>#}
+
+{#                </ul>#}
+{#            </li>#}
+{#            <li class="treeview">#}
+{#                <a href="#"><i class="fa fa-user-md"></i> <span>Medico-Psicologo</span> <i#}
+{#                        class="fa fa-angle-left pull-right"></i>#}
+{#                </a>#}
+{#                <ul class="treeview-menu">#}
+{#                    <li><a href="#">Link</a></li>#}
+{#                    <li><a href="#">Link 1</a></li>#}
+
+{#                </ul>#}
+{#            </li>#}
+        </ul>
+        <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+</aside>

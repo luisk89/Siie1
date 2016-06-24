@@ -1,0 +1,210 @@
+{% extends 'reportes/base_reporte.html' %}
+{% load static from staticfiles %}
+{% block content %}
+
+    <form id="myForm" method="post" action="">
+        <section class="invoice">
+            <!-- title row -->
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <h2>
+                        Kardex
+                    </h2><br>
+                    <b class="pull-right">
+                        CODIGO
+                    </b>
+                </div>
+                <br>
+                <!-- /.col -->
+            </div>
+            <br>
+
+            <!-- info row -->
+            <div class="row invoice-info">
+                <div class="col-sm-12 invoice-col">
+                    <p class="text-justify">
+                        El suscrito, C.p. Omar Armenta Gonzalez, Jefe del Departamento de Servicios Escolares de la
+                        Universidad de la Sierra,hace constar que:
+                        El alumno (a) <b>{{ object }}</b>, ésta inscrito (a) en esta Institución Educativa con
+                        clave
+                        26MSU0009O, en el Septimo semestre de la carrera <b>CARRERA (CLAVE) </b>del Plan de
+                        Estudios vigente, en
+                        el período del 10 de AGOSTO - 18 de DICIEMBRE {{ anio }}, con número de expediente
+                        <b>{{ object.matricula }}</b>,
+                        habiendo obtenido las
+                        siguientes calificaciones:
+                    </p>
+                </div>
+                <!-- /.col -->
+
+            </div>
+            <!-- /.row -->
+            <br>
+            <br>
+            <!-- Table row -->
+            <div class="row">
+                <div class="col-xs-6 table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th><b>Asignatura</b></th>
+                            <th></th>
+                            <th>Calificación</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td colspan="3"><b>I SEMESTRE</b></td>
+                        </tr>
+                        <tr>
+                            <td><b>111</b></td>
+                            <td></td>
+                            <td>111</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped">
+
+                        <tbody>
+                        <tr>
+                            <td colspan="3"><b>II SEMESTRE</b></td>
+                        </tr>
+                        <tr>
+                            <td><b>111</b></td>
+                            <td></td>
+                            <td>111</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table table-striped">
+
+                        <tbody>
+                        <tr>
+                            <td colspan="3"><b>III SEMESTRE</b></td>
+                        </tr>
+                        <tr>
+                            <td><b>111</b></td>
+                            <td></td>
+                            <td>111</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped">
+
+                        <tbody>
+                        <tr>
+                            <td colspan="3"><b>IV SEMESTRE</b></td>
+                        </tr>
+                        <tr>
+                            <td><b>111</b></td>
+                            <td></td>
+                            <td>111</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="col-xs-6 table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th><b>Asignatura</b></th>
+                            <th></th>
+                            <th>Calificación</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td colspan="3"><b>V SEMESTRE</b></td>
+                        </tr>
+                        <tr>
+                            <td><b>111</b></td>
+                            <td></td>
+                            <td>111</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table table-striped">
+
+                        <tbody>
+                        <tr>
+                            <td colspan="3"><b>VI SEMESTRE</b></td>
+                        </tr>
+                        <tr>
+                            <td><b>111</b></td>
+                            <td></td>
+                            <td>111</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped">
+
+                        <tbody>
+                        <tr>
+                            <td colspan="3"><b>VII SEMESTRE</b></td>
+                        </tr>
+                        <tr>
+                            <td><b>111</b></td>
+                            <td></td>
+                            <td>111</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped">
+
+                        <tbody>
+                        <tr>
+                            <td colspan="3"><b>VII SEMESTRE</b></td>
+                        </tr>
+                        <tr>
+                            <td><b>111</b></td>
+                            <td></td>
+                            <td>111</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.col -->
+                <div class="pull-left">
+                    <b>PROMEDIO GENERAL:
+                        <small>NOTA</small>
+                    </b>
+                </div>
+
+
+            </div>
+            <!-- /.row -->
+
+
+            <div class="pull-left">
+                <small>Se extiende la presente para los fines que al interesado convengan, en la Ciudad
+                    de Moctezuma, Sonora, México, el {{ hoy }}.
+                </small>
+            </div>
+
+            <div class="col-xs-12 text-center">
+                <h3>ATENTAMENTE</h3>
+                <b>C.p. Omar Armenta Gonzalez<br>
+                    EL JEFE DEL DEPARTAMENTO DE SERVICIOS ESCOLARES</b>
+            </div>
+           <!-- /.col -->
+            <br>
+            <br>
+            <br>
+            <br>
+            <!-- this row will not appear when printing -->
+            <div class="row no-print">
+                <div class="col-xs-12">
+                    <a href="#" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+                    <button class="btn btn-success pull-right"><i class="fa fa-remove"></i> Cancelar</button>
+                    <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i>
+                        Generar PDF
+                    </button>
+                </div>
+            </div>
+        </section>
+    </form>
+{% endblock %}

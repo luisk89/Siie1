@@ -1,0 +1,23 @@
+{% extends 'academica/base.html' %}
+{% load crispy_forms_tags %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Calificacion" "" %}
+    {% breadcrumb "Alumno" "academica.views.CalificacionCreate" %}
+{% endblock %}
+{% block content %}
+    <input type="hidden" id="id_matricula_hidden" value="{{ alumno }}">
+    {% render_breadcrumbs %}
+    {% csrf_token %}
+
+          {% crispy form_calificacion %}
+
+<script>
+document.getElementById('id_matricula').selectedOptions[0].innerHTML=document.getElementById('id_matricula_hidden').value
+
+</script>
+{% endblock %}
+

@@ -1,0 +1,6 @@
+{% extends 'academica/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    Estudiante:{{ object.alumno.nom_alumno}} {{ object.alumno.apellido_paterno }} {{ object.alumno.apellido_materno }}
+    {% crispy form %}
+{% endblock %}

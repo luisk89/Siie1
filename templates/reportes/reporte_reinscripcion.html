@@ -1,0 +1,401 @@
+{% extends 'reportes/base_reporte.html' %}
+{% load static from staticfiles %}
+{% block content %}
+
+    <form id="myForm" method="post" action="">
+        <section class="invoice">
+            <!-- title row -->
+            <div class="row">
+                <div class="col-xs-12">
+                     <span class="logo-lg pull-left"><img class="img-responsive" src="{% static 'images/logosiie.png' %}" alt="logo">   </span>
+                    <h2 class="page-header"><b>
+                       Universidad de la Sierra
+                        </b>
+                        <small class="pull-right">
+                            <b>Código:</b>10-01-023
+                        </small>
+                    </h2>
+                </div>
+                <!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="pull-right">
+                        Cédula de Re-inscripción
+                    </h2>
+                </div>
+                <!-- /.col -->
+            </div>
+            <br>
+
+            <br>
+            <br>
+            <!-- Table row -->
+            <div class="row">
+                <div class="col-xs-12 table-responsive">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <td colspan="7"><h4 class="pull-left">1.-Datos Personales</h4></td>
+
+                        </tr>
+                        <tr>
+                            <td><b>Nombre:</b></td>
+                            <td>
+                                <small>{{ object.apellido_paterno }}</small>
+                            </td>
+                            <td>
+                                <small>{{ object.apellido_materno }}</small>
+                            </td>
+                            <td colspan="4">
+                                <small>{{ object.nom_alumno }}</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><b>Apellido Paterno</b></td>
+                            <td><b>Apellido Materno</b></td>
+                            <td colspan="4"><b>Nombre</b></td>
+                        </tr>
+                        <tr>
+                            <td><b>Domicilio:</b></td>
+                            <td>
+                                <small>{{ object.domicilio }}</small>
+                            </td>
+                            <td>
+                                <small>{{ object.colonia }}</small>
+                            </td>
+                            <td>
+                                <small>{{ object.localidad }}</small>
+                            </td>
+                            <td>
+                                <small>{{ object.municipio }}</small>
+                            </td>
+                            <td>
+                                <small>{{ object.cp }}</small>
+                            </td>
+                            <td>
+                                <small>{{ object.telefono }}</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><b>Calle y N°</b></td>
+                            <td><b>Colonia</b></td>
+                            <td><b>Localidad</b></td>
+                            <td><b>Municipio</b></td>
+                            <td><b>C.P.</b></td>
+                            <td><b>Teléfono</b></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><b>LUGAR DE NAC.:</b></td>
+                            <td>
+                                <small>{{ object.lugar_nac }}</small>
+                            </td>
+                            <td><b>EDO.CIVIL:</b></td>
+                            <td>
+                                <small>{{ object.edo_civil }}</small>
+                            </td>
+                            <td><b>CURP:</b></td>
+                            <td>
+                                <small>{{ object.curp }}</small>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td colspan="2"><b>FECHA DE NAC.:</b></td>
+                            <td>
+                                <small>{{ object.fecha_nacimiento }}</small>
+                            </td>
+                            <td><b>SEXO:</b></td>
+                            <td>
+                                <small>{{ object.sexo }}</small>
+                            </td>
+                            <td><b>E-Mail:</b></td>
+                            <td>
+                                <small>{{ object.email }}</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><b>TIPO DE SANGRE:</b></td>
+                            <td>
+                                <small>{{ object.tipo_sangre }}</small>
+                            </td>
+                            <td><b>ALERGIAS:</b></td>
+                            <td>
+                                <small>{{ object.alergias }}</small>
+                            </td>
+                            <td><b> SI PADECE ALGUNA ENFERMEDAD CRONICA, ESPECIFICA:</b></td>
+                            <td>
+                                <small>{{ object.enfermedades }}</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td colspan="2"><b>ESPECIFICAR SERVICIO MÉDICO:</b></td>
+                            <td>
+                                <small>{{ object.servicio_medico }}</small>
+                            </td>
+                            <td colspan="2"><b>No. DE AFILIACIÓN:</b></td>
+                            <td>
+                                <small>{{ object.num_afiliacion }}</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><b> EN CASO DE EMERGENCIA,AVISAR A:</b></td>
+                            <td>
+                                <small>{{ object.contacto_emergencia }}</small>
+                            </td>
+                            <td><b>DOMICILIO:</b></td>
+                            <td>
+                                <small>{{ object.domicilio }}</small>
+                            </td>
+                            <td><b>TELEFONO:</b></td>
+                            <td>
+                                <small>{{ object.contacto_tel }}</small>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-xs-12 table-responsive">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <td colspan="2"><h4 class="pull-left">2.-Datos Escolares</h4></td>
+                            <td colspan="2"><b> N° DE EXPEDIENTE:</b></td>
+                            <td>
+                                <small>{{ object.matricula }}</small>
+                            </td>
+                            <td><b>FEC_INSCRIPCIÓN:</b></td>
+                            <td>
+                                <small>{{ fecha_insc }}</small>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="2"><b> ESCUELA DE PROC:</b></td>
+                            <td>
+                                <small>{{ object.escuela_procedencia }}</small>
+                            </td>
+                            <td colspan="2"><b>CARRERA A QUE SE INSCRIBE:</b></td>
+                            <td colspan="2">
+                                <small>{{ object.grupo.carrera }}</small>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td colspan="2"><b>SEMESTRE:</b></td>
+                            <td colspan="2">
+                                <small>{{ object.semestre }}</small>
+                            </td>
+                            <td colspan="2"><b>FEC_INSCRIPCIÓN:</b></td>
+                            <td>
+                                <small>{{ fecha_insc }}</small>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-xs-12 table-responsive">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <td colspan="7"><h4 class="pull-left">3.-Datos Familiares</h4></td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="2"><b> NOMBRE DEL PADRE O TUTOR:</b></td>
+                            <td colspan="2">
+                                <small>{{ object.nombre_tutor }}</small>
+                            </td>
+                            <td><b>NOMBRE DE LA MADRE:</b></td>
+                            <td colspan="2">
+                                <small>{{ object.nombre_materno }}</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>DOMICILIO:</b></td>
+                            <td colspan="2">
+                                <small>{{ object.domicilio_tutor }}</small>
+                            </td>
+                            <td><b>LOCALIDAD:</b></td>
+                            <td>
+                                <small>{{ object.localidad_tutor }}</small>
+                            </td>
+                            <td><b>TELEFONO:</b></td>
+                            <td>
+                                <small>{{ object.telefono_tutor }}</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><b>OCUPACION DEL PADRE O TUTOR:</b></td>
+                            <td colspan="2">
+                                <small>{{ object.ocupacion_tutor }}</small>
+                            </td>
+                            <td colspan="2"><b>SUELDO MENSUAL:</b></td>
+                            <td>
+                                <small>{{ object.sueldo_mensual }}</small>
+                        </tr>
+                        <tr>
+                            <td><b>DOMICILIO DE LA MADRE SI ES DISTINTO:</b></td>
+                            <td colspan="2">
+                                <small>{{ object.domicilio_madre }}</small>
+                            </td>
+                            <td><b>LOCALIDAD:</b></td>
+                            <td>
+                                <small>{{ object.localidad_madre }}</small>
+                            </td>
+                            <td><b>TELEFONO:</b></td>
+                            <td>
+                                <small>{{ object.telefono_madre }}</small>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-xs-12 table-responsive">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <td colspan="9"><h4 class="pull-left">4.-DATOS GENERALES:</h4></td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="3"><b>TRABAJAS ACTUALMENTE:</b></td>
+                            <td>
+                                <small>{% if object.trabaja_actualmente %}
+                                    Si
+                                {% else %}
+                                    No
+                                {% endif %}
+
+                                </small>
+                            </td>
+                            <td><b>LUGAR Y PUESTO QUE DESEMPEÑA:</b></td>
+                            <td>
+                                <small>{{ object.nombre_materno }}</small>
+                            </td>
+                            <td><b> SUELDO MENSUAL:</b></td>
+                            <td colspan="3">
+                                <small>{{ object.sueldo_mensual_alumno }}</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5"><b>¿OCUPAS TRANSPORTE PÚBLICO PARA ASISTIR A LA UNI-SIERRA?:</b></td>
+                            <td>
+                                <small>{{ object.transporte }}</small>
+                            </td>
+                            <td colspan="3"><b>¿DE LA UNIVERSIDAD?:</b></td>
+                            <td>
+                                <small>{{ object.transporte_universidad }}</small>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="9"><b>EN SU CASO, INDICA EL O LOS DEPORTES QUE PRÁCTICAS:</b></td>
+                            <td>
+                                <small>{{ object.deporte_practica }}</small>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td><b>MUSICA:</b></td>
+                            <td>
+                                <small>{% if object.musica %}
+                                    Si
+                                    {% else %}
+                                    No
+                                    {% endif %}
+                               </small>
+                            </td>
+                            <td><b>TEATRO:</b></td>
+                            <td>
+                                <small>{% if object.teatro %}
+                                    Si
+                                    {% else %}
+                                    No
+                                    {% endif %}
+                                   </small>
+                            </td>
+                            <td><b>DECLAMACIÓN:</b></td>
+                            <td>
+                                <small>{% if object.declamacion %}
+                                    Si
+                                    {% else %}
+                                    No
+                                    {% endif %}</small>
+                            </td>
+                            <td><b>ORATORIA:</b></td>
+                            <td>
+                                <small>{% if object.oratoria %}
+                                    Si
+                                    {% else %}
+                                    No
+                                    {% endif %}</small>
+                            </td>
+                            <td><b>OTROS, ESPECÍFICA:</b></td>
+                            <td>
+                                <small>{% if object.otro_interes %}
+                                    Si
+                                    {% else %}
+                                    No
+                                    {% endif %}</small>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="box box-success">
+                        <div class="box-header">
+                            <h3 class="box-title">5.-PROTESTA DE REGLAMENTO</h3>
+                        </div>
+                        <div class="box-body">
+                            <!-- Date range -->
+                            <div class="form-group">
+                                <p>Protesto cumplir con las disposiciones establecidas en el marco normativo vigente,
+                                    que rige las actividades de la
+                                    Universidad de la Sierra, así como con las actividades académicas que, con motivo
+                                    del desarrollo del quehacer académico se me
+                                    asignen.</p>
+                            </div>
+
+                        </div>
+                        <!-- /.form group -->
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
+                <!-- /.col -->
+                <div class="pull-left">
+                    <b>Nombre:_______________________________</b>
+                    <b>Firma:________________________________</b>
+                </div>
+            </div>
+            <!-- /.row -->
+            <br>
+            <small class="pull-left">Moctezuma,Sonora,Mexico ,a {{ hoy }}</small>
+            <br>
+            <br>
+            <br>
+            <!-- this row will not appear when printing -->
+            <div class="row no-print">
+                <div class="col-xs-12">
+                    <a href="#" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+                    <button class="btn btn-success pull-right"><i class="fa fa-remove"></i> Cancelar</button>
+                    <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i
+                            class="fa fa-download"></i>
+                        Generar PDF
+                    </button>
+                </div>
+            </div>
+        </section>
+    </form>
+{% endblock %}

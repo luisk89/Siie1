@@ -1,0 +1,13 @@
+{% extends 'academica/base.html' %}
+<!-- Main content -->
+{% load crispy_forms_tags %}
+{% load static from staticfiles %}
+{% block content %}
+       <figure style="padding-bottom: 2%">
+<img src="{{ user.avatar.url }}" id="foto">
+</figure>
+   {% crispy form %}
+    <div class="pull-left">
+                                    <a href="{% url 'account_change_password' %}" class="btn btn-default btn-flat">Cambiar Passwords</a>
+                                </div>
+{% endblock %}

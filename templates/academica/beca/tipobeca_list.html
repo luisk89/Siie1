@@ -1,0 +1,61 @@
+{% extends 'academica/base.html' %}
+{% load static from staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Tipo de Beca" "academica.views.TipoBecaList" %}
+{% endblock %}
+
+{% block content %}
+    {% render_breadcrumbs %}
+    <!-- Main content -->
+    <div class="row">
+        <!-- /.box -->
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Tipos de Becas</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                            <th>Clave</th>
+                            <th>Descripcion</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for tbeca in object_list %}
+                        <tr>
+                            <td>{{ tbeca.clave_tipo_beca}}</td>
+                            <td>{{ tbeca.descripcion }}</td>
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            <a class="btn btn-success" data-toggle="modal"
+                       data-target="#modalTBeca"
+                       id="modal-button"><i class="fa fa-flag"></i>&nbsp;Crear Tipo</a>
+{# <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"#}
+{#                        data-target="#myModal"#}
+{#                        id="modal-button">#}
+{#                    Nuevo#}
+{#                </button>#}
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    {% include 'academica/beca/tipobeca_form.html' %}
+
+{% endblock %}
+
+
+
+
+
+

@@ -1,0 +1,140 @@
+{% extends 'reportes/base_reporte.html' %}
+{% load static from staticfiles %}
+{% block content %}
+
+            <form id="myForm" method="post" action={% url 'beca-add' %}>
+      <section class="invoice">
+          <!-- title row -->
+          <div class="row">
+                <div class="col-xs-12">
+                     <span class="logo-lg pull-left"><img class="img-responsive" src="{% static 'images/logosiie.png' %}" alt="logo">   </span>
+                    <h2 class="page-header"><b>
+                       Universidad de la Sierra
+                        </b>
+                        <small class="pull-right">
+                            <b>Código:</b>10-01-023
+                        </small>
+                    </h2>
+                </div>
+                <!-- /.col -->
+            </div>
+        <div class="row">
+            <div class="col-xs-12">
+              <h2 class="pull-right">
+Boleta de evaluación semestral
+  </h2>
+            </div><!-- /.col -->
+          </div>
+      <br>
+
+ <br>
+      <br>
+          <!-- info row -->
+          <div class="row invoice-info">
+            <div class="col-sm-12 invoice-col">
+              <address>
+                <strong>Nombre: </strong>
+                {{ alumno }}<br>
+
+              </address>
+            </div><!-- /.col -->
+            <div class="col-sm-12 invoice-col">
+               <address>
+                <strong>Matricula: </strong>
+                {{ alumno.matricula }}<br>
+                </address>
+            </div><!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+              <b>Plan de Estudios: </b><br>{{ alumno.plan }}
+            </div><!-- /.col -->
+              <div class="col-sm-4 invoice-col">
+              <b>Semestre: </b>
+                  <br>{{ alumno.semestre }}
+            </div><!-- /.col -->
+              <div class="col-sm-4 invoice-col">
+              <b>Grupo: </b><br>
+            </div><!-- /.col -->
+
+          </div><!-- /.row -->
+<br>
+      <br>
+          <!-- Table row -->
+          <div class="row">
+            <div class="col-xs-12 table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Clave de Asignatura</th>
+                    <th>Asignatura</th>
+                    <th>Numero</th>
+                    <th>Letra</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                {% if listado %}
+                {% for c in listado %}
+                  <tr>
+                    <td>{{ c.materia.clave }}</td>
+                    <td>{{ c.materia.nom_materia }}</td>
+                    <td>{{ c.final }}</td>
+                    <td>handsome</td>
+
+                  </tr>
+                {% endfor %}
+                     {% else %}
+                    <tr>
+                    <td>No existen calificaciones para este estudiante</td>
+                    </tr>
+
+                {% endif %}
+
+                </tbody>
+              </table>
+            </div><!-- /.col -->
+          <div class="pull-right">
+         <b>PROMEDIO GENERAL:<small>NOTA</small></b>
+      </div>
+          </div><!-- /.row -->
+
+<small class="pull-right">Moctezuma,Sonora,Mexico ,a 2/10/2014</small>
+   <br>
+      <br>
+
+     <div class="col-xs-12">
+              <b>C.p. Omar Armenta Gonzalez<br>
+EL JEFE DEL DEPARTAMENTO DE SERVICIOS ESCOLARES</b>
+            </div><!-- /.col -->
+
+       <br>
+       <br>
+       <br>
+         <div class="col-xs-12">
+              <small> Nota: El presente documento tiene un carácter meramente informativo sobre el estado académico del alumno.</small>
+            </div><!-- /.col -->
+ <div class="pull-right">
+         <img class="profile-user-img img-responsive img-circle" src="{% static 'images/sello1.png' %}" alt="Sello del documento">
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+ <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+          <!-- this row will not appear when printing -->
+          <div class="row no-print">
+            <div class="col-xs-12">
+              <a href="#" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+              <button class="btn btn-success pull-right"><i class="fa fa-remove"></i> Cancelar</button>
+              <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generar PDF</button>
+            </div>
+          </div>
+        </section>
+</form>
+{% endblock %}

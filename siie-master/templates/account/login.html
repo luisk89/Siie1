@@ -1,0 +1,56 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+
+
+
+<div class="top-content">
+          
+            <div class="inner-bg">
+                <div class="container">
+
+                    <div class="row">                    
+                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                          <div class="form-top" >
+                          <a href="/" class="close"  color='#00000='>×</a>
+                            <div class="form-top-left">
+                              <h3>Ingresa a nuestro sitio</h3>
+                            </div>                            
+                            <div class="form-top-right">
+                              <i class="fa fa-key"></i>
+                            </div>
+                            </div>
+                            <div class="form-bottom">
+                          <form class="login" method="POST" action="{% url 'account_login' %}">{% csrf_token %}
+                            <div class="form-group">
+                              <label class="sr-only" for="form-username">Username</label>
+                                <input id="id_login" type="text" placeholder="Nombre de usuario" name="login" maxlength="50" autofocus="autofocus" class="form-username form-control">                                
+                              </div>
+                              <div class="form-group">
+                                <label class="sr-only" for="form-password">Password</label>
+                                <input id="id_password" type="password" placeholder="Contraseña" name="password" class="form-password form-control">
+                              </div>
+                              <p>
+                              <label for="id_remember">Recordarme:</label>
+                              <input id="id_remember" type="checkbox" name="remember">
+                              </p>
+                              {% if redirect_field_value %}
+                              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                              {% endif %}
+                              <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+                              <button type="submit" class="btn">Registrarse!</button>
+                          </form>
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+        </div>
+{% endblock %}
