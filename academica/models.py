@@ -125,7 +125,7 @@ class Alumnos(models.Model):
     cp = models.CharField(max_length=50, blank=True, verbose_name='Codigo Postal')
     telefono = models.CharField(max_length=50, blank=True)
     lugar_nac = models.CharField(max_length=50, blank=True, null=True, verbose_name='Lugar de nacimiento')
-    fecha_nacimiento = models.DateTimeField(blank=True, null=True)
+    fecha_nacimiento = models.DateField(blank=True, null=True)
     alergias = models.CharField(max_length=50, blank=True)
     enfermedades = models.CharField(max_length=50, blank=True, verbose_name='Padecimientos')
     contacto_emergencia = models.CharField(max_length=50, blank=True)
