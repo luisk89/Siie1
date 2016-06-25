@@ -25,7 +25,7 @@ activate('es')
 from academica.models import Alumnos, PlanEstudio, Extracurriculares, Grupos, Horario, Maestros, Materias, \
     AlumnoCalificacion, Carreras, Bajas, Evaluacion, EncuestaEgresados, AlumnoPrevio, Aulas, \
     Municipios, Estados, Calificaciones, ServicioHoras, Becas, TipoBeca, Escuela, Biblioteca, CentroComputo, \
-    Contabilidad, Semestre
+    Contabilidad, Semestre, Localidad
 
 
 class AlumnoCreate(LoggedInMixin, CreateView):
@@ -764,6 +764,21 @@ class MunicipioList(LoggedInMixin, ListView):
         context['form_municipio'] = MunicipioForm
         return context
 
+    def get_localidad_by_municipio(request):
+
+        if request.is_ajax():
+        # alumnosReturn=Alumnos.objects.filter(Q(nom_alumno__contains=request.GET['nombre']) | Q(apellido_paterno__contains=request.GET['apellidoP'])| Q(apellido_materno__contains=request.GET['apellidoM'])|Q(semestre__id__contains=request.GET['semestre'])|Q(no_expediente__contains=request.GET['expediente'])).all()
+            print(request.GET['municipio'])
+
+            result=Localidad.objects.filter(municipio=request.GET['municipio']).all()
+            retorno = []
+            for a in result:
+                retorno.append({'id': a.id, 'nombre': a.nombre})
+
+            return HttpResponse(json.dumps(retorno))
+        else:
+            return redirect('/')
+
 
 class EstadoCreate(LoggedInMixin, CreateView):
     model = Estados
@@ -948,3 +963,4 @@ class CalificacionesListByMateria(ListView):
             return HttpResponse(json.dumps(retorno))
         else:
             redirect('academica/calificacion/profesor_calificaciones.html')
+

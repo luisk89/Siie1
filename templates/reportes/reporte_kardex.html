@@ -41,6 +41,9 @@
             <!-- /.row -->
             <br>
             <br>
+            {% for c in calificaciones %}
+                <p>{{ c.semestre.ciclo_semestral }}</p>
+            {% endfor %}
             <!-- Table row -->
             <div class="row">
                 <div class="col-xs-6 table-responsive">

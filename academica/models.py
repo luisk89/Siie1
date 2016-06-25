@@ -500,11 +500,12 @@ class Equipos(models.Model):
 
 class Estados(models.Model):
     nom_estado = models.CharField(max_length=50, blank=True)
-    clave = models.CharField(max_length=50, blank=True)
+    clave = models.CharField(unique=True,max_length=2)
+    abrev=models.CharField(max_length=16, blank=True)
 
-    alta_date_created = models.DateTimeField(auto_now_add=True)
+    alta_date_created = models.DateTimeField(auto_now_add=True,blank=True,null=True)
     baja_date_created = models.DateTimeField(blank=True, null=True)
-    is_active = models.BooleanField(default=True, verbose_name="activo")
+    activo = models.IntegerField(null=True,blank=True)
 
     class Meta:
         ordering = ["nom_estado"]
@@ -672,10 +673,12 @@ class Maestros(models.Model):
 
 class Municipios(models.Model):
     nom_municipio = models.CharField(max_length=50, blank=True)
-    estado = models.ForeignKey('Estados',blank=True,null=True)
-    alta_date_created = models.DateTimeField(auto_now_add=True)
+    estado = models.ForeignKey('Estados', blank=True, null=True)
+    clave = models.CharField(max_length=3, blank=True, null=True)
+
+    alta_date_created = models.DateTimeField(auto_now_add=True,blank=True,null=True)
     baja_date_created = models.DateTimeField(blank=True, null=True)
-    is_active = models.BooleanField(default=True)
+    activo = models.IntegerField(null=True,blank=True)
 
     def __str__(self):
         return self.nom_municipio
@@ -1051,3 +1054,20 @@ class Calificaciones(models.Model):
 
     def __str__(self):
         return self.matricula.matricula
+
+class Localidad(models.Model):
+    municipio=models.ForeignKey('Municipios')
+    clave=models.CharField(max_length=4)
+    nombre=models.CharField(max_length=110, blank=True, null=True)
+    latitud=models.CharField(max_length=15, blank=True, null=True)
+    longitud=models.CharField(max_length=15, blank=True, null=True)
+    lat=models.DecimalField(max_digits=10, decimal_places=7, blank=True,null=True)
+    lng=models.DecimalField(max_digits=10, decimal_places=7, blank=True,null=True)
+    altitud=models.CharField(max_length=15, blank=True, null=True)
+
+    alta_date_created = models.DateTimeField(auto_now_add=True,blank=True, null=True)
+    baja_date_created = models.DateTimeField(blank=True, null=True)
+    activo = models.IntegerField(blank=True,null=True)
+
+    def __str__(self):
+        return self.nombre

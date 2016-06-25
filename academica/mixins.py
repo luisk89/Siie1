@@ -1,5 +1,5 @@
 from django.shortcuts import _get_queryset
-from academica.models import PlanEstudio,Extracurriculares, Alumnos, Empresas, Semestre
+from academica.models import PlanEstudio,Extracurriculares, Alumnos, Empresas, Semestre, Municipios
 
 __author__ = 'Luisk'
 
@@ -35,3 +35,5 @@ def getEstudiantesPuedenSS():
 def getAlumnos():
     return Alumnos.objects.all()
 
+def getMunicipios():
+    return Municipios.objects.all()

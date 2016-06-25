@@ -77,6 +77,11 @@ DIAS_SELECT = (
     ('Domingo', 'Domingo'),
 
 )
+WHITE_SPACE = (
+    ('-------', '------'),
+
+
+)
 hoy = datetime.datetime.now()
 hoy = hoy.strftime('%Y-%m-%d')
 style_numeric = 'ui-widget ui-widget-content numeric-field'
@@ -93,6 +98,8 @@ class AlumnosForm(forms.ModelForm):
         }
 
 
+    municipio=forms.ModelChoiceField(queryset=mixins.getMunicipios(),
+                                  widget=forms.Select(attrs={'class': 'form-control'}), required=False)
 
     sexo = forms.ChoiceField(choices=GENERO_SELECT,
                              widget=forms.Select(), required=False, label='Genero')
@@ -123,7 +130,7 @@ class AlumnosForm(forms.ModelForm):
         self.fields['trabaja_actualmente'].widget.attrs['onchange']="javascript:showContent1()"
         self.fields['carrera'].widget.attrs['onchange']="javascript:Buscar()"
         self.fields['matricula'].widget.attrs['placeholder']="AACCCC"
-
+        self.fields['municipio'].widget.attrs['onclick'] = "javascript:cambiarLocalidad();"
         self.helper.form_class = 'box box-success'
         self.helper.label_class = 'form-group'
         self.helper.add_input(Submit('submit', 'Guardar'))
@@ -145,7 +152,7 @@ class AlumnosForm(forms.ModelForm):
                     'edo_civil',
                     Fieldset('Datos medicos', 'tipo_sangre', 'alergias', 'enfermedades', HTML("""<div id="div_id_seguro" class="checkbox"> <label for="id_seguro" class=""> <input checked="checked" class="checkboxinput" id="id_seguro" name="seguro" type="checkbox" value="1" onchange="javascript:showContent()">
                     Servicio Medico</label> </div>"""), Div('num_afiliacion', 'servicio_medico', id='div_ServicioMedico')),
-                    Fieldset('Domicilio', 'colonia', 'localidad', 'municipio', 'domicilio', 'telefono', 'cp', 'email',
+                    Fieldset('Domicilio', 'colonia','municipio','localidad','domicilio', 'telefono', 'cp', 'email',
                              id='domicilio')
                 ),
 
@@ -352,7 +359,7 @@ class GrupoForm(forms.ModelForm):
         self.helper.label_class = 'form-group'
         self.helper.add_input(Submit('submit', 'Guardar'))
         self.helper.layout = Layout(
-            Fieldset('General','clave', 'nombre', 'cant_alumnos', 'semestre', 'actual', 'ciclo_escolar','horarios', 'plan', 'materias')
+            Fieldset('General','clave', 'nombre', 'cant_alumnos', 'semestre', 'actual', 'ciclo_escolar', 'plan')
         )
 
 
@@ -373,7 +380,7 @@ class GrupoUpdateForm(forms.ModelForm):
         self.helper.label_class = 'form-group'
         self.helper.add_input(Submit('submit', 'Guardar'))
         self.helper.layout = Layout(
-            Fieldset('General','clave','nombre','cant_alumnos','semestre','actual','ciclo_escolar','plan','materias'
+            Fieldset('General','clave','nombre','cant_alumnos','semestre','actual','ciclo_escolar','plan'
             )
         )
 

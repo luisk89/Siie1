@@ -274,6 +274,32 @@ function cargarPlan() {
     Dajaxice.academica.cargar_plan(Dajax.process);
 }
 
+function cambiarLocalidad(){
+    var id_municipio = $('#id_municipio').val()
+
+    console.log(id_municipio)
+
+    $.ajax({
+        data: {
+            'municipio': id_municipio,
+
+
+        },
+        url: '/academica/buscarloc-ajax/',
+        type: 'get',
+        success: function (data) {
+            var objeto = JSON.parse(data)
+             options = '<option selected="selected" value="">---------</option>'
+            for (var i = 0; i < objeto.length; i++) {
+              options += '<option value='+objeto[i].id+'>'+objeto[i].nombre+'</option>'
+            }
+            html='<select>'+options+'</select>'
+            $('#id_localidad').html(html)
+        }
+
+    })
+
+}
 
 $.ajaxSetup({
     beforeSend: function (xhr, settings) {

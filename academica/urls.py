@@ -128,6 +128,8 @@ urlpatterns = patterns('',
                        url(r'califprof/$', CalificacionesListByMateria.get_materias_by_profesor, name='profesor-calificacion'),
                        url(r'^matcal-ajax/$', CalificacionesListByMateria.get_calificaciones_by_materia_ajax, name='materias-calificacion'),
 
+                         url(r'^buscarloc-ajax/$', MunicipioList.get_localidad_by_municipio, name='localida-municipio'),
+
 
 
 
