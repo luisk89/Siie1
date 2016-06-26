@@ -355,7 +355,7 @@ class PlanEstudioForm(forms.ModelForm):
 class GrupoForm(forms.ModelForm):
     class Meta:
         model = Grupos
-        fields = '__all__'
+        exclude = ("baja_date_created", "alta_date_created", "is_active")
 
 
     def __init__(self, *args, **kwargs):
@@ -451,7 +451,7 @@ class MaestroForm(forms.ModelForm):
 
     class Meta:
         model = Maestros
-        fields = '__all__'
+        exclude = ("baja_date_created", "alta_date_created", "is_active")
 
 
 class CalificacionForm(forms.ModelForm):
@@ -484,7 +484,7 @@ class CarreraForm(forms.ModelForm):
 
     class Meta:
         model = Carreras
-        fields = '__all__'
+        exclude = ("baja_date_created", "alta_date_created", "is_active")
 
 
 class CarreraUpdateForm(forms.ModelForm):
