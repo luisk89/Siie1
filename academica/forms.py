@@ -121,6 +121,7 @@ class AlumnosForm(forms.ModelForm):
         self.fields['edad'].widget.attrs['min'] = 1
         self.fields['sueldo_mensual'].widget.attrs['min'] = 0
         self.fields['sueldo_mensual_alumno'].widget.attrs['min'] = 0
+        self.fields['is_active'].widget = forms.HiddenInput()
         self.fields['plan'].widget.attrs['onchange']="javascript:Buscar()"
         self.fields['semestre'].widget.attrs['onchange']="javascript:Buscar()"
         self.fields['trabaja_actualmente'].widget.attrs['onchange']="javascript:showContent1()"
@@ -147,6 +148,7 @@ class AlumnosForm(forms.ModelForm):
             TabHolder(
                 Tab(
                     'Datos Personales',
+                    'is_active',
                     'nom_alumno',
                     'apellido_paterno',
                     'apellido_materno',
@@ -254,6 +256,7 @@ class ReinscripcionAlumnoForm(forms.ModelForm):
         self.fields['sueldo_mensual'].widget.attrs['min'] = 0
         self.fields['sueldo_mensual_alumno'].widget.attrs['min'] = 0
         self.fields['is_active'].widget = forms.HiddenInput()
+        self.fields['is_active'].initial = True
         self.fields['plan'].widget.attrs['onchange']="javascript:Buscar()"
         self.fields['semestre'].widget.attrs['onchange']="javascript:Buscar()"
         self.fields['trabaja_actualmente'].widget.attrs['onchange']="javascript:showContent1()"

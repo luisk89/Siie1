@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+
 import socket
 
 if socket.gethostname().startswith('valenzuela'):
@@ -94,11 +95,7 @@ AUTHENTICATION_BACKENDS = (
 )
 # List of finder classes that know how to find static files in
 # various locations.
-STATICFILES_FINDERS = (
-   'django.contrib.staticfiles.finders.FileSystemFinder',
-   'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-   'dajaxice.finders.DajaxiceFinder',
-)
+
 
 
 DAJAXICE_MEDIA_PREFIX = "dajaxice"
@@ -146,7 +143,7 @@ AUTH_USER_MODEL = 'users.User'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Siie',
+        'NAME': 'Test1',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'localhost',
@@ -172,19 +169,28 @@ SITE_ID = 1
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'site_media', 'media')
-MEDIA_URL = '/media/'
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+def ABS_DIR(rel):
+    return os.path.join(BASE_DIR, rel.replace('/', os.path.sep))
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'site_media', 'static')
+MEDIA_ROOT = ABS_DIR('media/site_media/')
+MEDIA_URL = '/site_media/'
+STATIC_ROOT = ABS_DIR('media/static/')
 STATIC_URL = '/static/'
 
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, "templates"),)
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+STATICFILES_DIRS = (
+    ABS_DIR('static'),
+)
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
 
-WKHTMLTOPDF_CMD='C:/Program Files/wkhtmltopdf/'
 
+STATICFILES_FINDERS = (
+   'django.contrib.staticfiles.finders.FileSystemFinder',
+   'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+   'dajaxice.finders.DajaxiceFinder',
+)
 
 if APP_MODE == 'dev':
     TEMPLATE_LOADERS = (

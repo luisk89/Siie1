@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 from django.views.generic.base import View, TemplateView
 from django.views.generic.detail import DetailView
-from wkhtmltopdf.views import PDFTemplateResponse
+from wkhtmltopdf.views import PDFTemplateView
 from academica.models import Alumnos, Grupos, Calificaciones, Materias, PlanEstudio, Carreras, Semestre
 from reportes.forms import InscripcionReporteForm
 
@@ -62,10 +62,17 @@ class Boleta_Semestral_To_PDF(TemplateView):
     template_name = 'reportes/reporte_boleta_form.html'
 
 
-class Inscripcion_To_PDF(DetailView):
-    template_name = 'reportes/reporte_inscripcion.html'
+class Inscripcion_To_PDF(PDFTemplateView):
+    template_name = 'reportes/Reporte_Inscripcion.html'
     form_class = InscripcionReporteForm
     model = Alumnos
+    cmd_options = {
+        'page-size': 'A4',
+        'margin-top': 15,
+        'margin-right': 3,
+        'margin-bottom': 3,
+        'margin-left': 3,
+    }
 
     def get_context_data(self, **kwargs):
         cxt = super(Inscripcion_To_PDF, self).get_context_data(**kwargs)
@@ -77,7 +84,9 @@ class Inscripcion_To_PDF(DetailView):
 
         return cxt
 
-class Reinscripcion_To_PDF(DetailView):
+
+
+class Reinscripcion_To_PDF(PDFTemplateView):
     template_name = 'reportes/reporte_reinscripcion.html'
     form_class = InscripcionReporteForm
     model = Alumnos
