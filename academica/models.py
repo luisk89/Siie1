@@ -120,8 +120,6 @@ class Alumnos(models.Model):
     condicionado = models.SmallIntegerField(blank=True, null=True,verbose_name='Status')
     domicilio = models.CharField(max_length=100, blank=True)
     colonia = models.CharField(max_length=50, blank=True)
-    localidad = models.CharField(max_length=50, blank=True)
-    municipio = models.CharField(max_length=50,blank=True,null=True)
     cp = models.CharField(max_length=50, blank=True, verbose_name='Codigo Postal')
     telefono = models.CharField(max_length=50, blank=True)
     lugar_nac = models.CharField(max_length=50, blank=True, null=True, verbose_name='Lugar de nacimiento')
@@ -168,6 +166,11 @@ class Alumnos(models.Model):
     carrera = models.ForeignKey("Carreras",to_field='clave',blank=True, null=True)
     # nuevos campos
     grupo = models.ForeignKey('Grupos',to_field='clave',blank=True, null=True)
+
+    estado=models.ForeignKey('Estados',blank=True,null=True)
+    localidad = models.ForeignKey('Localidad',blank=True,null=True)
+    municipio = models.ForeignKey('Municipios',blank=True,null=True)
+
 
     alta_date_created = models.DateTimeField(auto_now_add=True)
     baja_date_created = models.DateTimeField(blank=True, null=True)
@@ -594,7 +597,7 @@ class Horario(models.Model):
         return self.nombre
 
     class Meta:
-        ordering = ["aula"]
+        ordering = ["grupo"]
 
     def get_absolute_url(self):
         return reverse('list-horario')

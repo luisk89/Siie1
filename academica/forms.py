@@ -78,7 +78,7 @@ DIAS_SELECT = (
 
 )
 WHITE_SPACE = (
-    ('-------', '------'),
+    ('', '----------'),
 
 
 )
@@ -97,10 +97,7 @@ class AlumnosForm(forms.ModelForm):
             'fecha_nacimiento': forms.DateInput(attrs={'placeholder': 'dd/mm/aaaa','class': 'datepicker ui-widget ui-widget-content date-field'}),
         }
 
-
-    municipio=forms.ModelChoiceField(queryset=mixins.getMunicipios(),
-                                  widget=forms.Select(attrs={'class': 'form-control'}), required=False)
-
+    localidad = forms.ChoiceField(widget=forms.Select(),required=False)
     sexo = forms.ChoiceField(choices=GENERO_SELECT,
                              widget=forms.Select(), required=False, label='Genero')
     edo_civil = forms.ChoiceField(choices=Estado_Civil,
@@ -130,6 +127,11 @@ class AlumnosForm(forms.ModelForm):
         self.fields['carrera'].widget.attrs['onchange']="javascript:Buscar()"
         self.fields['matricula'].widget.attrs['placeholder']="AACCCC"
         self.fields['municipio'].widget.attrs['onclick'] = "javascript:cambiarLocalidad();"
+        self.fields['estado'].widget.attrs['onclick'] = "javascript:cambiarMunicipio();"
+
+
+
+
         is_insert = self.instance.pk is None
         if is_insert:
             self.fields['matricula'].widget.attrs['onfocus'] = "javascript:Buscar()"
@@ -157,8 +159,9 @@ class AlumnosForm(forms.ModelForm):
                     'edo_civil',
                     Fieldset('Datos medicos', 'tipo_sangre', 'alergias', 'enfermedades', HTML("""<div id="div_id_seguro" class="checkbox"> <label for="id_seguro" class=""> <input checked="checked" class="checkboxinput" id="id_seguro" name="seguro" type="checkbox" value="1" onchange="javascript:showContent()">
                     Servicio Medico</label> </div>"""), Div('num_afiliacion', 'servicio_medico', id='div_ServicioMedico')),
-                    Fieldset('Domicilio', 'colonia','municipio','localidad','domicilio', 'telefono', 'cp', 'email',
-                             id='domicilio')
+                    Fieldset('Domicilio', 'colonia','estado','municipio','localidad','domicilio', 'telefono', 'cp',
+                             id='domicilio'),
+                     Fieldset('Correo','email')
                 ),
 
                 Tab(
@@ -240,6 +243,7 @@ class ReinscripcionAlumnoForm(forms.ModelForm):
 
 
 
+
     curp=forms.CharField(max_length=18,required=False)
 
 
@@ -279,8 +283,9 @@ class ReinscripcionAlumnoForm(forms.ModelForm):
                     'edo_civil',
                     Fieldset('Datos medicos', 'tipo_sangre', 'alergias', 'enfermedades', HTML("""<div id="div_id_seguro" class="checkbox"> <label for="id_seguro" class=""> <input checked="checked" class="checkboxinput" id="id_seguro" name="seguro" type="checkbox" value="1" onchange="javascript:showContent()">
                     Servicio Medico</label> </div>"""), Div('num_afiliacion', 'servicio_medico', id='div_ServicioMedico')),
-                    Fieldset('Domicilio', 'colonia', 'localidad', 'municipio', 'domicilio', 'telefono', 'cp', 'email',
-                             id='domicilio')
+                    Fieldset('Domicilio', 'colonia', 'estado','municipio', 'localidad', 'domicilio', 'telefono', 'cp',
+                             id='domicilio'),
+                     Fieldset('email')
                 ),
 
                 Tab(

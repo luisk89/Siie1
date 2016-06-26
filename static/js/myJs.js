@@ -293,12 +293,46 @@ function cambiarLocalidad(){
             for (var i = 0; i < objeto.length; i++) {
               options += '<option value='+objeto[i].id+'>'+objeto[i].nombre+'</option>'
             }
-            html='<select>'+options+'</select>'
-            $('#id_localidad').html(html)
+            html='<select class=select id=id_localidad>'+options+'</select>'
+            $('#id_localidad').html(options)
+            document.getElementById('id_localidad').disabled=false
         }
 
     })
 
+}
+
+function cambiarMunicipio(){
+    var id_estado= $('#id_estado').val()
+
+    console.log(id_estado)
+
+    $.ajax({
+        data: {
+            'estado': id_estado,
+
+
+        },
+        url: '/academica/buscarmun-ajax/',
+        type: 'get',
+        success: function (data) {
+            var objeto = JSON.parse(data)
+             options = '<option selected="selected" value="">---------</option>'
+            for (var i = 0; i < objeto.length; i++) {
+              options += '<option value='+objeto[i].id+'>'+objeto[i].nombre+'</option>'
+            }
+            html='<select class=select id=id_localidad>'+options+'</select>'
+            $('#id_municipio').html(options)
+            document.getElementById('id_municipio').disabled=false
+        }
+
+    })
+
+}
+function addhorario(id) {
+    console.log("aass")
+    console.log(id)
+    $('#id_grupo').val()
 }
 
 $.ajaxSetup({

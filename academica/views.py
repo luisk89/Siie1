@@ -768,6 +768,7 @@ class MunicipioList(LoggedInMixin, ListView):
 
         if request.is_ajax():
         # alumnosReturn=Alumnos.objects.filter(Q(nom_alumno__contains=request.GET['nombre']) | Q(apellido_paterno__contains=request.GET['apellidoP'])| Q(apellido_materno__contains=request.GET['apellidoM'])|Q(semestre__id__contains=request.GET['semestre'])|Q(no_expediente__contains=request.GET['expediente'])).all()
+
             print(request.GET['municipio'])
 
             result=Localidad.objects.filter(municipio=request.GET['municipio']).all()
@@ -795,6 +796,21 @@ class EstadoList(LoggedInMixin, ListView):
         context = super(EstadoList, self).get_context_data(**kwargs)
         context['form_estado'] = EstadoForm
         return context
+
+    def get_municipio_by_estado(request):
+
+        if request.is_ajax():
+        # alumnosReturn=Alumnos.objects.filter(Q(nom_alumno__contains=request.GET['nombre']) | Q(apellido_paterno__contains=request.GET['apellidoP'])| Q(apellido_materno__contains=request.GET['apellidoM'])|Q(semestre__id__contains=request.GET['semestre'])|Q(no_expediente__contains=request.GET['expediente'])).all()
+            print(request.GET['estado'])
+
+            result=Municipios.objects.filter(estado=request.GET['estado']).all()
+            retorno = []
+            for a in result:
+                retorno.append({'id': a.id, 'nombre': a.nom_municipio})
+
+            return HttpResponse(json.dumps(retorno))
+        else:
+            return redirect('/')
 
 
 class AulaCreate(LoggedInMixin, CreateView):
