@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Aceptados',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('aceptado', models.SmallIntegerField(blank=True, null=True)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='AlumnoCalificacion',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('calificacion', models.IntegerField(blank=True, null=True)),
                 ('calificacion_letra', models.CharField(blank=True, max_length=100)),
                 ('revalidacion', models.SmallIntegerField(blank=True, null=True)),
@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='AlumnoPrevio',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
@@ -55,7 +55,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='AlumnoProyecto',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('concluyo', models.SmallIntegerField(blank=True, null=True)),
                 ('calificado', models.SmallIntegerField(blank=True, null=True)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
@@ -69,8 +69,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Alumnos',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('nom_alumno', models.CharField(verbose_name='Nombre', db_index=True, max_length=200)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('nom_alumno', models.CharField(db_index=True, verbose_name='Nombre', max_length=200)),
                 ('apellido_materno', models.CharField(max_length=50)),
                 ('apellido_paterno', models.CharField(max_length=50)),
                 ('curp', models.CharField(blank=True, max_length=25)),
@@ -85,12 +85,12 @@ class Migration(migrations.Migration):
                 ('tipo', models.CharField(blank=True, max_length=50)),
                 ('no_expediente', models.CharField(blank=True, max_length=50)),
                 ('matricula', models.CharField(unique=True, max_length=20)),
-                ('condicionado', models.SmallIntegerField(blank=True, verbose_name='Status', null=True)),
+                ('condicionado', models.SmallIntegerField(blank=True, null=True, verbose_name='Status')),
                 ('domicilio', models.CharField(blank=True, max_length=100)),
                 ('colonia', models.CharField(blank=True, max_length=50)),
                 ('cp', models.CharField(blank=True, verbose_name='Codigo Postal', max_length=50)),
                 ('telefono', models.CharField(blank=True, max_length=50)),
-                ('lugar_nac', models.CharField(blank=True, verbose_name='Lugar de nacimiento', null=True, max_length=50)),
+                ('lugar_nac', models.CharField(blank=True, null=True, max_length=50, verbose_name='Lugar de nacimiento')),
                 ('fecha_nacimiento', models.DateField(blank=True, null=True)),
                 ('alergias', models.CharField(blank=True, max_length=50)),
                 ('enfermedades', models.CharField(blank=True, verbose_name='Padecimientos', max_length=50)),
@@ -103,13 +103,13 @@ class Migration(migrations.Migration):
                 ('localidad_tutor', models.CharField(blank=True, max_length=50)),
                 ('telefono_tutor', models.CharField(blank=True, max_length=50)),
                 ('ocupacion_tutor', models.CharField(blank=True, max_length=50)),
-                ('sueldo_mensual', models.DecimalField(blank=True, decimal_places=4, null=True, max_digits=19)),
+                ('sueldo_mensual', models.DecimalField(blank=True, max_digits=19, null=True, decimal_places=4)),
                 ('domicilio_madre', models.CharField(blank=True, max_length=100)),
                 ('localidad_madre', models.CharField(blank=True, max_length=50)),
                 ('telefono_madre', models.CharField(blank=True, max_length=50)),
                 ('trabaja_actualmente', models.BooleanField(default=False)),
                 ('puesto', models.CharField(blank=True, max_length=50)),
-                ('sueldo_mensual_alumno', models.DecimalField(blank=True, decimal_places=4, null=True, max_digits=19)),
+                ('sueldo_mensual_alumno', models.DecimalField(blank=True, max_digits=19, null=True, decimal_places=4)),
                 ('transporte', models.SmallIntegerField(blank=True, null=True)),
                 ('transporte_universidad', models.SmallIntegerField(blank=True, null=True)),
                 ('deporte_practica', models.CharField(blank=True, max_length=50)),
@@ -121,8 +121,8 @@ class Migration(migrations.Migration):
                 ('credencial', models.SmallIntegerField(blank=True, null=True)),
                 ('foto', models.ImageField(blank=True, default='foto.png', upload_to='fotos')),
                 ('firma', models.ImageField(blank=True, upload_to='firma')),
-                ('anio_egreso', models.CharField(blank=True, verbose_name='Egreso', null=True, max_length=5)),
-                ('promedio_bachiller', models.IntegerField(blank=True, verbose_name='Promedio', null=True)),
+                ('anio_egreso', models.CharField(blank=True, null=True, max_length=5, verbose_name='Egreso')),
+                ('promedio_bachiller', models.IntegerField(blank=True, null=True, verbose_name='Promedio')),
                 ('password', models.CharField(blank=True, max_length=50)),
                 ('email', models.EmailField(unique=True, max_length=75)),
                 ('is_deuda', models.BooleanField(default=False)),
@@ -131,15 +131,15 @@ class Migration(migrations.Migration):
                 ('is_active', models.BooleanField(default=True)),
             ],
             options={
-                'permissions': (('can_view_servicios_escolares', 'Servicios Escolares'),),
                 'ordering': ['nom_alumno'],
+                'permissions': (('can_view_servicios_escolares', 'Servicios Escolares'),),
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='AlumnosAsesorados',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nombre', models.CharField(blank=True, max_length=50)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
@@ -152,7 +152,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Aulas',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nom_aula', models.CharField(blank=True, max_length=50)),
                 ('edificio', models.CharField(blank=True, max_length=50)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
@@ -166,7 +166,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Bajas',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('motivo', models.CharField(blank=True, max_length=200)),
                 ('observaciones', models.CharField(blank=True, null=True, max_length=200)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
@@ -180,9 +180,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Becas',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nom_beca', models.CharField(blank=True, max_length=50)),
-                ('limite_becas_total', models.IntegerField(blank=True, verbose_name='Limite de becas al 100%(Total)', null=True)),
+                ('limite_becas_total', models.IntegerField(blank=True, null=True, verbose_name='Limite de becas al 100%(Total)')),
                 ('restriccion_becas', models.BooleanField(verbose_name='Restringir capturas de becas(Nuevo Ingreso)', default=False)),
                 ('restriccion_promedios', models.BooleanField(verbose_name='Estatus de candados por promedio', default=False)),
                 ('promedio_80_84', models.CharField(blank=True, null=True, max_length=50)),
@@ -192,7 +192,7 @@ class Migration(migrations.Migration):
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('alumnos', models.ManyToManyField(blank=True, to='academica.Alumnos', null=True)),
+                ('alumnos', models.ManyToManyField(to='academica.Alumnos', blank=True, null=True)),
             ],
             options={
             },
@@ -201,12 +201,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Biblioteca',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('observacion', models.CharField(blank=True, verbose_name='Observaciones', null=True, max_length=250)),
-                ('alta_date_created', models.DateTimeField(blank=True, verbose_name='Alta de adeudo', null=True)),
-                ('baja_date_created', models.DateTimeField(blank=True, verbose_name='Baja de adeudo', null=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('observacion', models.CharField(blank=True, null=True, max_length=250, verbose_name='Observaciones')),
+                ('alta_date_created', models.DateTimeField(blank=True, null=True, verbose_name='Alta de adeudo')),
+                ('baja_date_created', models.DateTimeField(blank=True, null=True, verbose_name='Baja de adeudo')),
                 ('is_active', models.BooleanField(verbose_name='Deuda Activa', default=True)),
-                ('alumno', models.ForeignKey(unique=True, to='academica.Alumnos')),
+                ('alumno', models.ForeignKey(to='academica.Alumnos', unique=True)),
             ],
             options={
             },
@@ -215,32 +215,32 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Calificaciones',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('primera', models.DecimalField(blank=True, verbose_name='1ra Calificacion', decimal_places=0, null=True, max_digits=3)),
-                ('status1', models.IntegerField(blank=True, verbose_name='Status', null=True)),
-                ('segunda', models.DecimalField(blank=True, verbose_name='2da Calificacion', decimal_places=0, null=True, max_digits=3)),
-                ('status2', models.IntegerField(blank=True, verbose_name='Status', null=True)),
-                ('tercera', models.DecimalField(blank=True, verbose_name='3ra Calificacion', decimal_places=0, null=True, max_digits=3)),
-                ('status3', models.IntegerField(blank=True, verbose_name='Status', null=True)),
-                ('cuarta', models.DecimalField(blank=True, verbose_name='4ta Calificacion', decimal_places=0, null=True, max_digits=3)),
-                ('status4', models.IntegerField(blank=True, verbose_name='Status', null=True)),
-                ('quinta', models.DecimalField(blank=True, verbose_name='5ta Calificacion', decimal_places=0, null=True, max_digits=3)),
-                ('status5', models.IntegerField(blank=True, verbose_name='Status', null=True)),
-                ('sexta', models.DecimalField(blank=True, verbose_name='6ta Calificacion', decimal_places=0, null=True, max_digits=3)),
-                ('status6', models.IntegerField(blank=True, verbose_name='Status', null=True)),
-                ('final', models.DecimalField(blank=True, verbose_name='Calificacion Final', decimal_places=0, null=True, max_digits=3)),
-                ('status_final', models.IntegerField(blank=True, verbose_name='Status', null=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('primera', models.DecimalField(blank=True, max_digits=3, null=True, decimal_places=0, verbose_name='1ra Calificacion')),
+                ('status1', models.IntegerField(blank=True, null=True, verbose_name='Status')),
+                ('segunda', models.DecimalField(blank=True, max_digits=3, null=True, decimal_places=0, verbose_name='2da Calificacion')),
+                ('status2', models.IntegerField(blank=True, null=True, verbose_name='Status')),
+                ('tercera', models.DecimalField(blank=True, max_digits=3, null=True, decimal_places=0, verbose_name='3ra Calificacion')),
+                ('status3', models.IntegerField(blank=True, null=True, verbose_name='Status')),
+                ('cuarta', models.DecimalField(blank=True, max_digits=3, null=True, decimal_places=0, verbose_name='4ta Calificacion')),
+                ('status4', models.IntegerField(blank=True, null=True, verbose_name='Status')),
+                ('quinta', models.DecimalField(blank=True, max_digits=3, null=True, decimal_places=0, verbose_name='5ta Calificacion')),
+                ('status5', models.IntegerField(blank=True, null=True, verbose_name='Status')),
+                ('sexta', models.DecimalField(blank=True, max_digits=3, null=True, decimal_places=0, verbose_name='6ta Calificacion')),
+                ('status6', models.IntegerField(blank=True, null=True, verbose_name='Status')),
+                ('final', models.DecimalField(blank=True, max_digits=3, null=True, decimal_places=0, verbose_name='Calificacion Final')),
+                ('status_final', models.IntegerField(blank=True, null=True, verbose_name='Status')),
                 ('borrado', models.IntegerField(blank=True, null=True)),
                 ('tipoacreditacion', models.IntegerField(blank=True, null=True)),
                 ('actualizado', models.DateTimeField(blank=True, null=True)),
                 ('fecha_revalidacion', models.DateTimeField(blank=True, null=True)),
-                ('fecha_modificacion', models.DateTimeField(auto_now_add=True, null=True)),
+                ('fecha_modificacion', models.DateTimeField(null=True, auto_now_add=True)),
                 ('modulo', models.IntegerField(blank=True, null=True)),
                 ('login', models.CharField(blank=True, null=True, max_length=20)),
                 ('claveubicacion', models.CharField(blank=True, null=True, max_length=10)),
                 ('id_curso', models.IntegerField(blank=True, null=True)),
                 ('fecha_extraordinario', models.DateTimeField(blank=True, null=True)),
-                ('alta_date_created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('alta_date_created', models.DateTimeField(null=True, auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
             ],
@@ -251,9 +251,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Carreras',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nom_carrera', models.CharField(blank=True, max_length=50)),
-                ('clave', models.CharField(blank=True, unique=True, max_length=50)),
+                ('clave', models.CharField(blank=True, max_length=50, unique=True)),
                 ('abreviatura', models.CharField(blank=True, max_length=50)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
@@ -267,12 +267,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CentroComputo',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('observacion', models.CharField(blank=True, verbose_name='Observaciones', null=True, max_length=250)),
-                ('alta_date_created', models.DateTimeField(blank=True, verbose_name='Alta de adeudo', null=True)),
-                ('baja_date_created', models.DateTimeField(blank=True, verbose_name='Baja de adeudo', null=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('observacion', models.CharField(blank=True, null=True, max_length=250, verbose_name='Observaciones')),
+                ('alta_date_created', models.DateTimeField(blank=True, null=True, verbose_name='Alta de adeudo')),
+                ('baja_date_created', models.DateTimeField(blank=True, null=True, verbose_name='Baja de adeudo')),
                 ('is_active', models.BooleanField(verbose_name='Deuda Activa', default=True)),
-                ('alumno', models.ForeignKey(unique=True, to='academica.Alumnos')),
+                ('alumno', models.ForeignKey(to='academica.Alumnos', unique=True)),
             ],
             options={
             },
@@ -281,12 +281,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Contabilidad',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('observacion', models.CharField(blank=True, verbose_name='Observaciones', null=True, max_length=250)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('observacion', models.CharField(blank=True, null=True, max_length=250, verbose_name='Observaciones')),
                 ('alta_date_created', models.DateTimeField(verbose_name='Alta de adeudo')),
-                ('baja_date_created', models.DateTimeField(blank=True, verbose_name='Baja de adeudo', null=True)),
+                ('baja_date_created', models.DateTimeField(blank=True, null=True, verbose_name='Baja de adeudo')),
                 ('is_active', models.BooleanField(verbose_name='Deuda Activa', default=True)),
-                ('alumno', models.ForeignKey(unique=True, to='academica.Alumnos')),
+                ('alumno', models.ForeignKey(to='academica.Alumnos', unique=True)),
             ],
             options={
             },
@@ -295,7 +295,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CreditoEducativo',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('estado', models.SmallIntegerField(blank=True, null=True)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
@@ -309,7 +309,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Cursos',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nombre', models.CharField(blank=True, max_length=50)),
                 ('hora', models.DateTimeField(blank=True, null=True)),
                 ('instructor', models.CharField(blank=True, null=True, max_length=50)),
@@ -324,12 +324,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Divisiones',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('division', models.CharField(blank=True, max_length=50)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('carreras', models.ManyToManyField(blank=True, to='academica.Carreras', null=True)),
+                ('carreras', models.ManyToManyField(to='academica.Carreras', blank=True, null=True)),
             ],
             options={
             },
@@ -338,12 +338,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Documentos',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nombre', models.CharField(blank=True, max_length=50)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('alumnos', models.ManyToManyField(blank=True, to='academica.Alumnos', null=True)),
+                ('alumnos', models.ManyToManyField(to='academica.Alumnos', blank=True, null=True)),
             ],
             options={
             },
@@ -352,12 +352,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Empresas',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nombre', models.CharField(blank=True, null=True, max_length=200)),
                 ('tipo', models.CharField(blank=True, null=True, max_length=50)),
                 ('tamano', models.CharField(blank=True, null=True, max_length=50)),
                 ('municipio', models.CharField(blank=True, null=True, max_length=50)),
-                ('clave', models.CharField(blank=True, unique=True, null=True, max_length=50)),
+                ('clave', models.CharField(blank=True, null=True, max_length=50, unique=True)),
                 ('direccion', models.CharField(blank=True, null=True, max_length=200)),
                 ('telefono', models.CharField(blank=True, null=True, max_length=250)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
@@ -371,7 +371,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EncuestaEgresados',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nombre', models.CharField(blank=True, max_length=50)),
                 ('sexo', models.CharField(blank=True, max_length=50)),
                 ('carrera', models.CharField(blank=True, max_length=50)),
@@ -474,7 +474,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EncuestaEmpleador',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('empresa', models.CharField(blank=True, max_length=50)),
                 ('responsable', models.CharField(blank=True, max_length=50)),
                 ('puesto', models.CharField(blank=True, max_length=50)),
@@ -530,7 +530,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EntregaDocumentos',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('acta_nacimiento', models.SmallIntegerField(blank=True, null=True)),
                 ('certificado_bachillerato', models.SmallIntegerField(blank=True, null=True)),
                 ('certificado_final', models.SmallIntegerField(blank=True, null=True)),
@@ -554,7 +554,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Equipos',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('num_serie', models.CharField(blank=True, max_length=50)),
                 ('nombre', models.CharField(blank=True, max_length=50)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
@@ -568,7 +568,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Escuela',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('localidad', models.CharField(blank=True, null=True, max_length=50)),
                 ('nombre', models.CharField(max_length=100)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
@@ -582,11 +582,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Estados',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nom_estado', models.CharField(blank=True, max_length=50)),
                 ('clave', models.CharField(unique=True, max_length=2)),
                 ('abrev', models.CharField(blank=True, max_length=16)),
-                ('alta_date_created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('alta_date_created', models.DateTimeField(null=True, auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('activo', models.IntegerField(blank=True, null=True)),
             ],
@@ -598,7 +598,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Estatus',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nombre', models.CharField(blank=True, max_length=50)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
@@ -611,7 +611,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Evaluacion',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
@@ -625,9 +625,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Extracurriculares',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nom_materia', models.CharField(blank=True, null=True, max_length=50)),
-                ('clave', models.CharField(blank=True, unique=True, null=True, max_length=50)),
+                ('clave', models.CharField(blank=True, null=True, max_length=50, unique=True)),
                 ('tipo', models.CharField(blank=True, null=True, max_length=50)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
@@ -640,7 +640,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ExtraHorario',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('lunes_hora', models.DateTimeField(blank=True, null=True)),
                 ('martes_hora', models.DateTimeField(blank=True, null=True)),
                 ('miercoles_hora', models.DateTimeField(blank=True, null=True)),
@@ -666,8 +666,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Grupos',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('clave', models.CharField(blank=True, unique=True, max_length=50)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('clave', models.CharField(blank=True, max_length=50, unique=True)),
                 ('nombre', models.CharField(blank=True, max_length=50)),
                 ('cant_alumnos', models.IntegerField(blank=True, null=True)),
                 ('actual', models.SmallIntegerField(blank=True, null=True)),
@@ -684,7 +684,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Horario',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('clave_horario', models.CharField(blank=True, null=True, max_length=20)),
                 ('nombre', models.CharField(blank=True, null=True, max_length=20)),
                 ('hora_inicio', models.CharField(blank=True, null=True, max_length=2)),
@@ -692,21 +692,21 @@ class Migration(migrations.Migration):
                 ('minutos_inicio', models.CharField(blank=True, null=True, max_length=2)),
                 ('minutos_termino', models.CharField(blank=True, null=True, max_length=2)),
                 ('dia', models.CharField(blank=True, null=True, max_length=10)),
-                ('alta_date_created', models.DateTimeField(auto_now_add=True, verbose_name='Fecha')),
+                ('alta_date_created', models.DateTimeField(verbose_name='Fecha', auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('is_active', models.BooleanField(verbose_name='activo', default=True)),
-                ('aula', models.ForeignKey(blank=True, null=True, to='academica.Aulas')),
-                ('grupo', models.ForeignKey(blank=True, null=True, to='academica.Grupos')),
+                ('aula', models.ForeignKey(blank=True, to='academica.Aulas', null=True)),
+                ('grupo', models.ForeignKey(blank=True, to='academica.Grupos', null=True)),
             ],
             options={
-                'ordering': ['aula'],
+                'ordering': ['grupo'],
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Inscripciones',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
@@ -719,7 +719,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Jefes',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nom_jefe', models.CharField(blank=True, max_length=50)),
                 ('puesto', models.CharField(blank=True, max_length=50)),
                 ('firma', models.BinaryField(blank=True, null=True)),
@@ -734,7 +734,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='JefesDivision',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nombre', models.CharField(blank=True, max_length=50)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
@@ -748,7 +748,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='LaboratorioComputo',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nom_laboratorio', models.CharField(blank=True, max_length=50)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
@@ -761,7 +761,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='LiberacionDocumentos',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('acta_nacimiento', models.SmallIntegerField(blank=True, null=True)),
                 ('certificado_bachillerato', models.SmallIntegerField(blank=True, null=True)),
                 ('certificado_final', models.SmallIntegerField(blank=True, null=True)),
@@ -780,15 +780,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Localidad',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('clave', models.CharField(max_length=4)),
                 ('nombre', models.CharField(blank=True, null=True, max_length=110)),
                 ('latitud', models.CharField(blank=True, null=True, max_length=15)),
                 ('longitud', models.CharField(blank=True, null=True, max_length=15)),
-                ('lat', models.DecimalField(blank=True, decimal_places=7, null=True, max_digits=10)),
-                ('lng', models.DecimalField(blank=True, decimal_places=7, null=True, max_digits=10)),
+                ('lat', models.DecimalField(blank=True, max_digits=10, null=True, decimal_places=7)),
+                ('lng', models.DecimalField(blank=True, max_digits=10, null=True, decimal_places=7)),
                 ('altitud', models.CharField(blank=True, null=True, max_length=15)),
-                ('alta_date_created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('alta_date_created', models.DateTimeField(null=True, auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('activo', models.IntegerField(blank=True, null=True)),
             ],
@@ -799,10 +799,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Maestros',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nombre', models.CharField(blank=True, verbose_name='Nombre', max_length=50)),
                 ('last_name', models.CharField(blank=True, verbose_name='Apellido', max_length=100)),
-                ('no_expediente', models.CharField(verbose_name='Numero de Empleado', unique=True, max_length=50)),
+                ('no_expediente', models.CharField(unique=True, verbose_name='Numero de Empleado', max_length=50)),
                 ('email', models.EmailField(unique=True, default='email@email.com', max_length=75)),
                 ('foto', models.ImageField(blank=True, verbose_name='Foto', default='foto.png', upload_to='fotos')),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
@@ -817,15 +817,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Materias',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nom_materia', models.CharField(blank=True, max_length=50)),
-                ('clave', models.CharField(blank=True, unique=True, max_length=50)),
+                ('clave', models.CharField(blank=True, max_length=50, unique=True)),
                 ('seriacion', models.CharField(blank=True, verbose_name='Serialización', max_length=50)),
                 ('creditos', models.IntegerField(blank=True, null=True)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('profesor', models.ForeignKey(blank=True, null=True, to='academica.Maestros', to_field='no_expediente')),
+                ('profesor', models.ForeignKey(to_field='no_expediente', blank=True, to='academica.Maestros', null=True)),
             ],
             options={
                 'ordering': ['nom_materia'],
@@ -835,13 +835,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Municipios',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nom_municipio', models.CharField(blank=True, max_length=50)),
                 ('clave', models.CharField(blank=True, null=True, max_length=3)),
-                ('alta_date_created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('alta_date_created', models.DateTimeField(null=True, auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('activo', models.IntegerField(blank=True, null=True)),
-                ('estado', models.ForeignKey(blank=True, null=True, to='academica.Estados')),
+                ('estado', models.ForeignKey(blank=True, to='academica.Estados', null=True)),
             ],
             options={
             },
@@ -850,7 +850,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Personas',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nom_persona', models.CharField(blank=True, max_length=50)),
                 ('edad', models.IntegerField(blank=True, null=True)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
@@ -864,13 +864,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='PlanEstudio',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nom_plan', models.CharField(blank=True, max_length=50)),
-                ('clave_plan', models.CharField(blank=True, unique=True, max_length=50)),
+                ('clave_plan', models.CharField(blank=True, max_length=50, unique=True)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('materias', models.ManyToManyField(blank=True, to='academica.Materias', null=True)),
+                ('materias', models.ManyToManyField(to='academica.Materias', blank=True, null=True)),
             ],
             options={
                 'ordering': ['nom_plan'],
@@ -880,7 +880,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Privilegios',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('privilegio', models.CharField(blank=True, max_length=50)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
@@ -893,7 +893,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ProgramacionExamen',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
@@ -906,7 +906,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ReservacionAlumno',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('alumno', models.BigIntegerField(blank=True, null=True)),
                 ('equipo', models.BigIntegerField(blank=True, null=True)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
@@ -920,12 +920,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ReservacionMaestroEsporadico',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('laboratorio', models.ForeignKey(blank=True, null=True, to='academica.LaboratorioComputo')),
-                ('maestro', models.ForeignKey(blank=True, null=True, to='academica.Maestros')),
+                ('laboratorio', models.ForeignKey(blank=True, to='academica.LaboratorioComputo', null=True)),
+                ('maestro', models.ForeignKey(blank=True, to='academica.Maestros', null=True)),
             ],
             options={
             },
@@ -934,7 +934,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ReservacionMaestroFijo',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('hora_lunes_inicio', models.DateTimeField(blank=True, null=True)),
                 ('hora_martes_inicio', models.DateTimeField(blank=True, null=True)),
                 ('hora_miercoles_inicio', models.DateTimeField(blank=True, null=True)),
@@ -948,8 +948,8 @@ class Migration(migrations.Migration):
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('laboratorio', models.ForeignKey(blank=True, null=True, to='academica.LaboratorioComputo')),
-                ('maestro', models.ForeignKey(blank=True, null=True, to='academica.Maestros')),
+                ('laboratorio', models.ForeignKey(blank=True, to='academica.LaboratorioComputo', null=True)),
+                ('maestro', models.ForeignKey(blank=True, to='academica.Maestros', null=True)),
             ],
             options={
             },
@@ -958,7 +958,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Revalidaciones',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('tipo', models.CharField(blank=True, max_length=50)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
@@ -973,11 +973,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Semestre',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('clave', models.CharField(blank=True, unique=True, max_length=50)),
-                ('ciclo_semestral', models.CharField(blank=True, unique=True, max_length=50)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('clave', models.CharField(blank=True, max_length=50, unique=True)),
+                ('ciclo_semestral', models.CharField(blank=True, max_length=50, unique=True)),
                 ('ciclo_sep', models.CharField(blank=True, verbose_name='Ciclo SEP', max_length=50)),
-                ('anio', models.IntegerField(blank=True, verbose_name='Año', null=True)),
+                ('anio', models.IntegerField(blank=True, null=True, verbose_name='Año')),
                 ('periodo', models.IntegerField(blank=True, null=True)),
                 ('fecha_inicio', models.DateTimeField(blank=True, null=True)),
                 ('fecha_termino', models.DateTimeField(blank=True, null=True)),
@@ -996,7 +996,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ServicioEstadia',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nombre', models.CharField(blank=True, max_length=50)),
                 ('asesor_interno', models.CharField(blank=True, max_length=50)),
                 ('asesor_externo', models.CharField(blank=True, max_length=50)),
@@ -1013,12 +1013,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ServicioHoras',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('horas', models.IntegerField(blank=True, null=True)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('is_active', models.BooleanField(verbose_name='liberar', default=True)),
-                ('alumno', models.ForeignKey(unique=True, to='academica.Alumnos')),
+                ('alumno', models.ForeignKey(to='academica.Alumnos', unique=True)),
                 ('proyecto', models.ForeignKey(to='academica.ServicioEstadia')),
             ],
             options={
@@ -1028,7 +1028,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Servicios',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nombre', models.CharField(blank=True, max_length=50)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
@@ -1041,7 +1041,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SolicitudBeca',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
@@ -1055,7 +1055,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Sysdiagrams',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('name', models.CharField(max_length=1)),
                 ('principal', models.IntegerField()),
                 ('version', models.IntegerField(blank=True, null=True)),
@@ -1071,7 +1071,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TemasTitulo',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('nombre', models.CharField(blank=True, max_length=50)),
                 ('aceptado', models.SmallIntegerField(blank=True, null=True)),
                 ('asesor', models.CharField(blank=True, max_length=50)),
@@ -1087,7 +1087,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TipoBeca',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('clave_tipo_beca', models.CharField(unique=True, max_length=50)),
                 ('descripcion', models.CharField(max_length=250)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
@@ -1101,7 +1101,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Titulos',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('hora_inicio', models.DateTimeField(blank=True, null=True)),
                 ('hora_fin', models.DateTimeField(blank=True, null=True)),
                 ('dictamen', models.CharField(blank=True, max_length=50)),
@@ -1120,12 +1120,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TmpAlumnoServicio',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('horas', models.IntegerField(blank=True, null=True)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('alumno', models.ForeignKey(blank=True, null=True, to='academica.Alumnos')),
+                ('alumno', models.ForeignKey(blank=True, to='academica.Alumnos', null=True)),
             ],
             options={
             },
@@ -1134,11 +1134,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TmpAlumnosEstadias',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('alumno', models.ForeignKey(blank=True, null=True, to='academica.Alumnos')),
+                ('alumno', models.ForeignKey(blank=True, to='academica.Alumnos', null=True)),
             ],
             options={
             },
@@ -1147,8 +1147,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Tramites',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('monto', models.DecimalField(blank=True, decimal_places=2, null=True, max_digits=18)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('monto', models.DecimalField(blank=True, max_digits=18, null=True, decimal_places=2)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
                 ('baja_date_created', models.DateTimeField(blank=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
@@ -1163,7 +1163,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Usuarios',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('usuario', models.CharField(blank=True, max_length=50)),
                 ('password', models.CharField(blank=True, max_length=100)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
@@ -1179,7 +1179,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='UsuariosLab',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
                 ('usuario', models.CharField(blank=True, max_length=50)),
                 ('password', models.CharField(blank=True, max_length=50)),
                 ('alta_date_created', models.DateTimeField(auto_now_add=True)),
@@ -1193,19 +1193,19 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='tmpalumnosestadias',
             name='user',
-            field=models.ForeignKey(blank=True, null=True, to='academica.Usuarios'),
+            field=models.ForeignKey(blank=True, to='academica.Usuarios', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='tmpalumnoservicio',
             name='user',
-            field=models.ForeignKey(blank=True, null=True, to='academica.Usuarios'),
+            field=models.ForeignKey(blank=True, to='academica.Usuarios', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='materias',
             name='semestre',
-            field=models.ForeignKey(blank=True, null=True, to='academica.Semestre', to_field='clave'),
+            field=models.ForeignKey(to_field='clave', blank=True, to='academica.Semestre', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -1217,7 +1217,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='jefesdivision',
             name='usuario',
-            field=models.ForeignKey(blank=True, null=True, to='academica.Usuarios'),
+            field=models.ForeignKey(blank=True, to='academica.Usuarios', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -1229,19 +1229,19 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='horario',
             name='profesores',
-            field=models.ForeignKey(blank=True, null=True, to='academica.Maestros'),
+            field=models.ForeignKey(blank=True, to='academica.Maestros', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='grupos',
             name='plan',
-            field=models.ForeignKey(blank=True, null=True, to='academica.PlanEstudio', to_field='clave_plan'),
+            field=models.ForeignKey(to_field='clave_plan', blank=True, to='academica.PlanEstudio', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='grupos',
             name='semestre',
-            field=models.ForeignKey(blank=True, null=True, to='academica.Semestre', to_field='clave'),
+            field=models.ForeignKey(to_field='clave', blank=True, to='academica.Semestre', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -1259,13 +1259,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='equipos',
             name='laboratorio',
-            field=models.ForeignKey(blank=True, null=True, to='academica.LaboratorioComputo'),
+            field=models.ForeignKey(blank=True, to='academica.LaboratorioComputo', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='cursos',
             name='personas',
-            field=models.ManyToManyField(blank=True, to='academica.Personas', null=True),
+            field=models.ManyToManyField(to='academica.Personas', blank=True, null=True),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -1277,127 +1277,127 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='carreras',
             name='plan_estudio',
-            field=models.ForeignKey(blank=True, null=True, to='academica.PlanEstudio'),
+            field=models.ForeignKey(blank=True, to='academica.PlanEstudio', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='calificaciones',
             name='materia',
-            field=models.ForeignKey(null=True, to='academica.Materias', to_field='clave'),
+            field=models.ForeignKey(to_field='clave', to='academica.Materias', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='calificaciones',
             name='matricula',
-            field=models.ForeignKey(null=True, to='academica.Alumnos', to_field='matricula'),
+            field=models.ForeignKey(to_field='matricula', to='academica.Alumnos', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='calificaciones',
             name='plan',
-            field=models.ForeignKey(null=True, to='academica.PlanEstudio', to_field='clave_plan'),
+            field=models.ForeignKey(to_field='clave_plan', to='academica.PlanEstudio', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='calificaciones',
             name='semestre',
-            field=models.ForeignKey(null=True, to='academica.Semestre', to_field='clave'),
+            field=models.ForeignKey(to_field='clave', to='academica.Semestre', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='becas',
             name='tipo_beca',
-            field=models.ForeignKey(to='academica.TipoBeca', to_field='clave_tipo_beca'),
+            field=models.ForeignKey(to_field='clave_tipo_beca', to='academica.TipoBeca'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='bajas',
             name='ciclo',
-            field=models.ForeignKey(blank=True, null=True, to='academica.Semestre', to_field='clave'),
+            field=models.ForeignKey(to_field='clave', blank=True, to='academica.Semestre', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='bajas',
             name='matricula',
-            field=models.ForeignKey(blank=True, null=True, to='academica.Alumnos', to_field='matricula'),
+            field=models.ForeignKey(blank=True, to='academica.Alumnos', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='alumnos',
             name='carrera',
-            field=models.ForeignKey(blank=True, null=True, to='academica.Carreras', to_field='clave'),
+            field=models.ForeignKey(to_field='clave', blank=True, to='academica.Carreras', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='alumnos',
             name='escuela_procedencia',
-            field=models.ForeignKey(blank=True, verbose_name='Escuela', null=True, to='academica.Escuela'),
+            field=models.ForeignKey(blank=True, verbose_name='Escuela', to='academica.Escuela', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='alumnos',
             name='estado',
-            field=models.ForeignKey(blank=True, null=True, to='academica.Estados'),
+            field=models.ForeignKey(blank=True, to='academica.Estados', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='alumnos',
             name='extracurriculares',
-            field=models.ManyToManyField(blank=True, to='academica.Extracurriculares', null=True),
+            field=models.ManyToManyField(to='academica.Extracurriculares', blank=True, null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='alumnos',
             name='grupo',
-            field=models.ForeignKey(blank=True, null=True, to='academica.Grupos', to_field='clave'),
+            field=models.ForeignKey(to_field='clave', blank=True, to='academica.Grupos', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='alumnos',
             name='localidad',
-            field=models.ForeignKey(blank=True, null=True, to='academica.Localidad'),
+            field=models.ForeignKey(blank=True, to='academica.Localidad', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='alumnos',
             name='municipio',
-            field=models.ForeignKey(blank=True, null=True, to='academica.Municipios'),
+            field=models.ForeignKey(blank=True, to='academica.Municipios', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='alumnos',
             name='plan',
-            field=models.ForeignKey(blank=True, null=True, to='academica.PlanEstudio', to_field='clave_plan'),
+            field=models.ForeignKey(to_field='clave_plan', blank=True, to='academica.PlanEstudio', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='alumnos',
             name='semestre',
-            field=models.ForeignKey(blank=True, null=True, to='academica.Semestre', to_field='clave'),
+            field=models.ForeignKey(to_field='clave', blank=True, to='academica.Semestre', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='alumnoproyecto',
             name='alumno',
-            field=models.ForeignKey(blank=True, null=True, to='academica.Alumnos'),
+            field=models.ForeignKey(blank=True, to='academica.Alumnos', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='alumnoproyecto',
             name='proyecto',
-            field=models.ForeignKey(blank=True, null=True, to='academica.ServicioEstadia'),
+            field=models.ForeignKey(blank=True, to='academica.ServicioEstadia', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='alumnoprevio',
             name='alumno',
-            field=models.ForeignKey(unique=True, to='academica.Alumnos'),
+            field=models.ForeignKey(to='academica.Alumnos', unique=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='alumnocalificacion',
             name='horario',
-            field=models.ForeignKey(blank=True, null=True, to='academica.Horario'),
+            field=models.ForeignKey(blank=True, to='academica.Horario', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -1409,7 +1409,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='aceptados',
             name='alumno_previo',
-            field=models.ForeignKey(blank=True, null=True, to='academica.AlumnoPrevio'),
+            field=models.ForeignKey(blank=True, to='academica.AlumnoPrevio', null=True),
             preserve_default=True,
         ),
     ]

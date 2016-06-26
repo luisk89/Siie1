@@ -62,7 +62,7 @@ class Materias(models.Model):
     creditos = models.IntegerField(blank=True, null=True)
     # carrera = models.ForeignKey("Carreras")
     semestre=models.ForeignKey('Semestre',to_field='clave',null=True,blank=True)
-    profesor=models.ForeignKey('Maestros',to_field='no_expediente',null=True,blank=True)
+    profesores=models.ManyToManyField("Maestros", blank=True, null=True)
     alta_date_created = models.DateTimeField(auto_now_add=True)
     baja_date_created = models.DateTimeField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
@@ -224,7 +224,7 @@ class Aulas(models.Model):
 
 
 class Bajas(models.Model):
-    matricula = models.ForeignKey(Alumnos,to_field='matricula',null=True,blank=True)
+    matricula = models.ForeignKey(Alumnos,null=True,blank=True)
     motivo = models.CharField(max_length=200, blank=True)
     ciclo=models.ForeignKey('Semestre',to_field='clave',null=True,blank=True)
     observaciones=models.CharField(max_length=200,blank=True,null=True)

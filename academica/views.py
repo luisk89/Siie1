@@ -573,19 +573,17 @@ class BajaCreate(LoggedInMixin, CreateView):
     template_name = 'academica/alumnos/alumnos_baja_list.html'
 
     def get_context_data(self, **kwargs):
-        # Llamamos ala implementacion para traer un primer context
         context = super(BajaCreate, self).get_context_data(**kwargs)
-        # Agregamos un QuerySet de todos los books
         context['alumnos_list'] = Alumnos.objects.all()
         context['form'] = BajasForm
         return context
 
     def post(self, request, *args, **kwargs):
         # poniendo inactivo el alumno de baja
-        Alumnos.objects.filter(id=request.POST['alumno']).update(is_active=False)
+        Alumnos.objects.filter(id=request.POST['matricula']).update(is_active=False)
         # agregando el alumno a la tabla alumnoprevio que va a hacer el historico de todos los estudiantes
 
-        a = Alumnos.objects.filter(id=request.POST['alumno']).get()
+        a = Alumnos.objects.filter(id=request.POST['matricula']).get()
         historial = AlumnoPrevio(alumno=a)
         historial.save()
 
@@ -800,13 +798,13 @@ class EstadoList(LoggedInMixin, ListView):
     def get_municipio_by_estado(request):
 
         if request.is_ajax():
-        # alumnosReturn=Alumnos.objects.filter(Q(nom_alumno__contains=request.GET['nombre']) | Q(apellido_paterno__contains=request.GET['apellidoP'])| Q(apellido_materno__contains=request.GET['apellidoM'])|Q(semestre__id__contains=request.GET['semestre'])|Q(no_expediente__contains=request.GET['expediente'])).all()
-            print(request.GET['estado'])
 
             result=Municipios.objects.filter(estado=request.GET['estado']).all()
             retorno = []
             for a in result:
                 retorno.append({'id': a.id, 'nombre': a.nom_municipio})
+
+            response=JsonResponse({'listado': retorno})
 
             return HttpResponse(json.dumps(retorno))
         else:

@@ -2,6 +2,8 @@
 import datetime
 from django.contrib.admin import widgets
 from django.db.models.fields import DateField
+from django.forms.fields import CharField
+from django.forms.widgets import Textarea, TextInput
 from django.utils import timezone
 from academica import mixins
 
@@ -97,7 +99,7 @@ class AlumnosForm(forms.ModelForm):
             'fecha_nacimiento': forms.DateInput(attrs={'placeholder': 'dd/mm/aaaa','class': 'datepicker ui-widget ui-widget-content date-field'}),
         }
 
-    localidad = forms.ChoiceField(widget=forms.Select(),required=False)
+    localidad = forms.ChoiceField(choices=WHITE_SPACE,widget=forms.Select(),required=False)
     sexo = forms.ChoiceField(choices=GENERO_SELECT,
                              widget=forms.Select(), required=False, label='Genero')
     edo_civil = forms.ChoiceField(choices=Estado_Civil,
@@ -127,8 +129,9 @@ class AlumnosForm(forms.ModelForm):
         self.fields['trabaja_actualmente'].widget.attrs['onchange']="javascript:showContent1()"
         self.fields['carrera'].widget.attrs['onchange']="javascript:Buscar()"
         self.fields['matricula'].widget.attrs['placeholder']="AACCCC"
-        self.fields['municipio'].widget.attrs['onclick'] = "javascript:cambiarLocalidad();"
-        self.fields['estado'].widget.attrs['onclick'] = "javascript:cambiarMunicipio();"
+        self.fields['municipio'].widget.attrs['onchange'] = "javascript:cambiarLocalidad();"
+        self.fields['estado'].widget.attrs['onchange'] = "javascript:cambiarMunicipio();"
+       # self.fields['municipio'].widget.attrs['disabled'] = True
 
 
 
@@ -288,7 +291,7 @@ class ReinscripcionAlumnoForm(forms.ModelForm):
                     Servicio Medico</label> </div>"""), Div('num_afiliacion', 'servicio_medico', id='div_ServicioMedico')),
                     Fieldset('Domicilio', 'colonia', 'estado','municipio', 'localidad', 'domicilio', 'telefono', 'cp',
                              id='domicilio'),
-                     Fieldset('email')
+                     Fieldset('Correo','email')
                 ),
 
                 Tab(
@@ -441,7 +444,7 @@ class MateriaForm(forms.ModelForm):
         self.helper.label_class = 'form-group'
         self.helper.add_input(Submit('submit', 'Guardar'))
         self.helper.add_layout(
-        Fieldset('Agregar nueva materia', 'nom_materia','clave','seriacion','creditos','semestre'
+        Fieldset('Agregar nueva materia', 'nom_materia','clave','seriacion','creditos','semestre','profesores'
                  ),
 
     )
@@ -539,6 +542,8 @@ MOTIVO_BAJA = (
 
 )
 
+widget_text_area = forms.CharField(max_length=250, widget=forms.Textarea(
+    attrs={'rows': '4', 'cols': '30', 'class': ' form-control'}))
 
 class BajasForm(forms.ModelForm):
     class Meta:
@@ -547,7 +552,21 @@ class BajasForm(forms.ModelForm):
         exclude = ("baja_date_created", "is_active")
 
     motivo = forms.ChoiceField(choices=MOTIVO_BAJA, widget=forms.Select(), initial='Voluntaria')
+    observaciones = CharField(max_length=140, required=False,widget=Textarea(attrs={'rows': 3, 'cols': 33,
+                                              'style': 'height: 200px;',
+                                              'placeholder':
+                                              'Ingrese la observacion'}))
+    #matricula=CharField(max_length=17, required=False, widget=TextInput(attrs={'size': '10', 'class': 'form-scontrol'}))
 
+    def __init__(self, *args, **kwargs):
+        super(BajasForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'box box-success'
+        self.helper.label_class = 'form-group'
+        self.helper.add_input(Submit('submit', 'Aceptar', css_class="btn btn-success"))
+        self.helper.layout = Layout(
+            Fieldset('Dar baja a estudiante', 'matricula','motivo', 'observaciones')
+        )
 
 class BibliotecaForm(forms.ModelForm):
     class Meta:

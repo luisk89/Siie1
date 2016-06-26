@@ -50,8 +50,6 @@ INSTALLED_APPS = (
     'users',
     'crispy_forms',
     'academica',
-    'dajaxice',
-    'dajax',
     'wkhtmltopdf',
     'reportes',
     'django_bootstrap_breadcrumbs'
@@ -98,12 +96,6 @@ AUTHENTICATION_BACKENDS = (
 
 
 
-DAJAXICE_MEDIA_PREFIX = "dajaxice"
-DAJAXICE_DEBUG = True
-DAJAXICE_JS_DOCSTRINGS = True
-DAJAXICE_NOTIFY_EXCEPTIONS = True
-
-
 ROOT_URLCONF = 'Siie.urls'
 
 LOGIN_REDIRECT_URL = "Index"
@@ -143,7 +135,7 @@ AUTH_USER_MODEL = 'users.User'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Test1',
+        'NAME': 'Siie',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'localhost',
@@ -189,7 +181,7 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStora
 STATICFILES_FINDERS = (
    'django.contrib.staticfiles.finders.FileSystemFinder',
    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-   'dajaxice.finders.DajaxiceFinder',
+
 )
 
 if APP_MODE == 'dev':
