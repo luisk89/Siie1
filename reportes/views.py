@@ -62,12 +62,66 @@ class Boleta_Semestral_To_PDF(TemplateView):
     template_name = 'reportes/reporte_boleta_form.html'
 
 
+class Inscripcion_To_PDF_Preview(DetailView):
+    template_name = 'reportes/Reporte_Inscripcion.html'
+    form_class = InscripcionReporteForm
+    model = Alumnos
+
+    def get_context_data(self, **kwargs):
+        cxt = super(Inscripcion_To_PDF_Preview, self).get_context_data(**kwargs)
+        hoy = datetime.datetime.now()
+        hoy = hoy.strftime('%d %b, %Y')
+        alumno=Alumnos.objects.get(id=self.kwargs['pk'])
+        fecha_ins=alumno.alta_date_created.strftime('%Y-%m-%d')
+        cxt = {'hoy': hoy,'fecha_insc':fecha_ins,'object':alumno}
+
+        return cxt
+
 class Inscripcion_To_PDF(PDFTemplateView):
     template_name = 'reportes/Reporte_Inscripcion.html'
     form_class = InscripcionReporteForm
     model = Alumnos
     cmd_options = {
-        'page-size': 'A4',
+        'page-size': 'A3',
+        'margin-top': 15,
+        'margin-right': 3,
+        'margin-bottom': 3,
+        'margin-left': 3,
+    }
+    def get_context_data(self, **kwargs):
+        cxt = super(Inscripcion_To_PDF, self).get_context_data(**kwargs)
+        hoy = datetime.datetime.now()
+        hoy = hoy.strftime('%d %b, %Y')
+        alumno=Alumnos.objects.get(id=self.kwargs['pk'])
+        fecha_ins=alumno.alta_date_created.strftime('%Y-%m-%d')
+        name = alumno.matricula
+        self.filename='Inscripcion_'+name
+        cxt = {'hoy': hoy,'fecha_insc':fecha_ins,'object':alumno}
+
+        return cxt
+
+
+class Reinscripcion_To_PDF_Preview(DetailView):
+    template_name = 'reportes/reporte_reinscripcion.html'
+    form_class = InscripcionReporteForm
+    model = Alumnos
+
+    def get_context_data(self, **kwargs):
+        cxt = super(Reinscripcion_To_PDF_Preview, self).get_context_data(**kwargs)
+        hoy = datetime.datetime.now()
+        hoy = hoy.strftime('%d %b, %Y')
+        alumno=Alumnos.objects.get(id=self.kwargs['pk'])
+        fecha_ins=alumno.alta_date_created.strftime('%Y-%m-%d')
+        cxt = {'hoy': hoy,'fecha_insc':fecha_ins,'object':alumno}
+
+        return cxt
+
+class Reinscripcion_To_PDF(PDFTemplateView):
+    template_name = 'reportes/reporte_reinscripcion.html'
+    form_class = InscripcionReporteForm
+    model = Alumnos
+    cmd_options = {
+        'page-size': 'A3',
         'margin-top': 15,
         'margin-right': 3,
         'margin-bottom': 3,
@@ -75,28 +129,13 @@ class Inscripcion_To_PDF(PDFTemplateView):
     }
 
     def get_context_data(self, **kwargs):
-        cxt = super(Inscripcion_To_PDF, self).get_context_data(**kwargs)
-        hoy = datetime.datetime.now()
-        hoy = hoy.strftime('%Y-%m-%d')
-        alumno=Alumnos.objects.get(id=self.kwargs['pk'])
-        fecha_ins=alumno.alta_date_created.strftime('%Y-%m-%d')
-        cxt = {'hoy': hoy,'fecha_insc':fecha_ins,'object':alumno}
-
-        return cxt
-
-
-
-class Reinscripcion_To_PDF(PDFTemplateView):
-    template_name = 'reportes/reporte_reinscripcion.html'
-    form_class = InscripcionReporteForm
-    model = Alumnos
-
-    def get_context_data(self, **kwargs):
         cxt = super(Reinscripcion_To_PDF, self).get_context_data(**kwargs)
         hoy = datetime.datetime.now()
-        hoy = hoy.strftime('%Y-%m-%d')
+        hoy = hoy.strftime('%d %b, %Y')
         alumno=Alumnos.objects.get(id=self.kwargs['pk'])
-        fecha_ins=alumno.alta_date_created.strftime('%Y-%m-%d')
+        fecha_ins=alumno.alta_date_created.strftime('%y-%m-%d')
+        name = alumno.matricula
+        self.filename='Reinscripcion'+name
         cxt = {'hoy': hoy,'fecha_insc':fecha_ins,'object':alumno}
 
         return cxt
@@ -107,7 +146,7 @@ class CertificadoFinal_To_PDF(TemplateView):
     def get_context_data(self, **kwargs):
         cxt = super(CertificadoFinal_To_PDF, self).get_context_data(**kwargs)
         hoy = datetime.datetime.now()
-        hoy = hoy.strftime('%Y-%m-%d')
+        hoy = hoy.strftime('%d %b, %Y')
         alumno=Alumnos.objects.get(id=self.kwargs['pk'])
         calificaciones=Calificaciones.objects.filter(matricula=alumno.matricula)
 
@@ -123,7 +162,7 @@ class Kardex_To_PDF(TemplateView):
         cxt = super(Kardex_To_PDF, self).get_context_data(**kwargs)
         hoy = datetime.datetime.now()
         anio=hoy.year
-        hoy = hoy.strftime('%Y-%m-%d')
+        hoy = hoy.strftime('%d %b, %Y')
         alumno=Alumnos.objects.get(id=self.kwargs['pk'])
         calificaciones=Calificaciones.objects.filter(matricula=alumno.matricula)
 
