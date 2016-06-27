@@ -1,6 +1,6 @@
 {% extends 'academica/base.html' %}
-{% load crispy_forms_tags %}
 {% load static from staticfiles %}
+{% load crispy_forms_tags %}
 {% load django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
@@ -12,7 +12,7 @@
 {% block content %}
     {% render_breadcrumbs %}
 
-          {% crispy form_semestre %}
+    {% crispy form %}
 
 
 {% endblock %}

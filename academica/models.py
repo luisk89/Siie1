@@ -921,12 +921,12 @@ class Evaluacion(models.Model):
 
 class Semestre(models.Model):
     clave = models.CharField(max_length=50,blank=True,unique=True)
-    ciclo_semestral=models.CharField(max_length=50,blank=True,unique=True)
-    ciclo_sep = models.CharField(max_length=50, blank=True, verbose_name='Ciclo SEP')
-    anio = models.IntegerField(blank=True, null=True, verbose_name="Año")
+    ciclo_semestral = models.CharField(max_length=50)
+    ciclo_sep = models.CharField(max_length=50, verbose_name='Ciclo SEP')
+    anio = models.IntegerField(verbose_name="Año")
     periodo = models.IntegerField(blank=True, null=True)
-    fecha_inicio = models.DateTimeField(blank=True, null=True)
-    fecha_termino = models.DateTimeField(blank=True, null=True)
+    fecha_inicio = models.DateField()
+    fecha_termino = models.DateField()
     vigente = models.BooleanField(default=False)
 
     fecha_inicio_programacion = models.DateTimeField(blank=True, null=True)
