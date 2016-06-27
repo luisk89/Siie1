@@ -99,7 +99,7 @@ class AlumnosForm(forms.ModelForm):
             'fecha_nacimiento': forms.DateInput(attrs={'placeholder': 'dd/mm/aaaa','class': 'datepicker ui-widget ui-widget-content date-field'}),
         }
 
-    localidad = forms.ChoiceField(choices=WHITE_SPACE,widget=forms.Select(),required=False)
+    #localidad = forms.ChoiceField(choices=WHITE_SPACE,widget=forms.Select(),required=False)
     sexo = forms.ChoiceField(choices=GENERO_SELECT,
                              widget=forms.Select(), required=False, label='Genero')
     edo_civil = forms.ChoiceField(choices=Estado_Civil,
@@ -131,7 +131,7 @@ class AlumnosForm(forms.ModelForm):
         self.fields['matricula'].widget.attrs['placeholder']="AACCCC"
         self.fields['municipio'].widget.attrs['onchange'] = "javascript:cambiarLocalidad();"
         self.fields['estado'].widget.attrs['onchange'] = "javascript:cambiarMunicipio();"
-       # self.fields['municipio'].widget.attrs['disabled'] = True
+        self.fields['municipio'].widget.attrs['disabled'] = True
 
 
 
@@ -508,16 +508,13 @@ class CicloSemestralForm(forms.ModelForm):
     class Meta:
         model = Semestre
         fields = '__all__'
+        exclude = ("baja_date_created", "alta_date_created", "is_active", "periodo", "fecha_inicio_programacion","fecha_fin_programacion")
+
         widgets = {
             'fecha_inicio': forms.DateInput(
                 attrs={'placeholder': 'dd/mm/aaaa', 'class': 'datepicker ui-widget ui-widget-content date-field'}),
             'fecha_termino': forms.DateInput(
                 attrs={'placeholder': 'dd/mm/aaaa', 'class': 'datepicker ui-widget ui-widget-content date-field'}),
-            'fecha_inicio_programacion': forms.DateInput(
-                attrs={'placeholder': 'dd/mm/aaaa', 'class': 'datepicker ui-widget ui-widget-content date-field'}),
-            'fecha_fin_programacion': forms.DateInput(
-                attrs={'placeholder': 'dd/mm/aaaa', 'class': 'datepicker ui-widget ui-widget-content date-field'}),
-
         }
 
     def __init__(self, *args, **kwargs):
@@ -526,13 +523,8 @@ class CicloSemestralForm(forms.ModelForm):
         self.helper.form_class = 'box box-success'
         self.helper.label_class = 'form-group'
         self.fields['anio'].widget.attrs['min'] = 0
-        self.fields['anio'].widget.attrs['placeholder'] = '1989'
         self.helper.add_input(Submit('submit', 'Guardar'))
 
-        self.helper.layout = Layout(
-            Fieldset('Ciclo Semestral','clave', 'ciclo_semestral', 'ciclo_sep', 'anio', 'periodo', 'fecha_inicio', 'fecha_termino','fecha_inicio_programacion', 'fecha_fin_programacion', 'vigente')
-
-        )
 
 
 MOTIVO_BAJA = (
