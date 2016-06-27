@@ -936,6 +936,7 @@ class CalificacionesListByMateria(ListView):
             flag = False
             retorno = []
             idcalificacion=0
+            user = request.user
 
             for a in alumnos:#alumnos
                 if a.is_active:
@@ -951,7 +952,7 @@ class CalificacionesListByMateria(ListView):
 
                             retorno.append({'nombre': a.nom_alumno, 'apellido_paterno': a.apellido_paterno,
                                         'apellido_materno': a.apellido_materno, 'matricula': a.matricula, 'id': a.id,
-                                        'flag': flag,'calificacion_id':idcalificacion})
+                                        'flag': flag,'calificacion_id':idcalificacion,'user': user})
 
             return HttpResponse(json.dumps(retorno))
         else:
