@@ -22,7 +22,7 @@
                             <th>Profesor</th>
                             <th>Fecha</th>
                             <th>Modificar</th>
-                            <th>Otro</th>
+
 
 
                         </tr>
@@ -44,11 +44,7 @@
                                     <a href="horario/{{ horario.id }}/" class="btn btn-success"><i
                                             class="fa fa-edit"></i>&nbsp;Actualizar</a>
                                 </td>
-                                <td>
-                                    <a class="btn btn-success" data-toggle="modal"
-                                       data-target="#modalHorario" onclick="addhorario({{ horario.grupo.id }})"
-                                       id="modal-button"><i class="fa fa-plus"></i>&nbsp;Agregar</a>
-                                </td>
+
 
                             </tr>
 
@@ -56,8 +52,7 @@
                         {% endfor %}
 
                     </table>
-                    <a class="btn btn-success" data-toggle="modal"
-                       data-target="#modalHorario"
+                    <a class="btn btn-success" href="{% url 'horario-add' %}"
                        id="modal-button"><i class="fa fa-file"></i>&nbsp;Crear Horario</a>
                 </div>
                 <!-- /.box-body -->
@@ -66,7 +61,7 @@
         </div>
         <!-- /.col -->
     </div><!-- /.row -->
-    {% include 'academica/horario/horario_form.html' %}
+
 {% endblock %}
 
 

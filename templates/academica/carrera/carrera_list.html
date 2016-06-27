@@ -33,8 +33,7 @@
                         id="modal-button"><i class="fa fa-pencil"></i>&nbsp; Adicionar Carrera</a>
 
             <a class="btn btn-success" href="{% url 'materia-add' %}" id="modal-button"><i class="fa fa-pencil-square"></i>&nbsp;Adicionar Materias</a>
-            <a class="btn btn-success" data-toggle="modal"
-                        data-target="#modalPlan"
+                <a class="btn btn-success" href="{% url 'planEstudio-add' %}"
                         id="modal-button"><i class="fa fa-file-excel-o"></i>&nbsp;Adicionar Plan de Estudio</a>
 
             <a href="{% url 'list-planEstudio' %}" class="btn btn-success"><i class="fa fa-group"></i>&nbsp;Planes de Estudio</a>
@@ -48,7 +47,5 @@
         <!-- /.box -->
     </div>
     <!-- /.col -->
-
-    {% include 'academica/planEstudio/planEstudio_form.html' %}
     {% include 'academica/carrera/carrera_form.html' %}
 {% endblock %}

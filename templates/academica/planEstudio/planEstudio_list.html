@@ -16,6 +16,7 @@
                     <tr>
                         <th>Clave</th>
                         <th>Nombre</th>
+                        <th>Modificar</th>
 
                     </tr>
                     </thead>
@@ -24,15 +25,15 @@
                         <tr>
                             <td>{{ plan.clave_plan }}</td>
                             <td>{{ plan.nom_plan }}</td>
+                            <td><a class="btn btn-success" href="planEstudio/{{ plan.id }}/"><i class="fa fa-edit"></i>&nbsp;Actualizar</a>
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                        data-target="#modalPlan"
-                        id="modal-button">
+                <a class="btn btn-success" href="{% url 'planEstudio-add' %}" id="modal-button">
                     Nuevo
-                </button>
+                </a>
 
             </div>
             <!-- /.box-body -->
@@ -40,6 +41,4 @@
         <!-- /.box -->
     </div>
     <!-- /.col -->
-    {% include 'academica/planEstudio/planEstudio_form.html' %}
-
 {% endblock %}

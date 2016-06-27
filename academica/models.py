@@ -78,7 +78,7 @@ class Materias(models.Model):
 
 
 class AlumnoPrevio(models.Model):
-    alumno = models.ForeignKey("Alumnos", unique=True)
+    alumno = models.ForeignKey("Alumnos")
 
     alta_date_created = models.DateTimeField(auto_now_add=True)
     baja_date_created = models.DateTimeField(blank=True, null=True)
@@ -168,7 +168,7 @@ class Alumnos(models.Model):
     grupo = models.ForeignKey('Grupos',to_field='clave',blank=True, null=True)
 
     estado=models.ForeignKey('Estados',blank=True,null=True)
-    localidad = models.ForeignKey('Localidad',blank=True,null=True)
+    localidad = models.CharField(max_length=250, blank=True, null=True)
     municipio = models.ForeignKey('Municipios',blank=True,null=True)
 
 

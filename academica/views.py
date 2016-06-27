@@ -194,12 +194,6 @@ class PlanCreate(LoggedInMixin, CreateView):
     form_class = PlanEstudioForm
     success_url = 'planEstudio/list'
 
-    def get_context_data(self, **kwargs):
-        context = super(PlanCreate, self).get_context_data(**kwargs)
-        context['form_plan'] = PlanEstudioForm
-        context['form'] = MateriaForm
-        context['form_carrera'] = CarreraForm
-        return context
 
 
 class PlanUpdate(LoggedInMixin, UpdateView):
@@ -213,10 +207,6 @@ class PlanEstudioList(LoggedInMixin, ListView):
     model = PlanEstudio
     template_name = 'academica/planEstudio/planEstudio_list.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(PlanEstudioList, self).get_context_data(**kwargs)
-        context['form_plan'] = PlanEstudioForm
-        return context
 
     def get_plan_by_alumno(request):
         user=request.user
@@ -258,7 +248,6 @@ class CarreraList(LoggedInMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(CarreraList, self).get_context_data(**kwargs)
         context['form_materia'] = MateriaForm
-        context['form_plan'] = PlanEstudioForm
         context['form_carrera'] = CarreraForm
         return context
 
@@ -269,12 +258,6 @@ class GrupoCreate(LoggedInMixin, CreateView):
     template_name = 'academica/grupo/grupo_form.html'
     form_class = GrupoForm
 
-    def get_context_data(self, **kwargs):
-        cxt = super(GrupoCreate, self).get_context_data(**kwargs)
-        cxt['form_grupo'] = GrupoForm
-        if Semestre.objects.filter(is_active=True):
-            cxt['semestre'] = Semestre.objects.filter(is_active=True).get()
-        return cxt
 
 
 class GruposList(LoggedInMixin, ListView):
@@ -290,13 +273,9 @@ class GruposList(LoggedInMixin, ListView):
 class GrupoUpdate(LoggedInMixin, UpdateView):
     model = Grupos
     fields = '__all__'
-    template_name = 'academica/grupo/grupo_update_form.html'
-    form_class = GrupoUpdateForm
+    template_name = 'academica/grupo/grupo_form.html'
+    form_class = GrupoForm
 
-    def get_context_data(self, **kwargs):
-        context = super(GrupoUpdate, self).get_context_data(**kwargs)
-        context['form_grupoupdate'] = GrupoUpdateForm
-        return context
 
 
 class HorarioCreate(LoggedInMixin, CreateView):
@@ -309,7 +288,7 @@ class HorarioCreate(LoggedInMixin, CreateView):
 class HorarioUpdate(LoggedInMixin, UpdateView):
     model = Horario
     fields = '__all__'
-    template_name = 'academica/horario/horario_update_form.html'
+    template_name = 'academica/horario/horario_form.html'
     form_class = HorarioForm
 
 
@@ -939,14 +918,15 @@ class CalificacionesListByMateria(ListView):
 
     def get_materias_by_profesor(request):
 
-        print(Maestros.objects.get(no_expediente=request.user.no_expediente))
         profesor=Maestros.objects.get(no_expediente=request.user.no_expediente)
-        for a in Materias.objects.all():
-            print(a.profesor)
-        if Materias.objects.filter(profesor=profesor).exists():
-            materias = Materias.objects.filter(profesor=profesor)
+
+        if Maestros.objects.get(no_expediente=request.user.no_expediente).materias_set:
+            # materias = Materias.objects.filter(profesores=profesor)
+            materias = Maestros.objects.get(no_expediente=request.user.no_expediente).materias_set.all()
+
             return render_to_response('academica/calificacion/profesor_calificaciones.html',
                                       {'listado': materias})
+
         return render_to_response('academica/calificacion/profesor_calificaciones.html')
 
     def get_calificaciones_by_materia_ajax(request):
@@ -955,22 +935,21 @@ class CalificacionesListByMateria(ListView):
             alumnos = Alumnos.objects.all()
             flag = False
             retorno = []
-            calificaciones=[]
-            # print(Alumnos.objects.get(id=1).plan.materias.all().count())
             idcalificacion=0
 
             for a in alumnos:#alumnos
-                for m in a.plan.materias.all():#recorrro las materias del alumno
-                    if m.clave == request.GET['id']:#pregunto si la clave de la materia del estudiante es igual a la materia escogida
-                        for c in Calificaciones.objects.all():#recorro las calificaciones para comprobar si ya tiene o no
+                if a.is_active:
+                    if a.plan:
+                        if a.plan.materias.filter(clave=request.GET[
+                            'id']).exists():  #pregunto si la clave de la materia del estudiante es igual a la materia escogida
 
-                            if c.matricula.matricula == a.matricula:#pregunto si en las claificaciones existe el estudiante
+                            if a.calificaciones_set.exists():
+                                print(">>>>" + a.calificaciones_set.get(
+                                    materia__clave=request.GET['id']).matricula.matricula)
+                                idcalificacion = a.calificaciones_set.get(materia__clave=request.GET['id']).id
                                 flag = True
-                                idcalificacion=c.id
-                                print(c.matricula)
-                                break
 
-                        retorno.append({'nombre': a.nom_alumno, 'apellido_paterno': a.apellido_paterno,
+                            retorno.append({'nombre': a.nom_alumno, 'apellido_paterno': a.apellido_paterno,
                                         'apellido_materno': a.apellido_materno, 'matricula': a.matricula, 'id': a.id,
                                         'flag': flag,'calificacion_id':idcalificacion})
 

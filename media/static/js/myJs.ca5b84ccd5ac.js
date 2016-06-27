@@ -217,16 +217,16 @@ $(document).ready(
 );
 
 function Buscar() {
-    var anio = document.getElementById('id_semestre').selectedOptions[0].innerHTML.substring(2,4)
+    var anio = document.getElementById('id_semestre').selectedOptions[0].innerHTML.substring(2, 4)
     var plan = $('#id_plan').val()
-    var carrera=$('#id_carrera').val()
+    var carrera = $('#id_carrera').val()
     console.log(anio)
 
     $.ajax({
         data: {
             'anio': anio,
             'plan': plan,
-            'carrera':carrera
+            'carrera': carrera
 
         },
         url: '/academica/buscarexp-ajax/',
@@ -243,38 +243,37 @@ function Buscar() {
 
 }
 
-$('#select-materias').on('change',Cargar)
-function Cargar(){
-    var id=$(this).val()
+$('#select-materias').on('change', Cargar)
+function Cargar() {
+    var id = $(this).val()
     $.ajax({
-        data:{'id':id},
-        url:'/academica/matcal-ajax/',
-        type:'get',
-        success : function(data){
-            var object=JSON.parse(data)
-            var html=""
-             for (var i = 0; i < object.length; i++) {
-                 if (object[i].flag){
-                    var boton= "</td><td><a href=calificacion/update/"+object[i].calificacion_id+"/ >Actualizar</a>"
-                 }
-                 else{
-                     var boton="</td><td><a href=calificacion/add"+"/ >Calificar</a>"
-                 }
+        data: {'id': id},
+        url: '/academica/matcal-ajax/',
+        type: 'get',
+        success: function (data) {
+            var object = JSON.parse(data)
+            var html = ""
+            for (var i = 0; i < object.length; i++) {
+                if (object[i].flag) {
+                    var boton = "</td><td><a href=calificacion/update/" + object[i].calificacion_id + "/ >Actualizar</a>"
+                }
+                else {
+                    var boton = "</td><td><a href=calificacion/add" + "/ >Calificar</a>"
+                }
 
-                  html += ("<tr><td>" + object[i].matricula + "</td><td>" + object[i].nombre + "</td><td>" + object[i].apellido_paterno + "</td><td>" + object[i].apellido_materno + boton + "</td></tr>")
-                            $('#result-calificaciones').html(html)
-             }
+                html += ("<tr><td>" + object[i].matricula + "</td><td>" + object[i].nombre + "</td><td>" + object[i].apellido_paterno + "</td><td>" + object[i].apellido_materno + boton + "</td></tr>")
+                $('#result-calificaciones').html(html)
+            }
         }
     });
 }
-
 
 
 function cargarPlan() {
     Dajaxice.academica.cargar_plan(Dajax.process);
 }
 
-function cambiarLocalidad(){
+function cambiarLocalidad() {
     var id_municipio = $('#id_municipio').val()
 
     console.log(id_municipio)
@@ -289,13 +288,12 @@ function cambiarLocalidad(){
         type: 'get',
         success: function (data) {
             var objeto = JSON.parse(data)
-             options = '<option selected="selected" value="">---------</option>'
+            options = '<option selected="selected" value="">---------</option>'
             for (var i = 0; i < objeto.length; i++) {
-                options += '<option value=' + objeto[i].nombre + '>' + objeto[i].nombre + '</option>'
+                options += '<option value=' + objeto[i].id + '>' + objeto[i].nombre + '</option>'
             }
-            html='<select class=select id=id_localidad>'+options+'</select>'
+            html = '<select class=select id=id_localidad>' + options + '</select>'
             $('#id_localidad').html(options)
-            $('#id_localidad').attr('disabled', false)
 
         }
 
@@ -303,27 +301,27 @@ function cambiarLocalidad(){
 
 }
 
-function cambiarMunicipio(){
-    var id_estado= $('#id_estado').val()
+function cambiarMunicipio() {
+    var id_estado = $('#id_estado').val()
 
     console.log(id_estado)
 
     $.ajax({
         data: {
             'estado': id_estado,
-       },
+        },
         url: '/academica/buscarmun-ajax/',
         type: 'get',
         success: function (data) {
-             console.log(data)
+            console.log(data)
             var objeto = JSON.parse(data)
-             options = '<option selected="selected" value="">---------</option>'
+            options = '<option selected="selected" value="">---------</option>'
             for (var i = 0; i < objeto.length; i++) {
-              options += '<option value='+objeto[i].id+'>'+objeto[i].nombre+'</option>'
+                options += '<option value=' + objeto[i].id + '>' + objeto[i].nombre + '</option>'
             }
-            html='<select class=select id=id_localidad>'+options+'</select>'
+            html = '<select class=select id=id_localidad>' + options + '</select>'
             $('#id_municipio').html(options)
-            $('#id_municipio').attr('disabled', false)
+            document.getElementById('id_municipio').disabled = false
         }
 
     })

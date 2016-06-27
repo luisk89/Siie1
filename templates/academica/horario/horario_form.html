@@ -1,22 +1,15 @@
+{% extends 'academica/base.html' %}
 {% load crispy_forms_tags %}
-<!-- Modal -->
-<div class="modal fade" id="modalHorario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                </div>
-            <form id="myForm" method="post" action="{% url 'horario-add' %}">
+{% block content %}
+    <div class="box box-success">
+        {% crispy form %}
 
-                <div class="modal-body">
+        <div class="modal-footer">
 
-                    {% crispy form %}
-
-                </div>
-
-            </form>
-
+            <a class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;Guardar y agregar otro</a>
         </div>
     </div>
-</div>
+
+{% endblock %}
+
+

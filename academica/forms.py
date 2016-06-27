@@ -80,7 +80,7 @@ DIAS_SELECT = (
 
 )
 WHITE_SPACE = (
-    ('', '----------'),
+    ('-', '----------'),
 
 
 )
@@ -99,7 +99,8 @@ class AlumnosForm(forms.ModelForm):
             'fecha_nacimiento': forms.DateInput(attrs={'placeholder': 'dd/mm/aaaa','class': 'datepicker ui-widget ui-widget-content date-field'}),
         }
 
-    localidad = forms.ChoiceField(choices=WHITE_SPACE,widget=forms.Select(),required=False)
+    # localidad = forms.ModelChoiceField(choices=GENERO_SELECT,widget=forms.Select(), required=False, label='Localidad')
+
     sexo = forms.ChoiceField(choices=GENERO_SELECT,
                              widget=forms.Select(), required=False, label='Genero')
     edo_civil = forms.ChoiceField(choices=Estado_Civil,
@@ -114,7 +115,7 @@ class AlumnosForm(forms.ModelForm):
     edad = forms.IntegerField(required=False)
     promedio_bachiller=forms.FloatField(label='Promedio', widget=forms.TextInput(attrs={'class':style_numeric}), required=False)
     curp=forms.CharField(max_length=18,required=False)
-    #semestre = forms.ChoiceField(choices=mixins.getCicloSemestral(),widget=forms.Select(attrs={'class': 'form-control'}), required=False,initial=mixins.getSemestreActive())
+
     is_active=forms
 
     def __init__(self, *args, **kwargs):
@@ -131,14 +132,14 @@ class AlumnosForm(forms.ModelForm):
         self.fields['matricula'].widget.attrs['placeholder']="AACCCC"
         self.fields['municipio'].widget.attrs['onchange'] = "javascript:cambiarLocalidad();"
         self.fields['estado'].widget.attrs['onchange'] = "javascript:cambiarMunicipio();"
-       # self.fields['municipio'].widget.attrs['disabled'] = True
-
+        self.fields['municipio'].widget.attrs['disabled'] = True
 
 
 
         is_insert = self.instance.pk is None
         if is_insert:
             self.fields['matricula'].widget.attrs['onfocus'] = "javascript:Buscar()"
+
         else:
             self.fields['email'].widget.attrs['readonly'] = "readonly"
             self.fields['matricula'].widget.attrs['readonly'] = "readonly"
@@ -164,7 +165,9 @@ class AlumnosForm(forms.ModelForm):
                     'edo_civil',
                     Fieldset('Datos medicos', 'tipo_sangre', 'alergias', 'enfermedades', HTML("""<div id="div_id_seguro" class="checkbox"> <label for="id_seguro" class=""> <input checked="checked" class="checkboxinput" id="id_seguro" name="seguro" type="checkbox" value="1" onchange="javascript:showContent()">
                     Servicio Medico</label> </div>"""), Div('num_afiliacion', 'servicio_medico', id='div_ServicioMedico')),
-                    Fieldset('Domicilio', 'colonia','estado','municipio','localidad','domicilio', 'telefono', 'cp',
+                    Fieldset('Domicilio', 'colonia', 'estado', 'municipio', HTML(
+                        """<div class="form-group" id="div_id_localidad"> <label class="control-label form-group" for="id_localidad">Localidad</label> <div class="controls "> <select " name="localidad" id="id_localidad" class="select form-control" disabled="True" ><option selected="selected" value="">---------</option></select> </div> </div>"""),
+                             'domicilio', 'telefono', 'cp',
                              id='domicilio'),
                      Fieldset('Correo','email')
                 ),
@@ -178,10 +181,7 @@ class AlumnosForm(forms.ModelForm):
                     Fieldset('Control Escolar', HTML("""<a data-toggle="modal"
                         data-target="#modalPlan"
                         id="modal-button"><i class="fa fa-plus-circle"></i></a>"""), 'plan', 'semestre', 'matricula','condicionado','carrera'),
-                    # HTML("""<a data-toggle="modal"
-                    #     data-target="#modalGrupo"
-                    #     id="modal-button"><i class="fa fa-plus-circle"></i></a>"""),
-                    #          'grupo', 'is_active'
+
                     css_class="nav nav-tabs"
                 ),
                 Tab(
@@ -245,10 +245,6 @@ class ReinscripcionAlumnoForm(forms.ModelForm):
                                     widget=forms.Select(), required=False)
     edad = forms.IntegerField(required=False)
     promedio_bachiller = forms.FloatField(label='Promedio', widget=forms.TextInput(attrs={'class': style_numeric}),required=False)
-
-
-
-
     curp=forms.CharField(max_length=18,required=False)
 
 
@@ -267,6 +263,10 @@ class ReinscripcionAlumnoForm(forms.ModelForm):
         self.fields['matricula'].widget.attrs['placeholder']="AACCCC"
         self.fields['email'].widget.attrs['readonly'] = "readonly"
         self.fields['matricula'].widget.attrs['readonly'] = "readonly"
+        self.fields['municipio'].widget.attrs['onchange'] = "javascript:cambiarLocalidad();"
+        self.fields['estado'].widget.attrs['onchange'] = "javascript:cambiarMunicipio();"
+        self.fields['municipio'].widget.attrs['disabled'] = True
+
         self.helper.form_class = 'box box-success'
         self.helper.label_class = 'form-group'
         self.helper.add_input(Submit('submit', 'Guardar'))
@@ -289,7 +289,9 @@ class ReinscripcionAlumnoForm(forms.ModelForm):
                     'edo_civil',
                     Fieldset('Datos medicos', 'tipo_sangre', 'alergias', 'enfermedades', HTML("""<div id="div_id_seguro" class="checkbox"> <label for="id_seguro" class=""> <input checked="checked" class="checkboxinput" id="id_seguro" name="seguro" type="checkbox" value="1" onchange="javascript:showContent()">
                     Servicio Medico</label> </div>"""), Div('num_afiliacion', 'servicio_medico', id='div_ServicioMedico')),
-                    Fieldset('Domicilio', 'colonia', 'estado','municipio', 'localidad', 'domicilio', 'telefono', 'cp',
+                    Fieldset('Domicilio', 'colonia', 'estado', 'municipio', HTML(
+                        """<div class="form-group" id="div_id_localidad"> <label class="control-label form-group" for="id_localidad">Localidad</label> <div class="controls "> <select " name="localidad" id="id_localidad" class="select form-control" disabled="True" ><option selected="selected" value="">---------</option></select> </div> </div>"""),
+                             'domicilio', 'telefono', 'cp',
                              id='domicilio'),
                      Fieldset('Correo','email')
                 ),
@@ -349,15 +351,13 @@ class PlanEstudioForm(forms.ModelForm):
     helper = FormHelper()
     helper.add_input(Submit('submit', 'Guardar'))
     helper.layout = Layout(
-        'nom_plan',
-        'clave_plan',
-        'materias',
-        'is_active',
+        Fieldset('Plan de estudio', 'nom_plan', 'clave_plan'),
+        Div('materias')
     )
 
     class Meta:
         model = PlanEstudio
-        fields = '__all__'
+        exclude = ("baja_date_created", "alta_date_created", "is_active")
 
 
 class GrupoForm(forms.ModelForm):
@@ -375,7 +375,7 @@ class GrupoForm(forms.ModelForm):
         self.helper.label_class = 'form-group'
         self.helper.add_input(Submit('submit', 'Guardar'))
         self.helper.layout = Layout(
-            Fieldset('General','clave', 'nombre', 'cant_alumnos', 'semestre', 'actual', 'ciclo_escolar', 'plan')
+            Fieldset('Grupo', 'clave', 'nombre', 'cant_alumnos', 'semestre', 'actual', 'ciclo_escolar', 'plan')
         )
 
 
@@ -419,8 +419,8 @@ class HorarioForm(forms.ModelForm):
                  'clave_horario',
                  'nombre',
                  'hora_inicio',
-                 'hora_termino',
                  'minutos_inicio',
+                 'hora_termino',
                  'minutos_termino',
                  'dia',
                  'aula',
@@ -728,12 +728,12 @@ class MunicipioForm(forms.ModelForm):
 class AulaForm(forms.ModelForm):
     helper = FormHelper()
     helper.layout = Layout(
-        'nom_aula', 'edificio', 'is_active'
+        'nom_aula', 'edificio'
     )
 
     class Meta:
         model = Aulas
-        fields = '__all__'
+        exclude = ("baja_date_created", "is_active")
 
 
 class EstadoForm(forms.ModelForm):

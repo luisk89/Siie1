@@ -295,7 +295,7 @@ function cambiarLocalidad(){
             }
             html='<select class=select id=id_localidad>'+options+'</select>'
             $('#id_localidad').html(options)
-            document.getElementById('id_localidad').disabled=false
+
         }
 
     })
@@ -310,12 +310,11 @@ function cambiarMunicipio(){
     $.ajax({
         data: {
             'estado': id_estado,
-
-
         },
         url: '/academica/buscarmun-ajax/',
         type: 'get',
         success: function (data) {
+            console.log(data)
             var objeto = JSON.parse(data)
              options = '<option selected="selected" value="">---------</option>'
             for (var i = 0; i < objeto.length; i++) {
@@ -334,8 +333,6 @@ function addhorario(id) {
     console.log(id)
     $('#id_grupo').val()
 }
-
-
 
 $.ajaxSetup({
     beforeSend: function (xhr, settings) {
