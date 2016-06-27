@@ -929,8 +929,8 @@ class Semestre(models.Model):
     fecha_termino = models.DateField()
     vigente = models.BooleanField(default=False)
 
-    fecha_inicio_programacion = models.DateTimeField(blank=True, null=True)
-    fecha_fin_programacion = models.DateTimeField(blank=True, null=True)
+    fecha_inicio_programacion = models.DateField()(blank=True, null=True)
+    fecha_fin_programacion = models.DateField()(blank=True, null=True)
 
     alta_date_created = models.DateTimeField(auto_now_add=True)
     baja_date_created = models.DateTimeField(blank=True, null=True)
