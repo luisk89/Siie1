@@ -125,7 +125,7 @@ urlpatterns = patterns('',
                        url(r'escuela/add/$',permission_required('users.permissions_administrador', login_url='login')(  EscuelaCreate.as_view()), name='escuela-add'),
                        url(r'escuela/list/$',permission_required('users.permissions_administrador', login_url='login')(  EscuelaList.as_view()), name='list-escuela'),
 
-                       url(r'califprof/$', CalificacionesListByMateria.get_materias_by_profesor, name='profesor-calificacion'),
+                       url(r'califprof/$', permission_required('users.permissions_maestros', login_url='login')(CalificacionesListByMateria.get_materias_by_profesor), name='profesor-calificacion'),
                        url(r'^matcal-ajax/$', CalificacionesListByMateria.get_calificaciones_by_materia_ajax, name='materias-calificacion'),
 
                        url(r'^buscarloc-ajax/$', MunicipioList.get_localidad_by_municipio, name='localida-municipio'),

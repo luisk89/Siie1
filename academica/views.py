@@ -421,7 +421,7 @@ class CalificacionList(LoggedInMixin, ListView):
         list = Calificaciones.objects.filter(matricula=alumnoNombre.matricula)
 
         return render_to_response('academica/calificacion/calificacion_by_alumno.html',
-                                  {'listado': list, 'alumno': alumnoNombre, 'user': user})
+                                  {'listado': list, 'alumno': alumnoNombre,'user':user})
 
     def get_my_calificaciones(request):
         user = request.user
@@ -429,7 +429,7 @@ class CalificacionList(LoggedInMixin, ListView):
         alumnoNombre = Alumnos.objects.get(matricula=no_expediente)
         list = Calificaciones.objects.filter(matricula=no_expediente)
         return render_to_response('academica/calificacion/mis_calificaciones.html',
-                                  {'listado': list, 'alumno': alumnoNombre, 'user': user})
+                                  {'listado': list, 'alumno': alumnoNombre,'user':user})
 
 
 class CalificacionesUpdate(LoggedInMixin, UpdateView):
@@ -914,7 +914,7 @@ class EscuelaList(LoggedInMixin, ListView):
 
 
 
-class CalificacionesListByMateria(ListView):
+class CalificacionesListByMateria(LoggedInMixin, ListView):
 
     def get_materias_by_profesor(request):
 
@@ -925,7 +925,7 @@ class CalificacionesListByMateria(ListView):
             materias = Maestros.objects.get(no_expediente=request.user.no_expediente).materias_set.all()
 
             return render_to_response('academica/calificacion/profesor_calificaciones.html',
-                                      {'listado': materias})
+                                      {'listado': materias, 'user':request.user})
 
         return render_to_response('academica/calificacion/profesor_calificaciones.html')
 
