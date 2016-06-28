@@ -211,6 +211,19 @@ class AlumnosForm(forms.ModelForm):
             self.fields['email'].widget.attrs['readonly'] = "readonly"
         return email
 
+    def clean_matricula(self):
+        matricula = self.cleaned_data['matricula']
+        is_insert = self.instance.pk is None
+        if is_insert:
+            try:
+                User.objects.get(no_expediente=matricula)
+            except User.DoesNotExist:
+                return matricula
+            raise forms.ValidationError("Existe un usuario con esta matricula por favor cambiarlo")
+        else:
+            self.fields['matricula'].widget.attrs['readonly'] = "readonly"
+        return matricula
+
 class ReinscripcionAlumnoForm(forms.ModelForm):
     class Meta:
         model = Alumnos
@@ -451,6 +464,32 @@ class MaestroForm(forms.ModelForm):
     class Meta:
         model = Maestros
         exclude = ("baja_date_created", "alta_date_created", "is_active")
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        is_insert = self.instance.pk is None
+        if is_insert:
+            try:
+                User.objects.get(email=email)
+            except User.DoesNotExist:
+                return email
+            raise forms.ValidationError("Existe un usuario con este email por favor cambiarlo")
+        else:
+            self.fields['email'].widget.attrs['readonly'] = "readonly"
+        return email
+
+    def clean_no_expediente(self):
+        no_expediente = self.cleaned_data['no_expediente']
+        is_insert = self.instance.pk is None
+        if is_insert:
+            try:
+                User.objects.get(no_expediente=no_expediente)
+            except User.DoesNotExist:
+                return no_expediente
+            raise forms.ValidationError("Existe un usuario con este Numero de expediente por favor cambiarlo")
+        else:
+            self.fields['no_expediente'].widget.attrs['readonly'] = "readonly"
+        return no_expediente
 
 
 class CalificacionForm(forms.ModelForm):
