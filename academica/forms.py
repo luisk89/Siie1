@@ -171,7 +171,7 @@ class AlumnosForm(forms.ModelForm):
                     'Datos Escolares',
                     Fieldset('Procedencia', 'escuela_procedencia',
                              'anio_egreso', 'promedio_bachiller'),
-                    Fieldset('Control Escolar', 'plan', 'semestre', 'matricula', 'condicionado', 'carrera'),
+                    Fieldset('Control Escolar', 'plan', 'semestre', 'matricula', 'condicionado', 'carrera', 'grupo'),
 
                     css_class="nav nav-tabs"
                 ),
@@ -464,6 +464,13 @@ class MaestroForm(forms.ModelForm):
     class Meta:
         model = Maestros
         exclude = ("baja_date_created", "alta_date_created", "is_active")
+
+    def __init__(self, *args, **kwargs):
+        super(MaestroForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'box box-success'
+        self.helper.label_class = 'form-group'
+        self.helper.add_input(Submit('submit', 'Guardar'))
 
     def clean_email(self):
         email = self.cleaned_data['email']

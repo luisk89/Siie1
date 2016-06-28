@@ -1,5 +1,5 @@
-{% load crispy_forms_tags %}
-<!-- Modal -->
+<!--load crispy_forms_tags
+<!-- Modal
 <div class="modal fade" id="modalMaestro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -7,11 +7,11 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
                 </div>
-            <form id="myForm" method="post" action="{% url 'maestro-add' %}">
+            <form id="myForm" method="post" action=" url 'maestro-add' ">
 
                 <div class="modal-body">
 
-                    {% crispy form %}
+                     crispy form
 
                 </div>
 
@@ -19,4 +19,24 @@
 
         </div>
     </div>
-</div>
+</div>-->
+
+
+{% extends 'academica/base.html' %}
+{% load static from staticfiles %}
+{% load crispy_forms_tags %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb "Adicionar Maestro" "academica.views.MaestroCreate" %}
+{% endblock %}
+
+
+{% block content %}
+    {% render_breadcrumbs %}
+
+    {% crispy form %}
+
+
+{% endblock %}
