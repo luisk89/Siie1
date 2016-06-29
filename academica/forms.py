@@ -175,7 +175,9 @@ class AlumnosForm(forms.ModelForm):
 
                 Tab(
                     'Datos Escolares',
-                    Fieldset('Procedencia', 'escuela_procedencia',
+                    Fieldset('Procedencia',HTML("""<a data-toggle="modal"
+                        data-target="#modalEscuela"
+                        id="modal-button"><i class="fa fa-plus-circle"></i></a>"""), 'escuela_procedencia',
                              'anio_egreso', 'promedio_bachiller'),
                     Fieldset('Control Escolar', 'plan', 'semestre', 'matricula', 'condicionado', 'carrera', 'grupo'),
 
@@ -312,9 +314,7 @@ class ReinscripcionAlumnoForm(forms.ModelForm):
                         data-target="#modalEscuela"
                         id="modal-button"><i class="fa fa-plus-circle"></i></a>"""), 'escuela_procedencia',
                              'anio_egreso', 'promedio_bachiller'),
-                    Fieldset('Control Escolar', HTML("""<a data-toggle="modal"
-                        data-target="#modalPlan"
-                        id="modal-button"><i class="fa fa-plus-circle"></i></a>"""), 'plan', 'semestre', 'matricula','condicionado','carrera'),
+                    Fieldset('Control Escolar', 'plan', 'semestre', 'matricula','condicionado','carrera'),
 
                     css_class="nav nav-tabs"
                 ),
