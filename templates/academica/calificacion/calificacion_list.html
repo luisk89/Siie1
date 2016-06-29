@@ -32,8 +32,11 @@
                     {% endfor %}
                     </tbody>
                 </table>
-            <a class="btn btn-success" href="{% url 'calificacion-add' %}"   id="modal-button"><i class="fa fa-flag"></i>&nbsp;Calificar</a>
-
+            {% for group in user.groups.all %}
+            {% if group.name == 'Maestro' %}
+                <a class="btn btn-success" href="{% url 'calificacion-add' %}"   id="modal-button"><i class="fa fa-flag"></i>&nbsp;Calificar</a>
+            {% endif %}
+            {% endfor %}
             </div>
             <!-- /.box-body -->
         </div>
