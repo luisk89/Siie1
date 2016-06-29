@@ -54,7 +54,8 @@ Servicio_medico = (
 Condicionado_select = (
     ('1', 'Normal'),
     ('2', 'Revalidacion'),
-    ('3', 'Equivalencia')
+    ('3', 'Equivalencia'),
+    ('4', 'Convalidación')
 )
 Sangre_select = (
     ('A+', 'A+'),
@@ -113,6 +114,7 @@ class AlumnosForm(forms.ModelForm):
     promedio_bachiller=forms.FloatField(label='Promedio', widget=forms.TextInput(attrs={'class':style_numeric}), required=False)
     curp=forms.CharField(max_length=18,required=False)
 
+
     is_active=forms
 
     def __init__(self, *args, **kwargs):
@@ -122,18 +124,22 @@ class AlumnosForm(forms.ModelForm):
         self.fields['sueldo_mensual'].widget.attrs['min'] = 0
         self.fields['sueldo_mensual_alumno'].widget.attrs['min'] = 0
         self.fields['is_active'].widget = forms.HiddenInput()
-        self.fields['plan'].widget.attrs['onchange']="javascript:Buscar()"
-        self.fields['semestre'].widget.attrs['onchange']="javascript:Buscar()"
         self.fields['trabaja_actualmente'].widget.attrs['onchange']="javascript:showContent1()"
         self.fields['carrera'].widget.attrs['onchange']="javascript:Buscar()"
         self.fields['matricula'].widget.attrs['placeholder']="AACCCC"
         self.fields['municipio'].widget.attrs['onchange'] = "javascript:cambiarLocalidad();"
         self.fields['estado'].widget.attrs['onchange'] = "javascript:cambiarMunicipio();"
         self.fields['municipio'].widget.attrs['disabled'] = True
+        self.fields['alergias'].initial = 'NINGUNO'
+        self.fields['enfermedades'].initial = 'NINGUNO'
+        self.fields['domicilio'].label='Calle y N°'
+        self.fields['anio_egreso'].label = 'Año de Egreso'
 
         is_insert = self.instance.pk is None
         if is_insert:
             self.fields['matricula'].widget.attrs['onfocus'] = "javascript:Buscar()"
+            self.fields['plan'].widget.attrs['onchange'] = "javascript:Buscar()"
+            self.fields['semestre'].widget.attrs['onchange'] = "javascript:Buscar()"
 
         else:
             self.fields['email'].widget.attrs['readonly'] = "readonly"
@@ -160,9 +166,9 @@ class AlumnosForm(forms.ModelForm):
                     'edo_civil',
                     Fieldset('Datos medicos', 'tipo_sangre', 'alergias', 'enfermedades', HTML("""<div id="div_id_seguro" class="checkbox"> <label for="id_seguro" class=""> <input checked="checked" class="checkboxinput" id="id_seguro" name="seguro" type="checkbox" value="1" onchange="javascript:showContent()">
                     Servicio Medico</label> </div>"""), Div('num_afiliacion', 'servicio_medico', id='div_ServicioMedico')),
-                    Fieldset('Domicilio', 'colonia', 'estado', 'municipio', HTML(
+                    Fieldset('Domicilio','domicilio', 'colonia', 'estado', 'municipio', HTML(
                         """<div class="form-group" id="div_id_localidad"> <label class="control-label form-group" for="id_localidad">Localidad</label> <div class="controls "> <select " name="localidad" id="id_localidad" class="select form-control" disabled="True" ><option selected="selected" value="">---------</option></select> </div> </div>"""),
-                             'domicilio', 'telefono', 'cp',
+                             'telefono', 'cp',
                              id='domicilio'),
                      Fieldset('Correo','email')
                 ),
