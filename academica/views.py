@@ -2,6 +2,7 @@ from builtins import print
 from django.contrib.auth import get_user_model
 
 import json
+from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse_lazy
 from django.http.response import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render, render_to_response, redirect
@@ -10,7 +11,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, CreateView, DeleteView, FormView
 from django.views.generic.list import ListView
 from django.contrib import messages
-from academica.util import LoggedInMixin
+from academica.util import LoggedInMixin, AjaxTemplateMixin
 from django.contrib.auth.models import Group
 from django.utils.translation import activate
 from academica.forms import AlumnosForm, PlanEstudioForm, ExtraCurricularesForm, GrupoForm, HorarioForm, MaestroForm, \
@@ -18,14 +19,14 @@ from academica.forms import AlumnosForm, PlanEstudioForm, ExtraCurricularesForm,
     ConsultaAlumnosListForm, ConsultaCicloSemestralListForm, MunicipioForm, EstadoForm, AulaForm, \
     ConsultaExtracurricularListForm, \
     ServicioSocialForm, BecasForm, TiposBecasForm, EscuelaForm, BibliotecaForm, CentroComputoForm, ContabilidadForm, \
-    ReinscripcionAlumnoForm, GrupoUpdateForm, listaGruposForm, PlanEstudioDetailForm
+    ReinscripcionAlumnoForm, GrupoUpdateForm, listaGruposForm, PlanEstudioDetailForm, SemestreForm
 
 activate('es')
 # Create your views here.
 from academica.models import Alumnos, PlanEstudio, Extracurriculares, Grupos, Horario, Maestros, Materias, \
     AlumnoCalificacion, Carreras, Bajas, Evaluacion, EncuestaEgresados, AlumnoPrevio, Aulas, \
     Municipios, Estados, Calificaciones, ServicioHoras, Becas, TipoBeca, Escuela, Biblioteca, CentroComputo, \
-    Contabilidad, Semestre, Localidad
+    Contabilidad, Semestre, Localidad, CicloSemestral
 
 
 class AlumnoCreate(LoggedInMixin, CreateView):
@@ -41,9 +42,9 @@ class AlumnoCreate(LoggedInMixin, CreateView):
         context['form_plan'] = PlanEstudioForm
         context['form_grupo'] = GrupoForm
         context['form_escuela'] = EscuelaForm
-        if Semestre.objects.filter(vigente=True):
-            semestre = Semestre.objects.filter(vigente=True).get()
-            context['semestre'] = semestre
+        if CicloSemestral.objects.filter(vigente=True):
+            ciclo = CicloSemestral.objects.filter(vigente=True).get()
+            context['ciclo'] = ciclo
         return context
 
     def form_valid(self, form):
@@ -206,6 +207,7 @@ class PlanUpdate(LoggedInMixin, UpdateView):
 class PlanEstudioList(LoggedInMixin, ListView):
     model = PlanEstudio
     template_name = 'academica/planEstudio/planEstudio_list.html'
+
 
 
     def get_plan_by_alumno(request):
@@ -456,15 +458,15 @@ class CalificacionesDetail(LoggedInMixin, DetailView):
     form_class = CalificacionForm
 
 class CicloSemestralCreate(LoggedInMixin, CreateView):
-    model = Semestre
+    model = CicloSemestral
     template_name = 'academica/semestre/ciclosemestral_form.html'
     form_class = CicloSemestralForm
 
     def form_valid(self, form):
-        semestre = form.cleaned_data['vigente']
-        if semestre:
-            semestresActivos = Semestre.objects.filter(is_active=True)
-            if semestresActivos:
+        ciclo = form.cleaned_data['vigente']
+        if ciclo:
+            CiclosActivos = CicloSemestral.objects.filter(vigente=True)
+            if CiclosActivos:
                 messages.error(self.request, message='Ya hay un semestre activo en el sistema')
                 # impedir q inserte el semestre
             else:
@@ -474,27 +476,27 @@ class CicloSemestralCreate(LoggedInMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(CicloSemestralCreate, self).get_context_data(**kwargs)
-        context['form_semestre'] = CicloSemestralForm
+        context['form_ciclo'] = CicloSemestralForm
         return context
 
 
 class CicloSemestralUpdate(LoggedInMixin, UpdateView):
-    model = Semestre
+    model = CicloSemestral
     fields = '__all__'
     template_name = 'academica/semestre/ciclosemestralUpdate.html'
     form_class = CicloSemestralForm
 
 
 class CicloSemestralList(LoggedInMixin, ListView):
-    model = Semestre
+    model = CicloSemestral
     template_name = 'academica/semestre/ciclosemestral_list.html'
 
     def get_context_data(self, **kwargs):
         context = super(CicloSemestralList, self).get_context_data(**kwargs)
         context['search_form'] = ConsultaCicloSemestralListForm
-        context['form_semestre'] = CicloSemestralForm
+        context['form_ciclo'] = CicloSemestralForm
         ciclo_activo = False
-        for i in Semestre.objects.all():
+        for i in CicloSemestral.objects.all():
             if i.vigente:
                 ciclo_activo = i
                 print("semestre" + ciclo_activo.clave)
@@ -507,13 +509,13 @@ class CicloSemestralList(LoggedInMixin, ListView):
         if request.is_ajax():
             # alumnosReturn=Alumnos.objects.filter(Q(nom_alumno__contains=request.GET['nombre']) | Q(apellido_paterno__contains=request.GET['apellidoP'])| Q(apellido_materno__contains=request.GET['apellidoM'])|Q(semestre__id__contains=request.GET['semestre'])|Q(no_expediente__contains=request.GET['expediente'])).all()
 
-            semestres = Semestre.objects.filter(clave__contains=request.GET['clave']).filter(
+            ciclos = CicloSemestral.objects.filter(clave__contains=request.GET['clave']).filter(
                 ciclo_sep__contains=request.GET['ciclo']).filter(
                 anio__contains=request.GET['anio']).filter(
                 periodo__contains=request.GET['periodo'])
 
             retorno = []
-            for s in semestres:
+            for s in ciclos:
                 retorno.append({'clave': s.clave, 'ciclo': s.ciclo_sep, 'anio': s.anio, 'periodo': s.periodo,
                                 'fecha_inicio': s.fecha_inicio, 'fecha_fin': s.fecha_termino, 'vigente': s.vigente})
 
@@ -969,3 +971,35 @@ class CalificacionesListByMateria(LoggedInMixin, ListView):
         else:
             redirect('academica/calificacion/profesor_calificaciones.html')
 
+
+class SemestreCreate(LoggedInMixin, CreateView):
+    model = Semestre
+    form_class = SemestreForm
+    template_name = 'academica/semestre/semestre_form.html'
+    success_url = '/academica/semestre-list'
+
+    def get_context_data(self, **kwargs):
+        context = super(SemestreCreate, self).get_context_data(**kwargs)
+        context['form_semestre'] = SemestreForm
+        return context
+
+
+class SemestreList(LoggedInMixin, ListView):
+    model = Semestre
+    template_name = 'academica/semestre/semestre_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(SemestreList, self).get_context_data(**kwargs)
+        context['form_semestre'] = SemestreForm
+        return context
+
+class SemestreUpdate(LoggedInMixin, UpdateView):
+    model = Semestre
+    form_class = SemestreForm
+    template_name = 'academica/semestre/semestre_form.html'
+    success_url = '/academica/semestre-list'
+
+    def get_context_data(self, **kwargs):
+        context = super(SemestreUpdate, self).get_context_data(**kwargs)
+        context['form_semestre'] = SemestreForm
+        return context

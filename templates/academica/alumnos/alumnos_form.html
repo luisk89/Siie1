@@ -11,7 +11,7 @@
 
 {% block content %}
     {% render_breadcrumbs %}
-    <input type="hidden" value="{{ semestre.id }}" id="semestreHidden">
+    <input type="hidden" value="{{ ciclo.id }}" id="semestreHidden">
    <figure style="padding-bottom: 2%">
 <img src="{% static 'images/noavatar.png' %}" id="foto" class="img-circle">
 
@@ -55,6 +55,7 @@
             console.log('copiando datos')
         }
 
-        {% include 'academica/escuela/escuela_form.html' %}
+
     </script>
+     {% include 'academica/escuela/escuela_form.html' %}
 {% endblock %}

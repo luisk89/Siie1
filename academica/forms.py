@@ -19,7 +19,8 @@ from crispy_forms.bootstrap import TabHolder, Tab, InlineField, InlineCheckboxes
 
 from academica.models import Alumnos, PlanEstudio, Extracurriculares, Grupos, Horario, Materias, Maestros, \
     Carreras, Bajas, Evaluacion, EncuestaEgresados, Aulas, Municipios, \
-    Estados, Calificaciones, ServicioHoras, Becas, TipoBeca, Escuela, Biblioteca, Contabilidad, CentroComputo, Semestre
+    Estados, Calificaciones, ServicioHoras, Becas, TipoBeca, Escuela, Biblioteca, Contabilidad, CentroComputo, Semestre, \
+    CicloSemestral
 from users.models import User
 
 class ExtraCurricularesForm(forms.ModelForm):
@@ -549,7 +550,7 @@ class CarreraUpdateForm(forms.ModelForm):
 
 class CicloSemestralForm(forms.ModelForm):
     class Meta:
-        model = Semestre
+        model = CicloSemestral
         fields = '__all__'
         exclude = ("baja_date_created", "alta_date_created", "is_active", "periodo", "fecha_inicio_programacion",
                    "fecha_fin_programacion")
@@ -925,4 +926,22 @@ class PlanEstudioDetailForm(forms.ModelForm):
         self.helper.label_class = 'form-group'
         self.helper.layout = Layout(
             Fieldset('Plan de estudio', 'nom_plan','clave_plan','materias')
+        )
+
+class SemestreForm(forms.ModelForm):
+    class Meta:
+        model = Semestre
+        fields = '__all__'
+        exclude = ("baja_date_created", "alta_date_created", "is_active")
+
+
+    def __init__(self, *args, **kwargs):
+        super(SemestreForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'box box-success'
+        self.helper.label_class = 'form-group'
+        self.helper.layout = Layout(
+            Fieldset('Agregar semestre','ciclo_semestral'),
+            'nombre','clave',
+
         )

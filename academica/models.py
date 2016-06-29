@@ -918,29 +918,41 @@ class Evaluacion(models.Model):
     def get_absolute_url(self):
         return reverse('list-evaluacion')
 
-
-class Semestre(models.Model):
+class CicloSemestral(models.Model):
     clave = models.CharField(max_length=50,blank=True,unique=True)
-    ciclo_semestral = models.CharField(max_length=50)
-    ciclo_sep = models.CharField(max_length=50, verbose_name='Ciclo SEP')
+    nombre=models.CharField(max_length=100,blank=True,null=True)
     anio = models.IntegerField(verbose_name="Año")
     periodo = models.IntegerField(blank=True, null=True)
     fecha_inicio = models.DateField()
     fecha_termino = models.DateField()
     vigente = models.BooleanField(default=False)
 
-    fecha_inicio_programacion = models.DateTimeField(blank=True, null=True)
-    fecha_fin_programacion = models.DateTimeField(blank=True, null=True)
+    fecha_inicio_programacion = models.DateField(blank=True, null=True)
+    fecha_fin_programacion = models.DateField(blank=True, null=True)
+
+    class Meta:
+        ordering = ["clave"]
+
+    def get_absolute_url(self):
+        return reverse('list-ciclo')
+
+    def __str__(self):
+        return self.clave
+
+class Semestre(models.Model):
+    clave = models.CharField(max_length=50,blank=True,unique=True)
+    ciclo_semestral = models.ForeignKey(CicloSemestral,to_field='clave')
+    nombre=models.CharField(max_length=100,null=True,blank=True)
 
     alta_date_created = models.DateTimeField(auto_now_add=True)
     baja_date_created = models.DateTimeField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ["clave"]
-
-    def get_absolute_url(self):
-        return reverse('list-semestre')
+        ordering = ["ciclo_semestral"]
+    #
+    # def get_absolute_url(self):
+    #     return reverse('list-semestre')
 
     def __str__(self):
         return self.clave

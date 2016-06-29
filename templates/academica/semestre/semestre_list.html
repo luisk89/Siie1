@@ -1,0 +1,62 @@
+{% extends 'academica/base.html' %}
+<!-- Main content -->
+{% block content %}
+
+        <!-- /.box -->
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Listado Semestres</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="example1" class="table table-responsive table-striped">
+                    <thead>
+                    <tr>
+                        <th>Ciclo semestral</th>
+                        <th>Clave</th>
+                        <th>Nombre</th>
+{#                        <th>Modificar</th>#}
+
+
+                    </tr>
+                    </thead>
+
+                    <tbody id="id_tableSemestre-body">
+                    {% for semestre in object_list %}
+                        <tr>
+                            <td>{{ semestre.ciclo_semestral }}</td>
+                            <td>{{ semestre.clave }}</td>
+                            <td>{{ semestre.nombre }}</td>
+{#                            <td>#}
+{#                                <a href="ciclosemestral/update/{{ semestre.id }}" class="btn btn-success"><i#}
+{#                                        class="fa fa-edit"></i>&nbsp;Actualizar</a>#}
+{##}
+{#                            </td>#}
+                        </tr>
+                        {#                {% endif %}#}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+            <div class="modal-footer">
+                  <a class="btn btn-success" data-toggle="modal"
+                       data-target="#modalSemestre"
+                       id="modal-button"><i class="fa fa-calendar"></i>&nbsp;Crear Semestre</a>
+            </div>
+        </div>
+        <!-- /.box -->
+
+    <!-- /.col -->
+
+ {% include 'academica/semestre/semestre_form.html' %}
+
+{% endblock %}
+
+
+
+
+
+
+
+
