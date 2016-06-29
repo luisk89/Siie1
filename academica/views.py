@@ -319,12 +319,13 @@ class HorarioList(LoggedInMixin, ListView):
 
         alumnoNombre = Alumnos.objects.get(matricula=no_expediente)
 
-        if (Grupos.objects.filter(clave=alumnoNombre.grupo.clave).all()):
-            group = Grupos.objects.filter(id=alumnoNombre.grupo.id).get()
-            horarios = Horario.objects.filter(grupo=group).all()
+        if (alumnoNombre.grupo):
+            if (Grupos.objects.filter(clave=alumnoNombre.grupo.clave).all()):
+                group = Grupos.objects.filter(id=alumnoNombre.grupo.id).get()
+                horarios = Horario.objects.filter(grupo=group).all()
+                return render_to_response('academica/horario/mis_horarios.html', {'list':horarios})
 
-        return render_to_response('academica/horario/mis_horarios.html', {'list':horarios})
-
+        return render_to_response('academica/horario/mis_horarios.html')
 
 class MateriaCreate(LoggedInMixin, CreateView):
     model = Materias
@@ -420,16 +421,18 @@ class CalificacionList(LoggedInMixin, ListView):
         alumnoNombre = Alumnos.objects.get(id=alumno)
         list = Calificaciones.objects.filter(matricula=alumnoNombre.matricula)
 
-        return render_to_response('academica/calificacion/calificacion_by_alumno.html',
+        return render_to_response('academica/calificacion/mis_calificaciones.html',
                                   {'listado': list, 'alumno': alumnoNombre, 'user': user})
 
     def get_my_calificaciones(request):
         user = request.user
         no_expediente = user.no_expediente
-        alumnoNombre = Alumnos.objects.get(matricula=no_expediente)
-        list = Calificaciones.objects.filter(matricula=no_expediente)
-        return render_to_response('academica/calificacion/mis_calificaciones.html',
+        if Alumnos.objects.get(matricula=no_expediente):
+            alumnoNombre = Alumnos.objects.get(matricula=no_expediente)
+            list = Calificaciones.objects.filter(matricula=no_expediente)
+            return render_to_response('academica/calificacion/mis_calificaciones.html',
                                   {'listado': list, 'alumno': alumnoNombre, 'user': user})
+
 
 
 class CalificacionesUpdate(LoggedInMixin, UpdateView):

@@ -21,8 +21,6 @@
                             <th>Aula</th>
                             <th>Profesor</th>
                             <th>Fecha</th>
-                            <th>Modificar</th>
-
 
                         </tr>
                         </thead>
@@ -39,9 +37,7 @@
                                 <td>{{ horario.aula.nom_aula }}</td>
                                 <td>{{ horario.profesores.nombre }}</td>
                                 <td>{{ horario.alta_date_created }}</td>
-                                 <td>
-                                <a href="horario/{{ horario.id }}/" class="btn btn-success"><i class="fa fa-edit"></i>&nbsp;Actualizar</a>
-                            </td>
+
 
                             </tr>
 
@@ -49,11 +45,7 @@
                         {% endfor %}
 
                     </table>
-                <a class="btn btn-success" data-toggle="modal"
-                       data-target="#modalHorario"
-                       id="modal-button"><i class="fa fa-file"></i>&nbsp;Crear Horario</a>
-                </div>
-                <!-- /.box-body -->
+                               <!-- /.box-body -->
             </div>
             <!-- /.box -->
         </div>
