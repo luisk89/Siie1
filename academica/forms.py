@@ -90,6 +90,11 @@ hoy = datetime.datetime.now()
 hoy = hoy.strftime('%Y-%m-%d')
 style_numeric = 'ui-widget ui-widget-content numeric-field'
 
+from datetime import date
+
+def calculate_age(born):
+    today = date.today()
+    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
 class AlumnosForm(forms.ModelForm):
     class Meta:
@@ -113,7 +118,7 @@ class AlumnosForm(forms.ModelForm):
                                     widget=forms.Select(), required=False)
     edad = forms.IntegerField(required=False)
     promedio_bachiller=forms.FloatField(label='Promedio', widget=forms.TextInput(attrs={'class':style_numeric}), required=False)
-    curp=forms.CharField(max_length=18,required=False)
+    curp=forms.CharField(max_length=18,min_length=18,required=False)
 
 
     is_active=forms
