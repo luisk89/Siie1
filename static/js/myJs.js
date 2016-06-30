@@ -83,7 +83,7 @@ $(document).ready(
                 type: 'get',
                 success: function (data) {
                     var objeto = JSON.parse(data)
-                    console.log(objeto.length)
+
                     if (objeto.length == 0) {
                         alert("No existen estudiantes para este criterio de busqueda")
                     }
@@ -120,7 +120,7 @@ $(document).ready(
                 type: 'get',
                 success: function (data) {
                     var objeto = JSON.parse(data)
-                    console.log(objeto.length)
+
                     if (objeto.length == 0) {
                         alert("Criterio de busqueda no encontrado")
                     }
@@ -161,7 +161,7 @@ $(document).ready(
                 type: 'get',
                 success: function (data) {
                     var objeto = JSON.parse(data)
-                    console.log(objeto.length)
+
                     if (objeto.length == 0) {
                         alert("Criterio de busqueda no encontrado")
                     }
@@ -220,7 +220,7 @@ function Buscar() {
     var anio = document.getElementById('id_semestre').selectedOptions[0].innerHTML.substring(2,4)
     var plan = $('#id_plan').val()
     var carrera=$('#id_carrera').val()
-    console.log(anio)
+
 
     $.ajax({
         data: {
@@ -233,7 +233,7 @@ function Buscar() {
         type: 'get',
         success: function (data) {
             var objeto = JSON.parse(data)
-            console.log(objeto)
+
             $('#id_matricula').attr('value', objeto)
 
         }
@@ -277,7 +277,7 @@ function cargarPlan() {
 function cambiarLocalidad(){
     var id_municipio = $('#id_municipio').val()
 
-    console.log(id_municipio)
+
 
     $.ajax({
         data: {
@@ -306,7 +306,7 @@ function cambiarLocalidad(){
 function cambiarMunicipio(){
     var id_estado= $('#id_estado').val()
 
-    console.log(id_estado)
+
 
     $.ajax({
         data: {
@@ -315,7 +315,7 @@ function cambiarMunicipio(){
         url: '/academica/buscarmun-ajax/',
         type: 'get',
         success: function (data) {
-             console.log(data)
+
             var objeto = JSON.parse(data)
              options = '<option selected="selected" value="">---------</option>'
             for (var i = 0; i < objeto.length; i++) {
@@ -330,10 +330,39 @@ function cambiarMunicipio(){
 
 }
 function addhorario(id) {
-    console.log("aass")
-    console.log(id)
+
     $('#id_grupo').val()
 }
+
+$('#select_ciclos').on('change',cargarSemestres)
+function cargarSemestres(){
+    var ciclo= $('#select_ciclos').val()
+
+
+
+    $.ajax({
+        data: {
+            'ciclo': ciclo,
+       },
+        url: '/academica/buscarsemestre-ajax/',
+        type: 'get',
+        success: function (data) {
+
+            var objeto = JSON.parse(data)
+             options = '<option selected="selected" value="">---------</option>'
+            for (var i = 0; i < objeto.length; i++) {
+              options += '<option value='+objeto[i].id+'>'+objeto[i].nombre+'</option>'
+            }
+            html='<select class=select id=id_localidad>'+options+'</select>'
+            $('#select_semestres').html(options)
+
+        }
+
+    })
+
+}
+
+
 
 $.ajaxSetup({
     beforeSend: function (xhr, settings) {

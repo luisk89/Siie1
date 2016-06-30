@@ -1,0 +1,165 @@
+{% extends 'academica/base.html' %}
+
+{% block content %}
+
+    <form id="myForm" method="post" action="">
+        <section class="invoice">
+            <!-- title row -->
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <h2 class="page-header text-center">
+                        <b class=>
+                            Universidad de la Sierra
+                        </b>
+
+                    </h2>
+                </div>
+                <!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="text-center">
+                        {{ plan.nom_plan }}
+                    </h2>
+                </div>
+                <!-- /.col -->
+
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <b class="pull-left">
+                        Modalidad
+                    </b>
+                </div>
+                <div class="col-xs-6">
+                    <small class="pull-left">
+                        {{ plan.modalidad }}
+                    </small>
+                </div>
+                <!-- /.col -->
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <b class="pull-left">
+                        Duración del ciclo
+                    </b>
+                </div>
+                <div class="col-xs-6">
+                    <small class="pull-left">
+                       {{ plan.duracion }}
+                    </small>
+                </div>
+                <!-- /.col -->
+
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <b class="pull-left">
+                        Clave plan de estudios
+                    </b>
+                </div>
+                <div class="col-xs-6">
+                    <small class="pull-left">
+                        {{ plan.clave_plan }}
+                    </small>
+                </div>
+                <!-- /.col -->
+
+            </div>
+            <br>
+            <br>
+
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Objetivo general del plan de estudio</h3>
+                </div>
+                <div class="box-body">
+                  {{ plan.objetivo }}
+                </div>
+                <!-- /.box-body -->
+
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Lista de asignaturas</th>
+                            <th>Horas docente</th>
+                            <th>Horas independientes</th>
+                            <th>Creditos</th>
+                            <th>Instalaciones</th>
+
+                        </tr>
+                        </thead>
+
+                        <tbody id="id_table-body">
+                        {% for n in materias %}
+
+                            <tr>
+                                <td>{{ n.semestre }}</td>
+                                <td>
+                                    {% for m in materias %}
+                                        {{ m.nom_materia }}<br>
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {% for m in materias %}
+                                        {{ m.hr_docente }}<br>
+                                    {% endfor %}
+                                </td>
+                                <td>        {% for m in materias %}
+                                    {{ m.hr_independiente }}<br>
+                                {% endfor %}
+                                </td>
+
+                                <td>
+                                    {% for m in materias %}
+                                        {{ m.creditos }}<br>
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {% for m in materias %}
+                                        {{ m.hr_docente }}<br>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            {#                {% endif %}#}
+                        {% endfor %}
+
+
+                        </tbody>
+
+
+                    </table>
+
+
+                </div>
+            </div>
+
+            <br>
+            <!-- this row will not appear when printing -->
+            <div class="row no-print">
+                <div class="col-xs-12">
+                    <a href="#" target="_blank" class="btn btn-default" onclick="print_reporte()"><i
+                            class="fa fa-print"></i> Print</a>
+                    <a href="javascript:history.back()" class="btn btn-success pull-right"><i class="fa fa-remove"></i>
+                        Cancelar</a>
+                    <a href="" class="btn btn-primary pull-right"
+                       style="margin-right: 5px;"><i
+                            class="fa fa-download"></i>
+                        Generar PDF
+                    </a>
+                </div>
+            </div>
+        </section>
+    </form>
+{% endblock %}

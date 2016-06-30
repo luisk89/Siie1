@@ -2,5 +2,15 @@
 {% load crispy_forms_tags %}
 {% load static from staticfiles %}
 {% block content %}
- {% crispy form_grupoupdate%}
+     <div class="box box-success">
+        {% crispy form_grupoupdate %}
+
+        <div class="modal-footer">
+
+            <a class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;Guardar y agregar otro</a>
+
+             <a href="javascript:history.back()" class="btn btn-success pull-right"><i class="fa fa-remove"></i>
+                        Cancelar</a>
+        </div>
+    </div>
 {% endblock %}

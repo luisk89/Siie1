@@ -60,6 +60,10 @@ class Materias(models.Model):
     clave = models.CharField(max_length=50, blank=True, unique=True)
     seriacion = models.CharField(max_length=50, blank=True, verbose_name='Serialización')
     creditos = models.IntegerField(blank=True, null=True)
+
+    hr_docente=models.IntegerField(blank=True,null=True)
+    hr_independiente=models.IntegerField(blank=True,null=True)
+    instalacion=models.CharField(max_length=50,blank=True,null=True)
     # carrera = models.ForeignKey("Carreras")
     semestre=models.ForeignKey('Semestre',to_field='clave',null=True,blank=True)
     profesores=models.ManyToManyField("Maestros", blank=True, null=True)
@@ -116,7 +120,7 @@ class Alumnos(models.Model):
     plan = models.ForeignKey('PlanEstudio',to_field='clave_plan',blank=True,null=True)
     no_expediente = models.CharField(max_length=50,blank=True)
     matricula = models.CharField(max_length=20, blank=False, null=False,unique=True)
-    semestre = models.ForeignKey('Semestre',to_field='clave', blank=True,null=True)
+    semestre = models.ForeignKey('CicloSemestral',to_field='clave', blank=True,null=True)
     condicionado = models.SmallIntegerField(blank=True, null=True,verbose_name='Status')
     domicilio = models.CharField(max_length=100, blank=True)
     colonia = models.CharField(max_length=50, blank=True)
@@ -589,6 +593,7 @@ class Horario(models.Model):
     dia=models.CharField(max_length=10, blank=True, null=True)
     grupo = models.ForeignKey('Grupos', blank=True, null=True)
 
+    materia=models.ForeignKey('Materias',to_field='clave')
     alta_date_created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha")
     baja_date_created = models.DateTimeField(blank=True, null=True)
     is_active = models.BooleanField(default=True, verbose_name="activo")
@@ -638,7 +643,6 @@ class LaboratorioComputo(models.Model):
     alta_date_created = models.DateTimeField(auto_now_add=True)
     baja_date_created = models.DateTimeField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
-
 
 class LiberacionDocumentos(models.Model):
     acta_nacimiento = models.SmallIntegerField(blank=True, null=True)
@@ -700,6 +704,10 @@ class PlanEstudio(models.Model):
     nom_plan = models.CharField(max_length=50, blank=True)
     clave_plan = models.CharField(max_length=50, blank=True, unique=True)
     materias = models.ManyToManyField("Materias", blank=True, null=True)
+
+    modalidad=models.CharField(max_length=50,blank=True,null=True)
+    duracion=models.CharField(max_length=100,blank=True,null=True)
+    objetivo=models.TextField(blank=True,null=True)
 
     alta_date_created = models.DateTimeField(auto_now_add=True)
     baja_date_created = models.DateTimeField(blank=True, null=True)

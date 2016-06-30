@@ -11,9 +11,15 @@
 
 {% block content %}
     {% render_breadcrumbs %}
-
+<div class="box box-success">
           {% crispy form_materia %}
 
+  <div class="modal-footer">
 
+             <a href="javascript:history.back()" class="btn btn-success pull-right"><i class="fa fa-remove"></i>
+                        Cancelar</a>
+
+        </div>
+    </div>
 {% endblock %}
 

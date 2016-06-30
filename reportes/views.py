@@ -7,7 +7,7 @@ from django.template.context import RequestContext
 from django.views.generic.base import View, TemplateView
 from django.views.generic.detail import DetailView
 from wkhtmltopdf.views import PDFTemplateView
-from academica.models import Alumnos, Grupos, Calificaciones, Materias, PlanEstudio, Carreras, Semestre
+from academica.models import Alumnos, Grupos, Calificaciones, Materias, PlanEstudio, Carreras, Semestre, CicloSemestral
 from reportes.forms import InscripcionReporteForm
 
 
@@ -16,7 +16,7 @@ class CriteriosView(TemplateView):
     def get_context_data(self, **kwargs):
         cxt = super(CriteriosView, self).get_context_data(**kwargs)
         cxt = {'carreras': Carreras.objects.all(), 'materias': Materias.objects.all(), 'grupos': Grupos.objects.all(),
-               'semestres': Semestre.objects.all(),'alumnos':Alumnos.objects.all()}
+               'semestres': Semestre.objects.all(),'alumnos':Alumnos.objects.all(),'ciclos':CicloSemestral.objects.all()}
         print('id' + self.kwargs['model'])
         return cxt
 

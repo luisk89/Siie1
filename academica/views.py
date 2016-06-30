@@ -208,6 +208,15 @@ class PlanEstudioList(LoggedInMixin, ListView):
     model = PlanEstudio
     template_name = 'academica/planEstudio/planEstudio_list.html'
 
+    def get_plan_for_reports(request,plan_id):
+
+        if plan_id:
+            plan = PlanEstudio.objects.get(clave_plan=plan_id)
+            materiasplan=plan.materias.all()
+
+            return render_to_response('academica/planEstudio/planEstudio_by_semestre.html',{'plan':plan,'materias':materiasplan})
+
+        return render_to_response('academica/planEstudio/planEstudio_by_semestre.html')
 
 
     def get_plan_by_alumno(request):
@@ -347,6 +356,7 @@ class MateriaList(LoggedInMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(MateriaList, self).get_context_data(**kwargs)
         context['form_materia'] = MateriaForm
+
         return context
 
 
@@ -518,6 +528,22 @@ class CicloSemestralList(LoggedInMixin, ListView):
             for s in ciclos:
                 retorno.append({'clave': s.clave, 'ciclo': s.ciclo_sep, 'anio': s.anio, 'periodo': s.periodo,
                                 'fecha_inicio': s.fecha_inicio, 'fecha_fin': s.fecha_termino, 'vigente': s.vigente})
+
+            return HttpResponse(json.dumps(retorno))
+        else:
+            return redirect('/')
+
+    def get_semestres(request):
+
+        if request.is_ajax():
+        # alumnosReturn=Alumnos.objects.filter(Q(nom_alumno__contains=request.GET['nombre']) | Q(apellido_paterno__contains=request.GET['apellidoP'])| Q(apellido_materno__contains=request.GET['apellidoM'])|Q(semestre__id__contains=request.GET['semestre'])|Q(no_expediente__contains=request.GET['expediente'])).all()
+
+            print(request.GET['ciclo'])
+
+            result=CicloSemestral.objects.get(clave=request.GET['ciclo']).semestre_set.all()
+            retorno = []
+            for a in result:
+                retorno.append({'id': a.clave, 'nombre': a.nombre})
 
             return HttpResponse(json.dumps(retorno))
         else:

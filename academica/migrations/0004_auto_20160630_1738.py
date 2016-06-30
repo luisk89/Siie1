@@ -5,15 +5,16 @@ from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
+
     dependencies = [
-        ('academica', '0002_auto_20160626_2155'),
+        ('academica', '0003_auto_20160630_1727'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='alumnoprevio',
-            name='alumno',
-            field=models.ForeignKey(to='academica.Alumnos'),
+            model_name='materias',
+            name='semestre',
+            field=models.ForeignKey(to_field='clave', blank=True, to='academica.CicloSemestral', null=True),
             preserve_default=True,
         ),
     ]

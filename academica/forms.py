@@ -362,7 +362,7 @@ class PlanEstudioForm(forms.ModelForm):
     helper = FormHelper()
     helper.add_input(Submit('submit', 'Guardar'))
     helper.layout = Layout(
-        Fieldset('Plan de estudio', 'nom_plan', 'clave_plan'),
+        Fieldset('Plan de estudio', 'nom_plan', 'clave_plan','modalidad','duracion','objetivo'),
         Div('materias')
     )
 
@@ -382,7 +382,6 @@ class GrupoForm(forms.ModelForm):
         self.fields['cant_alumnos'].widget.attrs['min'] = 0
         self.fields['actual'].widget.attrs['min'] = 0
         self.helper = FormHelper()
-        self.helper.form_class = 'box box-success'
         self.helper.label_class = 'form-group'
         self.helper.add_input(Submit('submit', 'Guardar'))
         self.helper.layout = Layout(
@@ -403,7 +402,6 @@ class GrupoUpdateForm(forms.ModelForm):
         self.fields['cant_alumnos'].widget.attrs['min'] = 0
         self.fields['actual'].widget.attrs['min'] = 0
         self.helper = FormHelper()
-        self.helper.form_class = 'box box-success'
         self.helper.label_class = 'form-group'
         self.helper.add_input(Submit('submit', 'Guardar'))
         self.helper.layout = Layout(
@@ -422,7 +420,6 @@ class HorarioForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(HorarioForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.form_class = 'box box-success'
         self.helper.label_class = 'form-group'
         self.helper.add_input(Submit('submit', 'Guardar'))
         self.helper.add_layout(
@@ -436,7 +433,9 @@ class HorarioForm(forms.ModelForm):
                  'dia',
                  'aula',
                  'profesores',
-                 'grupo'
+                 'grupo',
+                 'materia'
+
                  ),
     )
 
@@ -451,11 +450,10 @@ class MateriaForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(MateriaForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.form_class = 'box box-success'
         self.helper.label_class = 'form-group'
         self.helper.add_input(Submit('submit', 'Guardar'))
         self.helper.add_layout(
-        Fieldset('Agregar nueva materia', 'nom_materia','clave','seriacion','creditos','semestre','profesores'
+        Fieldset('Agregar nueva materia', 'nom_materia','clave','seriacion','creditos','semestre','profesores','hr_docente','hr_independiente','instalacion'
                  ),
 
     )
@@ -475,7 +473,6 @@ class MaestroForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(MaestroForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.form_class = 'box box-success'
         self.helper.label_class = 'form-group'
         self.helper.add_input(Submit('submit', 'Guardar'))
 
@@ -515,8 +512,8 @@ class CalificacionForm(forms.ModelForm):
         TabHolder(
             Tab('Estudiante', 'matricula', 'semestre', 'plan', 'materia', 'borrado', 'tipoacreditacion', 'actualizado',
                 'login'),
-            Tab('Calificaciones', 'primera', 'status1', 'segunda','status2','tercera','status3','cuarta','status4','quinta','status5','sexta','status6','final','status_final'),
-
+            Tab('Calificaciones','final','status_final'),
+#'primera', 'status1', 'segunda','status2','tercera','status3','cuarta','status4','quinta','status5','sexta','status6',
             Tab('Revalidacion', 'fecha_revalidacion', 'fecha_modificacion', 'modulo'),
             Tab('Otros', 'claveubicacion', 'id_curso', 'fecha_extraordinario')
         )

@@ -17,6 +17,7 @@
                         <th>Clave</th>
                         <th>Nombre</th>
                         <th>Modificar</th>
+                        <th>Ver</th>
 
                     </tr>
                     </thead>
@@ -25,7 +26,9 @@
                         <tr>
                             <td>{{ plan.clave_plan }}</td>
                             <td>{{ plan.nom_plan }}</td>
-                            <td><a class="btn btn-success" href="planEstudio/{{ plan.id }}/"><i class="fa fa-edit"></i>&nbsp;Actualizar</a>
+                            <td><a class="btn btn-success" href="planEstudio/{{ plan.id }}/"><i class="fa fa-edit"></i></a>
+                            </td>
+                            <td><a class="btn btn-success" href="planReport/{{ plan.clave_plan }}/"><i class="fa fa-eye"></i></a>
                             </td>
                         </tr>
                     {% endfor %}

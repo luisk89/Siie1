@@ -30,7 +30,7 @@
                     <div class="form-group col-xs-4">
                         <label>Ciclo:</label>
                         <select class="form-control" id="select_ciclos">
-                            {% for s in semestres %}
+                            {% for s in ciclos %}
                                 <option value={{ s.clave }}>{{ s }}</option>
                             {% endfor %}
                         </select>
@@ -69,6 +69,5 @@
 
 
     </div>
-
 
 {% endblock %}

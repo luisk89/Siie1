@@ -39,6 +39,9 @@ urlpatterns = patterns('',
 
                        url(r'planEstudio/detail/(?P<pk>[0-9]+)/$', PlanEstudioDetail.as_view(),
                            name='planEstudio-detail'),
+
+                       url(r'planReport/(?P<plan_id>[0-9]+)/$', PlanEstudioList.get_plan_for_reports,
+                           name='planEstudio-report'),
                        # Alumno
                        url(r'alumno/add/$', permission_required('users.permissions_administrador', login_url='login')(
                            AlumnoCreate.as_view()), name='alumno-add'),
@@ -166,6 +169,7 @@ urlpatterns = patterns('',
 
                        url(r'^buscarloc-ajax/$', MunicipioList.get_localidad_by_municipio, name='localida-municipio'),
                        url(r'^buscarmun-ajax/$', EstadoList.get_municipio_by_estado, name='estado-municipio'),
+                       url(r'^buscarsemestre-ajax/$', CicloSemestralList.get_semestres, name='ciclo-semestres'),
 
                        url(r'^semestre-add/$', SemestreCreate.as_view(), name='semestre-form'),
                        url(r'^semestre-list/$', SemestreList.as_view(), name='semestre-list'),
