@@ -991,7 +991,7 @@ class CalificacionesListByMateria(LoggedInMixin, ListView):
 
                             retorno.append({'nombre': a.nom_alumno, 'apellido_paterno': a.apellido_paterno,
                                         'apellido_materno': a.apellido_materno, 'matricula': a.matricula, 'id': a.id,
-                                        'flag': flag,'calificacion_id':idcalificacion,'user': user})
+                                        'flag': flag,'calificacion_id':idcalificacion})
 
             return HttpResponse(json.dumps(retorno))
         else:
