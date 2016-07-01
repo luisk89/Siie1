@@ -156,7 +156,7 @@ class ReinscripcionList(LoggedInMixin, ListView):
         bajas = Bajas.objects.select_related('alumno').filter(motivo="Voluntaria").all()
         for b in bajas:
             if not b.matricula.is_deuda:
-                result.append(b)
+                result.append(b.matricula)
             print(b.matricula.is_deuda)
         return result
 
