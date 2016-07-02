@@ -14,4 +14,32 @@
         </div>
 
     </div>
+    <script>
+
+function cambiarProfesores() {
+    var id_materia = $('#id_materia').val()
+
+    $.ajax({
+        data: {
+            'materia': id_materia,
+
+
+        },
+        url: '/academica/buscarprofesores-ajax/',
+        type: 'get',
+        success: function (data) {
+            var objeto = JSON.parse(data)
+            options = ''
+            for (var i = 0; i < objeto.length; i++) {
+                options += '<option value=' + objeto[i].id + '>' + objeto[i].expediente + '</option>'
+            }
+
+            $('#id_profesores').html(options)
+            document.getElementById('id_profesores').disabled = false
+        }
+
+    })
+
+}
+    </script>
 {% endblock %}

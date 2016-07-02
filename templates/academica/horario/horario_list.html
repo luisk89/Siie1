@@ -14,10 +14,9 @@
                         <tr>
                             <th>Clave</th>
                             <th>Grupo</th>
+                            <th>Materia</th>
                             <th>Hora Inicio</th>
                             <th>Hora Termino</th>
-                            <th>Minutos Inicio</th>
-                            <th>Minutos Termino</th>
                             <th>Aula</th>
                             <th>Profesor</th>
                             <th>Fecha</th>
@@ -33,11 +32,10 @@
 
                                 <td>{{ horario.clave_horario }}</td>
                                 <td>{{ horario.grupo }}</td>
-                                <td>{{ horario.hora_inicio }}</td>
-                                <td>{{ horario.hora_termino }}</td>
-                                <td>{{ horario.minutos_inicio }}</td>
-                                <td>{{ horario.minutos_termino }}</td>
-                                <td>{{ horario.aula.nom_aula }}</td>
+                                <td>{{ horario.materia }}</td>
+                                <td>{{ horario.hora_inicio }}:{{ horario.minutos_inicio }}</td>
+                                <td>{{ horario.hora_termino }}:{{ horario.minutos_termino }}</td>
+                                 <td>{{ horario.aula.nom_aula }}</td>
                                 <td>{{ horario.profesores.nombre }}</td>
                                 <td>{{ horario.alta_date_created }}</td>
                                 <td>

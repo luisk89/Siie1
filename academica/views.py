@@ -348,6 +348,22 @@ class HorarioList(LoggedInMixin, ListView):
 
         return render_to_response('academica/horario/mis_horarios.html')
 
+    def get_profesores_by_materias(request):
+
+        if request.is_ajax():
+        # alumnosReturn=Alumnos.objects.filter(Q(nom_alumno__contains=request.GET['nombre']) | Q(apellido_paterno__contains=request.GET['apellidoP'])| Q(apellido_materno__contains=request.GET['apellidoM'])|Q(semestre__id__contains=request.GET['semestre'])|Q(no_expediente__contains=request.GET['expediente'])).all()
+
+            print(request.GET['materia'])
+
+            result=Materias.objects.get(clave=request.GET['materia']).profesores.all()
+            retorno = []
+            for a in result:
+                retorno.append({'id': a.id, 'expediente': a.no_expediente})
+
+            return HttpResponse(json.dumps(retorno))
+        else:
+            return redirect('/')
+
 class MateriaCreate(LoggedInMixin, CreateView):
     model = Materias
     template_name = 'academica/materia/materia_form.html'

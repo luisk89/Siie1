@@ -453,20 +453,23 @@ class HorarioForm(forms.ModelForm):
         super(HorarioForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.label_class = 'form-group'
+        self.fields['materia'].widget.attrs['onchange']="javascript:cambiarProfesores()"
+        self.fields['profesores'].widget.attrs['disabled'] = True
         self.helper.add_input(Submit('submit', 'Guardar'))
         self.helper.add_layout(
         Fieldset('Adicionar Horario',
                  'clave_horario',
                  'nombre',
+                 'materia',
+                 'profesores',
                  'hora_inicio',
                  'minutos_inicio',
                  'hora_termino',
                  'minutos_termino',
                  'dia',
                  'aula',
-                 'profesores',
                  'grupo',
-                 'materia'
+
 
                  ),
     )

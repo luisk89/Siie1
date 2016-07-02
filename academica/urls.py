@@ -170,6 +170,7 @@ urlpatterns = patterns('',
                        url(r'^buscarloc-ajax/$', MunicipioList.get_localidad_by_municipio, name='localida-municipio'),
                        url(r'^buscarmun-ajax/$', EstadoList.get_municipio_by_estado, name='estado-municipio'),
                        url(r'^buscarsemestre-ajax/$', CicloSemestralList.get_semestres, name='ciclo-semestres'),
+                        url(r'^buscarprofesores-ajax/$', HorarioList.get_profesores_by_materias, name='materia-profesores'),
 
                        url(r'^semestre-add/$', SemestreCreate.as_view(), name='semestre-form'),
                        url(r'^semestre-list/$', SemestreList.as_view(), name='semestre-list'),
