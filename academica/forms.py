@@ -198,7 +198,7 @@ class AlumnosForm(forms.ModelForm):
                         data-target="#modalEscuela"
                         id="modal-button"><i class="fa fa-plus-circle"></i></a>"""), 'escuela_procedencia',
                              'anio_egreso', 'promedio_bachiller'),
-                    Fieldset('Control Escolar', 'plan', 'semestre', 'matricula', 'condicionado', 'carrera', 'grupo'),
+                    Fieldset('Control Escolar', 'plan', 'semestre', 'matricula', 'condicionado', 'grupo'),
 
                     css_class="nav nav-tabs"
                 ),
@@ -344,7 +344,7 @@ class ReinscripcionAlumnoForm(forms.ModelForm):
                         data-target="#modalEscuela"
                         id="modal-button"><i class="fa fa-plus-circle"></i></a>"""), 'escuela_procedencia',
                              'anio_egreso', 'promedio_bachiller'),
-                    Fieldset('Control Escolar', 'plan', 'semestre', 'matricula','condicionado','carrera'),
+                    Fieldset('Control Escolar', 'plan', 'semestre', 'matricula','condicionado'),
 
                     css_class="nav nav-tabs"
                 ),

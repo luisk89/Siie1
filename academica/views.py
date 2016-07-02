@@ -165,7 +165,7 @@ class ReinscripcionList(LoggedInMixin, ListView):
         bajas = Bajas.objects.select_related('alumno').filter(motivo="Voluntaria").all()
         for b in bajas:
             if not b.matricula.is_deuda:
-                result.append(b.alumno)
+                result.append(b.matricula)
             print(b.matricula.is_deuda)
         return result
 
@@ -218,12 +218,13 @@ class PlanEstudioList(LoggedInMixin, ListView):
     template_name = 'academica/planEstudio/planEstudio_list.html'
 
     def get_plan_for_reports(request,plan_id):
+        user = request.user
 
         if plan_id:
             plan = PlanEstudio.objects.get(clave_plan=plan_id)
             materiasplan=plan.materias.all()
 
-            return render_to_response('academica/planEstudio/planEstudio_by_semestre.html',{'plan':plan,'materias':materiasplan})
+            return render_to_response('academica/planEstudio/planEstudio_by_semestre.html',{'plan':plan,'materias':materiasplan,'user':user})
 
         return render_to_response('academica/planEstudio/planEstudio_by_semestre.html')
 
