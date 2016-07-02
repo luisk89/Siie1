@@ -175,6 +175,10 @@ class Alumnos(models.Model):
     localidad = models.CharField(max_length=250, blank=True, null=True)
     municipio = models.ForeignKey('Municipios',blank=True,null=True)
 
+    acta_nacimiento = models.CharField(max_length=25, null=True, blank=True)
+    certificado_bachillerato = models.CharField(max_length=25, null=True, blank=True)
+    fotografia_titulo = models.CharField(max_length=25, null=True, blank=True)
+    otro_documento = models.CharField(max_length=25, null=True, blank=True)
 
     alta_date_created = models.DateTimeField(auto_now_add=True)
     baja_date_created = models.DateTimeField(blank=True, null=True)
@@ -477,18 +481,19 @@ class EncuestaEmpleador(models.Model):
 
 
 class EntregaDocumentos(models.Model):
-    alumno = models.ForeignKey(Alumnos)
-    acta_nacimiento = models.SmallIntegerField(blank=True, null=True)
-    certificado_bachillerato = models.SmallIntegerField(blank=True, null=True)
-    certificado_final = models.SmallIntegerField(blank=True, null=True)
-    constancia_final = models.SmallIntegerField(blank=True, null=True)
-    constancia_servicio = models.SmallIntegerField(blank=True, null=True)
-    curp = models.SmallIntegerField(blank=True, null=True)
-    actividades_extracurriculares = models.SmallIntegerField(blank=True, null=True)
-    fotografia_titulo = models.SmallIntegerField(blank=True, null=True)
-    fotografia_certificado = models.SmallIntegerField(blank=True, null=True)
-    fotografia_infantil = models.SmallIntegerField(blank=True, null=True)
-    registro_cedula = models.SmallIntegerField(blank=True, null=True)
+    alumno = models.CharField(max_length=50)
+    acta_nacimiento = models.CharField(max_length=25, null=True, blank=True)
+    certificado_bachillerato = models.CharField(max_length=25, null=True, blank=True)
+    fotografia_titulo = models.CharField(max_length=25, null=True, blank=True)
+    certificado_final = models.CharField(max_length=25, null=True, blank=True)
+    constancia_final = models.CharField(max_length=25, null=True, blank=True)
+    constancia_servicio = models.CharField(max_length=25, null=True, blank=True)
+    curp = models.CharField(max_length=25, null=True, blank=True)
+    actividades_extracurriculares = models.CharField(max_length=25, null=True, blank=True)
+
+    fotografia_certificado = models.CharField(max_length=25, null=True, blank=True)
+    fotografia_infantil = models.CharField(max_length=25, null=True, blank=True)
+    registro_cedula = models.CharField(max_length=25, null=True, blank=True)
 
     alta_date_created = models.DateTimeField(auto_now_add=True)
     baja_date_created = models.DateTimeField(blank=True, null=True)
@@ -645,12 +650,12 @@ class LaboratorioComputo(models.Model):
     is_active = models.BooleanField(default=True)
 
 class LiberacionDocumentos(models.Model):
-    acta_nacimiento = models.SmallIntegerField(blank=True, null=True)
-    certificado_bachillerato = models.SmallIntegerField(blank=True, null=True)
-    certificado_final = models.SmallIntegerField(blank=True, null=True)
-    constancia_final = models.SmallIntegerField(blank=True, null=True)
-    constancia_servicio = models.SmallIntegerField(blank=True, null=True)
-    curp = models.SmallIntegerField(blank=True, null=True)
+    acta_nacimiento = models.BooleanField(default=False)
+    certificado_bachillerato = models.BooleanField(default=False)
+    certificado_final = models.BooleanField(default=False)
+    constancia_final = models.BooleanField(default=False)
+    constancia_servicio = models.BooleanField(default=False)
+    curp = models.BooleanField(default=False)
     alumno = models.ForeignKey('Alumnos')
 
     alta_date_created = models.DateTimeField(auto_now_add=True)

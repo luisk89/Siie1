@@ -26,7 +26,7 @@ activate('es')
 from academica.models import Alumnos, PlanEstudio, Extracurriculares, Grupos, Horario, Maestros, Materias, \
     AlumnoCalificacion, Carreras, Bajas, Evaluacion, EncuestaEgresados, AlumnoPrevio, Aulas, \
     Municipios, Estados, Calificaciones, ServicioHoras, Becas, TipoBeca, Escuela, Biblioteca, CentroComputo, \
-    Contabilidad, Semestre, Localidad, CicloSemestral
+    Contabilidad, Semestre, Localidad, CicloSemestral, EntregaDocumentos
 
 
 class AlumnoCreate(LoggedInMixin, CreateView):
@@ -54,8 +54,17 @@ class AlumnoCreate(LoggedInMixin, CreateView):
         apellido_paterno = form.cleaned_data['apellido_paterno']
         avatar = form.cleaned_data['foto']
         matricula = form.cleaned_data['matricula']
+        acta_nacimiento = form.cleaned_data['acta_nacimiento']
+        certificado_bachillerato = form.cleaned_data['certificado_bachillerato']
+        fotografia_titulo = form.cleaned_data['fotografia_titulo']
 
-        # poniendo como usuario la primeraletra del nombre y el apellido->Ej. rrosal
+        # guardando en el historial de docs recibidos
+        doc = EntregaDocumentos(alumno=matricula, acta_nacimiento=acta_nacimiento,
+                                certificado_bachillerato=certificado_bachillerato, fotografia_titulo=fotografia_titulo)
+        doc.save()
+
+
+        # poniendo como usuario la matricula
         usuario = matricula
 
         # en el formulario esta la validacion para el username y el email (el user name que se crea es el nombre del alumno eso tenemos que cambiarlo, hacer una mescla nombre mas apellido o algo asi)

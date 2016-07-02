@@ -381,31 +381,71 @@
                                         <tbody>
                                         <tr>
                                             <td>Acta de Nacimiento</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>{% if object.acta_nacimiento == 'Original' %}
+                                                Si
+                                            {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if object.acta_nacimiento == 'Copia' %}
+                                                    Si
+                                                {% endif %}
+                                            </td>
+                                            <td>{% if object.acta_nacimiento == 'Ninguno' %}
+                                                Si
+                                            {% endif %}</td>
+                                            <td>
+                                                {% if object.acta_nacimiento == 'Otro' %}
+                                                    Si
+                                                {% endif %}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Certificado de Bachillerato</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>{% if object.certificado_bachillerato == 'Original' %}
+                                                Si
+                                            {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if object.certificado_bachillerato == 'Copia' %}
+                                                    Si
+                                                {% endif %}
+                                            </td>
+                                            <td>{% if object.certificado_bachillerato == 'Ninguno' %}
+                                                Si
+                                            {% endif %}</td>
+                                            <td>
+                                                {% if object.certificado_bachillerato == 'Otro' %}
+                                                    Si
+                                                {% endif %}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Fotografia</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>{% if object.fotografia_titulo == 'Original' %}
+                                                Si
+                                            {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if object.fotografia_titulo == 'Copia' %}
+                                                    Si
+                                                {% endif %}
+                                            </td>
+                                            <td>{% if object.fotografia_titulo == 'Ninguno' %}
+                                                Si
+                                            {% endif %}</td>
+                                            <td>
+                                                {% if object.fotografia_titulo == 'Otro' %}
+                                                    Si
+                                                {% endif %}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Otro(Especifique)</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td colspan="4">{% if object.otro_documento %}
+                                                {{ object.otro_documento }}
+                                            {% endif %}
+                                            </td>
+
                                         </tr>
                                         </tbody>
                                     </table>

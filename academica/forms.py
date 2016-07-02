@@ -20,7 +20,7 @@ from crispy_forms.bootstrap import TabHolder, Tab, InlineField, InlineCheckboxes
 from academica.models import Alumnos, PlanEstudio, Extracurriculares, Grupos, Horario, Materias, Maestros, \
     Carreras, Bajas, Evaluacion, EncuestaEgresados, Aulas, Municipios, \
     Estados, Calificaciones, ServicioHoras, Becas, TipoBeca, Escuela, Biblioteca, Contabilidad, CentroComputo, Semestre, \
-    CicloSemestral
+    CicloSemestral, EntregaDocumentos
 from users.models import User
 
 class ExtraCurricularesForm(forms.ModelForm):
@@ -83,9 +83,14 @@ DIAS_SELECT = (
 )
 WHITE_SPACE = (
     ('-', '----------'),
-
-
 )
+TIPO_DOC = (
+    ('Original', 'Original'),
+    ('Copia', 'Copia'),
+    ('Ninguno', 'Ninguno'),
+    ('Otro', 'Otro')
+)
+
 hoy = datetime.datetime.now()
 hoy = hoy.strftime('%Y-%m-%d')
 style_numeric = 'ui-widget ui-widget-content numeric-field'
@@ -120,6 +125,14 @@ class AlumnosForm(forms.ModelForm):
     promedio_bachiller=forms.FloatField(label='Promedio', widget=forms.TextInput(attrs={'class':style_numeric}), required=False)
     curp=forms.CharField(max_length=18,min_length=18,required=False)
 
+    acta_nacimiento = forms.ChoiceField(choices=TIPO_DOC,
+                                        widget=forms.Select(), required=False, initial='Normal',
+                                        label='Acta de nacimiento')
+    certificado_bachillerato = forms.ChoiceField(choices=TIPO_DOC,
+                                                 widget=forms.Select(), required=False, initial='Normal',
+                                                 label='Cert.Bachillerato')
+    fotografia_titulo = forms.ChoiceField(choices=TIPO_DOC,
+                                          widget=forms.Select(), required=False, initial='Normal', label='Fotografia')
 
     is_active=forms
 
@@ -196,14 +209,17 @@ class AlumnosForm(forms.ModelForm):
                     Fieldset('Datos Familiares',
                              Fieldset('Datos del padre o tutor', 'nombre_tutor', 'domicilio_tutor', 'localidad_tutor',
                                       'telefono_tutor', 'ocupacion_tutor', 'sueldo_mensual', HTML(
-                                     """<a class="btn btn-block btn-success" id='id_boton_copiar' onclick="javascript:datacopy()"><i class="fa fa-copy"></i>Copiar datos a la madre</a>""")),
+                                     """<a class="btn btn-success" id='id_boton_copiar' onclick="javascript:datacopy()"><i class="fa fa-copy"></i>Copiar datos a la madre</a>""")),
                              Fieldset('Datos de la madre', 'nombre_materno', 'domicilio_madre', 'localidad_madre',
                                       'telefono_madre'),
                              Fieldset('Datos generales', 'trabaja_actualmente',
                                       Div('puesto', 'sueldo_mensual_alumno', id='div_trabajo_estudiante'))),
+                    Fieldset('Entrega de documentos', 'acta_nacimiento', 'certificado_bachillerato',
+                             'fotografia_titulo', 'otro_documento'),
                     Fieldset('Actividades', 'deporte_practica', 'credencial'),
                     Div('oratoria', 'musica',
                         'teatro', 'declamacion', 'otro_interes'),
+
                     css_class="nav nav-tabs"
                 ),
 
@@ -265,6 +281,14 @@ class ReinscripcionAlumnoForm(forms.ModelForm):
     promedio_bachiller = forms.FloatField(label='Promedio', widget=forms.TextInput(attrs={'class': style_numeric}),required=False)
     curp=forms.CharField(max_length=18,required=False)
 
+    acta_nacimiento = forms.ChoiceField(choices=TIPO_DOC,
+                                        widget=forms.Select(), required=False, initial='Normal',
+                                        label='Acta de nacimiento')
+    certificado_bachillerato = forms.ChoiceField(choices=TIPO_DOC,
+                                                 widget=forms.Select(), required=False, initial='Normal',
+                                                 label='Cert.Bachillerato')
+    fotografia_titulo = forms.ChoiceField(choices=TIPO_DOC,
+                                          widget=forms.Select(), required=False, initial='Normal', label='Fotografia')
 
     def __init__(self, *args, **kwargs):
         super(ReinscripcionAlumnoForm, self).__init__(*args, **kwargs)
@@ -336,9 +360,12 @@ class ReinscripcionAlumnoForm(forms.ModelForm):
                                       'telefono_madre'),
                              Fieldset('Datos generales', 'trabaja_actualmente',
                                       Div('puesto', 'sueldo_mensual_alumno', id='div_trabajo_estudiante'))),
+                    Fieldset('Entrega de documentos', 'acta_nacimiento', 'certificado_bachillerato',
+                             'fotografia_titulo', 'otro_documento'),
                     Fieldset('Actividades', 'deporte_practica', 'credencial'),
                     Div('oratoria', 'musica',
                         'teatro', 'declamacion', 'otro_interes'),
+
                     css_class="nav nav-tabs"
                 ),
 
@@ -945,5 +972,22 @@ class SemestreForm(forms.ModelForm):
         self.helper.layout = Layout(
             Fieldset('Agregar semestre','ciclo_semestral'),
             'nombre','clave',
+
+        )
+
+
+class EntregaDocumentosForm(forms.ModelForm):
+    class Meta:
+        model = EntregaDocumentos
+        fields = '__all__'
+        exclude = ("baja_date_created", "alta_date_created", "is_active")
+
+    def __init__(self, *args, **kwargs):
+        super(EntregaDocumentosForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.label_class = 'form-group'
+        self.helper.layout = Layout(
+            Fieldset('Entrega de Documentos', 'ciclo_semestral'),
+            'nombre', 'clave',
 
         )
