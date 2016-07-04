@@ -84,9 +84,9 @@ class Inscripcion_To_PDF(PDFTemplateView):
     cmd_options = {
         'page-size': 'A3',
         'margin-top': 15,
-        'margin-right': 3,
-        'margin-bottom': 3,
-        'margin-left': 3,
+        'margin-right': 1,
+        'margin-bottom': 1,
+        'margin-left': 1,
     }
     def get_context_data(self, **kwargs):
         cxt = super(Inscripcion_To_PDF, self).get_context_data(**kwargs)
@@ -123,9 +123,9 @@ class Reinscripcion_To_PDF(PDFTemplateView):
     cmd_options = {
         'page-size': 'A3',
         'margin-top': 15,
-        'margin-right': 3,
-        'margin-bottom': 3,
-        'margin-left': 3,
+        'margin-right': 1,
+        'margin-bottom': 1,
+        'margin-left': 1,
     }
 
     def get_context_data(self, **kwargs):

@@ -216,9 +216,10 @@ class AlumnosForm(forms.ModelForm):
                                       Div('puesto', 'sueldo_mensual_alumno', id='div_trabajo_estudiante'))),
                     Fieldset('Entrega de documentos', 'acta_nacimiento', 'certificado_bachillerato',
                              'fotografia_titulo', 'otro_documento'),
-                    Fieldset('Actividades', 'deporte_practica', 'credencial'),
+                    Fieldset('Actividades', 'deporte_practica'),
                     Div('oratoria', 'musica',
                         'teatro', 'declamacion', 'otro_interes'),
+                    Fieldset('Transporte', 'transporte', 'transporte_universidad'),
 
                     css_class="nav nav-tabs"
                 ),
@@ -362,9 +363,10 @@ class ReinscripcionAlumnoForm(forms.ModelForm):
                                       Div('puesto', 'sueldo_mensual_alumno', id='div_trabajo_estudiante'))),
                     Fieldset('Entrega de documentos', 'acta_nacimiento', 'certificado_bachillerato',
                              'fotografia_titulo', 'otro_documento'),
-                    Fieldset('Actividades', 'deporte_practica', 'credencial'),
+                    Fieldset('Actividades', 'deporte_practica'),
                     Div('oratoria', 'musica',
                         'teatro', 'declamacion', 'otro_interes'),
+                    Fieldset('Transporte', 'transporte', 'transporte_universidad'),
 
                     css_class="nav nav-tabs"
                 ),
